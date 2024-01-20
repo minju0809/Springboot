@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.springboot.springboot.project.guestbook.GuestbookDao">
+
+  <select id="getGuestbookList"
+    parameterType="com.springboot.springboot.project.guestbook.GuestbookVO"
+    resultType="com.springboot.springboot.project.guestbook.GuestbookVO">
+
+    select * from guestbook order by guestbook_idx desc
+  </select>
+
+  <select id="getGuestbook"
+    parameterType="com.springboot.springboot.project.guestbook.GuestbookVO"
+    resultType="com.springboot.springboot.project.guestbook.GuestbookVO">
+
+    select * from guestbook where guestbook_idx = #{guestbook_idx}
+  </select>
+
+  <insert id="guestbookInsert" parameterType="com.springboot.springboot.project.guestbook.GuestbookVO">
+      insert into guestbook (guestbook_idx, guestbook_name, guestbook_memo) 
+      values ((select nvl(max(guestbook_idx), 0) + 1 from guestbook), #{guestbook_name}, #{guestbook_memo})
+  </insert>
+
+  <update id="guestbookUpdate" parameterType="com.springboot.springboot.project.guestbook.GuestbookVO">
+      update guestbook set guestbook_memo = #{guestbook_memo} 
+      where guestbook_idx = #{guestbook_idx} 
+  </update>
+
+  <delete id="guestbookDelete" parameterType="com.springboot.springboot.project.guestbook.GuestbookVO">
+      delete from guestbook where guestbook_idx = #{guestbook_idx} 
+  </delete>
+  
+ </mapper>
+

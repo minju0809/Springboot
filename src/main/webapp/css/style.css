@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+:root {
+	--main-background-color: #282724;  /* CSS 전역 변수 선언 */
+	--check-color: #393527;
+	--check2-color: #772b31;
+	--point-background-color: #28261f; 
+	--main-color: #fff;
+	--link-color: #rgb(207, 190, 177);
+}
+
+header {
+	border-bottom: 1px solid white;
+	background: var(--main-background-color);
+	color: var(--main-color);
+	height: 100px;
+	line-height: 100px;
+  font-weight: bold;
+	font-size: 40px;
+	text-align: center;
+}
+
+nav {
+	border-bottom: 1px solid white;
+	background: var(--point-background-color);
+	color: var(--main-color);
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	text-align: left;
+}
+
+th {
+	font-weight: bold;
+	background: var(--point-background-color);
+}
+
+a {
+	text-decoration: none;
+	color: var(--link-color);
+	font-weight: bold;
+}
+
+section {
+	background: var(--main-background-color);
+	color: var(--main-color);
+	min-height: 700px;
+	line-height: 25px;
+	font-size: 16px;
+	text-align: left;
+}
+
+footer {
+	border-top: 1px solid white;
+	background: var(--main-background-color);
+	color: var(--main-color);
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	text-align: center;
+}
+
+td {
+	padding: 0px 4px;	
+}
