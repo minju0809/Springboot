@@ -9,6 +9,7 @@
   <br>
   <div align=center>
     <h2>방명록 목록</h2>
+    전체 레코드 수: ${totalCount}
     <table border="1">
       <tr>
         <th align="right" colspan="4"><button onclick="location.href='guestbookForm.do'">글쓰기</button>&emsp;

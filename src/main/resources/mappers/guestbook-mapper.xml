@@ -9,6 +9,14 @@
     resultType="com.springboot.springboot.project.guestbook.GuestbookVO">
 
     select * from guestbook order by guestbook_idx desc
+    <!-- <![CDATA[
+		select rownum, q.* from 
+			(select rownum as rnum, k.* from 
+				(select * from guestbook where 1=1
+			  order by guestbook_idx desc ) k
+			where rownum <= #{end} ) q
+		where rnum >= #{start}
+		]]> -->
   </select>
 
   <select id="getGuestbook"
@@ -18,7 +26,19 @@
     select * from guestbook where guestbook_idx = #{guestbook_idx}
   </select>
 
+  <select id="getTotalCount"
+    parameterType="com.springboot.springboot.project.guestbook.GuestbookVO"
+    resultType="int">
+
+    select count(*) from guestbook
+  </select>
+
   <insert id="guestbookInsert" parameterType="com.springboot.springboot.project.guestbook.GuestbookVO">
+      insert into guestbook (guestbook_idx, guestbook_name, guestbook_memo) 
+      values ((select nvl(max(guestbook_idx), 0) + 1 from guestbook), #{guestbook_name}, #{guestbook_memo})
+  </insert>
+
+  <insert id="guestbookAdd" parameterType="com.springboot.springboot.project.guestbook.GuestbookVO">
       insert into guestbook (guestbook_idx, guestbook_name, guestbook_memo) 
       values ((select nvl(max(guestbook_idx), 0) + 1 from guestbook), #{guestbook_name}, #{guestbook_memo})
   </insert>

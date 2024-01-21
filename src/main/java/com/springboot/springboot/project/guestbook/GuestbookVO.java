@@ -9,3 +9,4 @@ public class GuestbookVO {
   private String guestbook_memo;
   private String guestbook_today;
 }
+
