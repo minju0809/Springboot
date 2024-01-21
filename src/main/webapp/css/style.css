@@ -1,12 +1,12 @@
 @charset "UTF-8";
 
 :root {
-	--main-background-color: #282724;  /* CSS 전역 변수 선언 */
 	--check-color: #393527;
-	--check2-color: #772b31;
-	--point-background-color: #28261f; 
+	--main-background-color: linear-gradient(#BDB1A1, #D8D5C4);;  /* CSS 전역 변수 선언 */
+	--point-background-color: #BDB1A1; 
+
 	--main-color: #fff;
-	--link-color: #rgb(207, 190, 177);
+	--button-color: #97927c;
 }
 
 header {
@@ -22,7 +22,7 @@ header {
 
 nav {
 	border-bottom: 1px solid white;
-	background: var(--point-background-color);
+	background: var(--main-background-color);
 	color: var(--main-color);
 	height: 40px;
 	line-height: 40px;
@@ -37,7 +37,7 @@ th {
 
 a {
 	text-decoration: none;
-	color: var(--link-color);
+	color: var(--button-color);
 	font-weight: bold;
 }
 

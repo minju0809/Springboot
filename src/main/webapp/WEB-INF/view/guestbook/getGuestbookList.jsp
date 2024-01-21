@@ -24,16 +24,16 @@
       <tr>
         <th colspan="6">
           <div style="text-align: left; float: left;">
-              &emsp;<button onclick="location.href='guestbookAdd.do'"> 방명록 추가 </button>
+              &emsp;<a class="button" href="guestbookAdd.do"> 방명록 추가 </a>
           </div>
           <div style="text-align: right; float: right;">
-              <button onclick="location.href='guestbookForm.do'"> 글쓰기 </button>&emsp;
+              <a class="button" href="guestbookForm.do"> 글쓰기 </a>&emsp;
           </div>
       </th>
       </tr>
       <tr>
-        <td>rownum</td>
-				<td>rnum</td>
+        <th>rownum</th>
+				<th>rnum</th>
         <th>번호</th>
         <th>이름</th>
         <th width="150">메모</th>
@@ -44,7 +44,7 @@
           <td>${record.rownum}</td>
           <td>${record.rnum}</td>
           <td>${record.guestbook_idx}</td>
-          <td><a href="getGuestbook.do?guestbook_idx=${record.guestbook_idx}">${record.guestbook_name}</a></td>
+          <td><a class="button" href="getGuestbook.do?guestbook_idx=${record.guestbook_idx}">${record.guestbook_name}</a></td>
           <td>
             <c:choose>
               <c:when test="${fn:length(record.guestbook_memo) > 10}">
@@ -60,29 +60,33 @@
       </c:forEach>
     </table>
 
-    <a href="getGuestbookList.do?start=1">처음으로</a>
-		<c:if test="${ start != 1 }">
-			<a href="getGuestbookList.do?start=${ start - pageSize }">이전</a>
-		</c:if>
-		<c:if test="${ start == 1 }">
-			이전
-		</c:if>
+    <div style="margin-top: 8px;">
 
-    <c:forEach var="i" begin="${listStartPage}"  end="${listEndPage}"  >
-			<c:set var="startVar"  value="${(i-1) * pageSize + 1}" />
-			<c:if test="${i <= totalPage}">
-				<a href="getGuestbookList.do?start=${startVar}">[${i}]</a>&nbsp;
-			</c:if>
-		</c:forEach>
+      <a class="button" href="getGuestbookList.do?start=1">처음으로</a>
+      <c:if test="${ start != 1 }">
+        <a class="button" href="getGuestbookList.do?start=${ start - pageSize }">이전</a>
+      </c:if>
+      <c:if test="${ start == 1 }">
+        이전
+      </c:if>
+      
+      <c:forEach var="i" begin="${listStartPage}"  end="${listEndPage}"  >
+        <c:set var="startVar"  value="${(i-1) * pageSize + 1}" />
+        <c:if test="${i <= totalPage}">
+          <a class="button" href="getGuestbookList.do?start=${startVar}">[${i}]</a>&nbsp;
+        </c:if>
+      </c:forEach>
+      
+      <c:if test="${ currentPage != totalPage }">
+        <a class="button" href="getGuestbookList.do?start=${ start + pageSize }">다음</a>
+      </c:if>
+      <c:if test="${ currentPage == totalPage }">
+        다음
+      </c:if>
+      
+      <a class="button" href="getGuestbookList.do?start=${ lastPage }">마지막으로</a>
 
-		<c:if test="${ currentPage != totalPage }">
-			<a href="getGuestbookList.do?start=${ start + pageSize }">다음</a>
-		</c:if>
-		<c:if test="${ currentPage == totalPage }">
-			다음
-		</c:if>
-
-		<a href="getGuestbookList.do?start=${ lastPage }">마지막으로</a>
+    </div>
   </div>
   <br>
 </section>

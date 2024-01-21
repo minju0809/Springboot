@@ -91,7 +91,7 @@ public class GuestbookController {
       String randomName = name[random.nextInt(name.length)];
       String randomMemo = memo[random.nextInt(memo.length)];
 
-      vo.setGuestbook_name(randomMemo);
+      vo.setGuestbook_name(randomName);
       vo.setGuestbook_memo(randomName + ": " + randomMemo);
 
       service.guestbookInsert(vo);
