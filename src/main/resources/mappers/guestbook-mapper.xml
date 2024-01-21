@@ -8,15 +8,14 @@
     parameterType="com.springboot.springboot.project.guestbook.GuestbookVO"
     resultType="com.springboot.springboot.project.guestbook.GuestbookVO">
 
-    select * from guestbook order by guestbook_idx desc
-    <!-- <![CDATA[
+    <![CDATA[
 		select rownum, q.* from 
 			(select rownum as rnum, k.* from 
 				(select * from guestbook where 1=1
 			  order by guestbook_idx desc ) k
 			where rownum <= #{end} ) q
 		where rnum >= #{start}
-		]]> -->
+		]]>
   </select>
 
   <select id="getGuestbook"

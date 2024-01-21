@@ -19,7 +19,6 @@
 	<nav>
 		&emsp;<a href="index.do">홈으로</a>
 		&emsp;<a href="getGuestbookList.do"> 목록보기 </a>
-		&emsp;<a href="guestbookAdd.do"> 방명록추가 </a>
 		
 		<c:if test="${not empty session_id }">
 			아이디: <a href="sessionLogout.do">${session_id}</a>
