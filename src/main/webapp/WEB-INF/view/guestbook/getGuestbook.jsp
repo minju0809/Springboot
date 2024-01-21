@@ -9,6 +9,9 @@
     <div align=center>
       <h2>방명록 상세보기</h2>
       <form action="guestbookUpdate.do">
+        <input type="hidden" name="start" value="${param.start}">
+        <input type="hidden" name="ch1" value="${param.ch1}">
+        <input type="hidden" name="ch2" value="${param.ch2}">
         <table border="1">
           <tr>
             <th>번호</th>
@@ -43,7 +46,7 @@
     function confirmDelete() {
       var result = confirm("정말로 삭제하시겠습니까?");
       if (result) {
-        location.href = 'guestbookDelete.do?guestbook_idx=${guestbook.guestbook_idx}';
+        location.href = 'guestbookDelete.do?guestbook_idx=${guestbook.guestbook_idx}&start=${param.start}&ch1=${param.ch1}&ch2=${param.ch2}';
       }
       return result;
     }

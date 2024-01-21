@@ -12,7 +12,24 @@
 		select rownum, q.* from 
 			(select rownum as rnum, k.* from 
 				(select * from guestbook where 1=1
-			  order by guestbook_idx desc ) k
+		]]>
+		<if test="ch1=='guestbook_name'">
+		<![CDATA[
+			and guestbook_name like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='guestbook_memo'">
+		<![CDATA[	
+			and guestbook_memo like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='guestbook_today'">
+		<![CDATA[
+			and guestbook_today like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<![CDATA[
+			order by guestbook_idx desc) k
 			where rownum <= #{end} ) q
 		where rnum >= #{start}
 		]]>
@@ -29,7 +46,27 @@
     parameterType="com.springboot.springboot.project.guestbook.GuestbookVO"
     resultType="int">
 
-    select count(*) from guestbook
+    <![CDATA[
+		select count(*) as count from guestbook where 1=1 
+		]]>
+		<if test="ch1=='guestbook_name'">
+		<![CDATA[
+			and guestbook_name like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='guestbook_memo'">
+		<![CDATA[	
+			and guestbook_memo like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='guestbook_today'">
+		<![CDATA[
+			and guestbook_today like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<![CDATA[
+		order by guestbook_idx desc
+		]]>
   </select>
 
   <insert id="guestbookInsert" parameterType="com.springboot.springboot.project.guestbook.GuestbookVO">

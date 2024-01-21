@@ -15,5 +15,8 @@ public class GuestbookVO {
   private int start;
   private int pageSize;
   private int end;
+
+  private String ch1;
+  private String ch2;
 }
 

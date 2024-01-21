@@ -1,5 +1,8 @@
 package com.springboot.springboot.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class GuestbookController {
     int pageSize = 10;
     int pageListSize = 10;
     int totalCount = service.getTotalCount(vo);
-    
+
     if (vo.getStart() == 0) {
       start = 1;
     } else {
@@ -50,8 +53,11 @@ public class GuestbookController {
     model.addAttribute("lastPage", lastPage);
 
     model.addAttribute("pageListSize", pageListSize);
-		model.addAttribute("listStartPage", listStartPage);
-		model.addAttribute("listEndPage", listEndPage);
+    model.addAttribute("listStartPage", listStartPage);
+    model.addAttribute("listEndPage", listEndPage);
+
+    model.addAttribute("ch1", vo.getCh1());
+    model.addAttribute("ch2", vo.getCh2());
 
     model.addAttribute("li", service.getGuestbookList(vo));
 
@@ -105,7 +111,16 @@ public class GuestbookController {
 
     service.guestbookUpdate(vo);
 
-    return "redirect:getGuestbookList.do";
+    try {
+      String encodedCh1 = URLEncoder.encode(vo.getCh1(), StandardCharsets.UTF_8.toString());
+      String encodedCh2 = URLEncoder.encode(vo.getCh2(), StandardCharsets.UTF_8.toString());
+
+      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
+
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
+    }
   }
 
   @GetMapping("/guestbookDelete.do")
@@ -113,6 +128,15 @@ public class GuestbookController {
 
     service.guestbookDelete(vo);
 
-    return "redirect:getGuestbookList.do";
+    try {
+      String encodedCh1 = URLEncoder.encode(vo.getCh1(), StandardCharsets.UTF_8.toString());
+      String encodedCh2 = URLEncoder.encode(vo.getCh2(), StandardCharsets.UTF_8.toString());
+
+      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
+
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
+    }
   }
 }
