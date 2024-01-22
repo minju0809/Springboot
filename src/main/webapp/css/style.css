@@ -2,7 +2,7 @@
 
 :root {
 	--check-color: #393527;
-	--main-background-color: linear-gradient(#BDB1A1, #D8D5C4);;  /* CSS 전역 변수 선언 */
+	--main-background-color: linear-gradient(#BDB1A1, #D8D5C4);  /* CSS 전역 변수 선언 */
 	--point-background-color: #BDB1A1; 
 
 	--main-color: #fff;
@@ -30,17 +30,6 @@ nav {
 	text-align: left;
 }
 
-th {
-	font-weight: bold;
-	background: var(--point-background-color);
-}
-
-a {
-	text-decoration: none;
-	color: var(--button-color);
-	font-weight: bold;
-}
-
 section {
 	background: var(--main-background-color);
 	color: var(--main-color);
@@ -60,6 +49,40 @@ footer {
 	text-align: center;
 }
 
+th {
+	height: 36px;
+	font-weight: bold;
+	background: var(--point-background-color);
+}
+
 td {
+	height: 32px;
 	padding: 0px 4px;	
+}
+
+a {
+	margin: 2px;
+	padding: 4px;
+	border: 1px solid transparent;
+	text-decoration: none;
+	color: var(--button-color);
+	font-weight: bold;
+	transition: border 0.3s ease;
+}
+
+a:hover {
+	border: 1px solid #97927c;
+	border-radius: 4px;
+}
+
+.record-info {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	margin: 0 12px 4px 12px;
+}
+
+.record-info div {
+	flex: 0 0 calc(33.33% - 10px);
+	box-sizing: border-box;
 }

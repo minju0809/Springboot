@@ -7,27 +7,32 @@
 
 <section>
   <br>
-  <div align="left">
-    &emsp;0. 전체 레코드 수: ${totalCount}<br>  
-    &emsp;1. 페이지 사이즈 : ${pageSize}<br>
-    &emsp;2. 페이지 List사이즈(아래숫자갯수) : ${pageListSize}<br>
-    &emsp;3. 전체레코두 수 : ${totalCount}<br>
-    &emsp;4. 총페이지수 : ${totalPage}<br>
-    &emsp;5. 현재레코드 : ${start}<br>
-    &emsp;6. 현재페이지 : ${currentPage}<br>
-    &emsp;7. 가로하단 시작 :${listStartPage}<br>
-    &emsp;8. 가로 하단 마지막 : ${listEndPage}<br>
+  <div class="record-info">
+    <div>1. 전체 레코드 수: ${totalCount}</div>
+    <div>2. 페이지 사이즈 : ${pageSize}</div>
+    <div>3. 페이지 List사이즈 : ${pageListSize}</div>
   </div>
+  <div class="record-info">
+    <div>4. 전체 레코드 수 : ${totalCount}</div>
+    <div>5. 총 페이지 수 : ${totalPage}</div>
+    <div>6. 현재 레코드 : ${start}</div>
+  </div>
+  <div class="record-info">
+    <div>7. 현재 페이지 : ${currentPage}</div>
+    <div>8. 가로 하단 시작 :${listStartPage}</div>
+    <div>9. 가로 하단 마지막 : ${listEndPage}</div>
+  </div>
+
   <div align=center>
     <h2>방명록 목록</h2>
     <table border="1">
       <tr>
         <th colspan="7">
           <div style="text-align: left; float: left;">
-              &emsp;<a class="button" href="guestbookAdd.do"> 방명록 추가 </a>
+              <a class="button" href="guestbookAdd.do"> 방명록 추가 </a>
           </div>
           <div style="text-align: right; float: right;">
-              <a class="button" href="guestbookForm.do"> 글쓰기 </a>&emsp;
+              <a class="button" href="guestbookForm.do"> 글쓰기 </a>
           </div>
       </th>
       </tr>
@@ -62,7 +67,7 @@
       </c:forEach>
     </table>
 
-    <div style="margin-top: 8px;">
+    <div style="margin: 8px 0;">
       <a class="button" href="getGuestbookList.do?start=1&ch1=${ch1}&ch2=${ch2}">처음으로</a>
       <c:if test="${ start != 1 }">
         <a class="button" href="getGuestbookList.do?start=${ start - pageSize }&ch1=${ch1}&ch2=${ch2}">이전</a>
@@ -74,7 +79,7 @@
       <c:forEach var="i" begin="${listStartPage}"  end="${listEndPage}"  >
         <c:set var="startVar"  value="${(i-1) * pageSize + 1}" />
         <c:if test="${i <= totalPage}">
-          <a class="button" href="getGuestbookList.do?start=${startVar}&ch1=${ch1}&ch2=${ch2}">[${i}]</a>&nbsp;
+          <a class="button" href="getGuestbookList.do?start=${startVar}&ch1=${ch1}&ch2=${ch2}">${i}</a>&nbsp;
         </c:if>
       </c:forEach>
       

@@ -89,6 +89,20 @@
           <groupId>org.glassfish.web</groupId>
           <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       </dependency>
+
+			<!-- Jackson2 ( JSON 으로 데이터 변환 ) -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.9.4</version>
+			</dependency>	    
+		
+				<!-- JSON 으로 데이터 파싱하기 -->
+			<dependency>
+					<groupId>com.googlecode.json-simple</groupId>
+					<artifactId>json-simple</artifactId>
+					<version>1.1.1</version>
+			</dependency>
 			
 	</dependencies>
 

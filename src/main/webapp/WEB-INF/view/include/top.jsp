@@ -19,10 +19,7 @@
 	<nav>
 		&emsp;<a class="button" href="index.do">홈으로</a>
 		&emsp;<a class="button" href="getGuestbookList.do"> 목록보기 </a>
-		
-		<c:if test="${not empty session_id }">
-			아이디: <a href="sessionLogout.do">${session_id}</a>
-		</c:if>
+		&emsp;<a class="button" href="getRestaurant.do"> 맛집 </a>
 	</nav>
 
 
