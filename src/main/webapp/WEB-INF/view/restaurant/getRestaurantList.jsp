@@ -8,16 +8,29 @@
       <br>
       <div align=center>
         <h2>맛집 목록</h2>
+        <a href="getRestaurantMap.do">지도보기</a>
+        <form action="getRestaurantList.do" method="get">
+          <select name="ch1">
+            <option value="rstrRoadAddr">지역</option>
+            <option value="rstrNm">식당명</option>
+            <option value="rstrMenuNm">메뉴이름</option>
+          </select>
+          <input type="text" name="ch2">
+          <input type="submit" value="검색">
+        </form>
+        <br>
         <table border="1">
           <tr>
-            <th>위치</th>
-            <th>메뉴</th>
-            <th>가격</th>
+            <th>식당명</th>
+            <th>식당주소</th>
+            <th>메뉴이름</th>
+            <th>메뉴가격</th>
           </tr>
-          <c:forEach var="restaurant" items="${restaurantList}">
+          <c:forEach var="restaurant" items="${li}">
             <tr>
-              <td>${restaurant.rights}</td>
               <td>${restaurant.rstrNm}</td>
+              <td>${restaurant.rstrRoadAddr}</td>
+              <td>${restaurant.rstrMenuNm}</td>
               <td>${restaurant.rstrMenuPri}</td>
             </tr>
           </c:forEach>

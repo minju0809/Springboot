@@ -19,7 +19,7 @@
 	<nav>
 		&emsp;<a class="button" href="index.do">홈으로</a>
 		&emsp;<a class="button" href="getGuestbookList.do"> 목록보기 </a>
-		&emsp;<a class="button" href="getRestaurant.do"> 맛집 </a>
+		&emsp;<a class="button" href="getRestaurantList.do"> 맛집 </a>
 	</nav>
 
 
