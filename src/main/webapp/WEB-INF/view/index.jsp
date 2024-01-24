@@ -5,18 +5,32 @@
     <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
     <section>
-      <br>
-      <div align=center>
-        시작페이지<br><br>
-
+      <div class="start-container" align=center>
+        <h2>시작페이지</h2>
+        <br>
+        <div>
+          <a href="#" class="logo" onmouseover="changeText()" onmouseout="resetText()">
+            포트폴리오
+          </a>
+        </div>
+        <br>
         <span>서버 </span>:
         <%=application.getServerInfo()%><br>
         <span>서블릿 </span>:
         <%=application.getMajorVersion()%>.<%=application.getMinorVersion()%><br>
         <span>JSP </span>:
-        <%=JspFactory.getDefaultFactory().getEngineInfo().getSpecificationVersion()%>
+        <%=JspFactory.getDefaultFactory().getEngineInfo().getSpecificationVersion()%><br>
       </div>
-      <br>
     </section>
+
+    <script>
+      function changeText() {
+        document.querySelector('.logo').textContent = '반갑습니다';
+      }
+    
+      function resetText() {
+        document.querySelector('.logo').textContent = '포트폴리오';
+      }
+    </script>
 
     <c:import url="${path}/WEB-INF/view/include/bottom.jsp" />

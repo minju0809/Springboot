@@ -22,9 +22,10 @@
     <div>8. 가로 하단 시작 :${listStartPage}</div>
     <div>9. 가로 하단 마지막 : ${listEndPage}</div>
   </div>
-
+  <br>
   <div align=center>
     <h2>방명록 목록</h2>
+    <br>
     <table border="1">
       <tr>
         <th colspan="7">

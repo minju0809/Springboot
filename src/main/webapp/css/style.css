@@ -2,35 +2,33 @@
 
 :root {
 	--check-color: #393527;
-	--main-background-color: linear-gradient(#BDB1A1, #D8D5C4);  /* CSS 전역 변수 선언 */
-	--point-background-color: #BDB1A1; 
+	/* --gradation-background-color: linear-gradient(#D8D5C4, #fff); */
+	--main-background-color: #fff;
 
-	--main-color: #fff;
-	--button-color: #97927c;
+	--point-color: rgba(187, 185, 185, 0.5);
+
+	--main-color: #474747;
+	--button-color: #000;
 }
 
-header {
-	border-bottom: 1px solid white;
-	background: var(--main-background-color);
-	color: var(--main-color);
-	height: 100px;
-	line-height: 100px;
-  font-weight: bold;
-	font-size: 40px;
-	text-align: center;
+* {
+	margin: 0;
+	padding: 0;
 }
 
 nav {
-	border-bottom: 1px solid white;
 	background: var(--main-background-color);
 	color: var(--main-color);
-	height: 40px;
-	line-height: 40px;
+	height: 80px;
+	line-height: 80px;
 	font-size: 16px;
 	text-align: left;
+	position:relative;
+	cursor: default;
 }
 
 section {
+	position: relative;
 	background: var(--main-background-color);
 	color: var(--main-color);
 	min-height: 700px;
@@ -40,7 +38,7 @@ section {
 }
 
 footer {
-	border-top: 1px solid white;
+	border-top: 1px solid var(--point-color);
 	background: var(--main-background-color);
 	color: var(--main-color);
 	height: 50px;
@@ -52,12 +50,12 @@ footer {
 th {
 	height: 36px;
 	font-weight: bold;
-	background: var(--point-background-color);
+	background: var(--point-color);
 }
 
 td {
 	height: 32px;
-	padding: 0px 4px;	
+	padding: 0px 4px;
 }
 
 a {
@@ -71,8 +69,69 @@ a {
 }
 
 a:hover {
-	border: 1px solid #97927c;
+	border: 1px solid var(--point-color);
+	background: var(--point-color);
 	border-radius: 4px;
+}
+
+.start-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.logo {
+  position: relative;
+  padding: 40px;
+  border: 1px solid var(--point-color);
+  border-radius: 50%;
+  display: inline-block;
+  transition: transform 0.3s ease-in-out; /* 호버 효과를 부드럽게 만들기 위한 트랜지션 추가 */
+}
+
+.logo:hover {
+  transform: rotateY(180deg) rotateY(180deg);
+	border: 1px solid var(--point-color);
+  border-radius: 20px;
+}
+
+#nav {
+	display: flex;
+	z-index: 3;
+	justify-content: space-around;
+}
+
+#nav.active .list {
+	top: 100%;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.list-container {
+	box-shadow: 0 2px 1px var(--point-color);
+	text-align: center;
+	position: relative;
+	flex: 1;
+}
+
+.list {
+	height: 240px;
+	box-shadow: 0 2px 1px var(--point-color);
+	z-index: 2;
+	position: absolute;
+	top: calc(100% - 100px);
+	width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: 0.3s;
+	pointer-events: none;
+
+	background: var(--main-background-color);
 }
 
 .record-info {

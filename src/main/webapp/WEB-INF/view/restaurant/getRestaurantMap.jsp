@@ -7,8 +7,8 @@
 <section>
   <br>
   <div align=center>
-    <h2>맛집 목록</h2>
-    <a href="getRestaurantList.do">목록보기</a>
+    <h2>맛집 지도</h2>
+    <br>
     <form action="getRestaurantMap.do" method="get">
       <select name="ch1">
         <option value="rstrRoadAddr">지역</option>
