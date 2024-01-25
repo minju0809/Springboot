@@ -9,7 +9,7 @@
 		<head>
 			<meta charset="UTF-8">
 			<title>스프링 게시판</title>
-			<link type="text/css" rel="stylesheet" href="${path}/css/style.css" />
+			<link type="text/css" rel="stylesheet" href="/css/style.css" />
 		</head>
 
 		<body>
@@ -17,7 +17,8 @@
 				<div class="list-container">
 					<h2>Protfolio</h2>
 					<ul class="list">
-						<li><a class="button" href="index.do">홈으로</a></li>
+						<li><a class="button" href="/">시작으로</a></li>
+						<li><a class="button" href="jsp.do">홈으로</a></li>
 					</ul>
 				</div>
 				<div class="list-container">

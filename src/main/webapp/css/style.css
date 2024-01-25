@@ -16,6 +16,11 @@
 	padding: 0;
 }
 
+body {
+	width: 90%;
+	margin: auto;
+}
+
 nav {
 	background: var(--main-background-color);
 	color: var(--main-color);
