@@ -27,6 +27,7 @@ public class GuestbookController {
     int pageListSize = 10;
     int totalCount = service.getTotalCount(vo);
 
+    System.out.println("!@#@@@@@@@@@@@@@@@@" + vo.getStart());
     if (vo.getStart() == 0) {
       start = 1;
     } else {
@@ -34,6 +35,7 @@ public class GuestbookController {
     }
 
     int end = start + pageSize - 1;
+
     int totalPage = (totalCount / pageSize) + 1;
     int currentPage = (start / pageSize) + 1;
     int lastPage = (totalPage - 1) * pageSize + 1;
@@ -41,6 +43,7 @@ public class GuestbookController {
     int listEndPage = listStartPage + pageListSize - 1;
 
     vo.setStart(start);
+    System.out.println("@@@@@@@@@@@@@@@@" + vo.getStart());
     vo.setPageSize(pageSize);
     vo.setEnd(end);
 
