@@ -41,7 +41,7 @@ public class ShopController {
     return "/shop/getProduct";
   }
 
-  @GetMapping("/productForm.do")
+  @GetMapping("/a/productForm.do")
   String productForm(Model model) {
 
     return "/shop/productForm";

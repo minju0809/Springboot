@@ -8,7 +8,7 @@
   <br>
   <div align=center>
     <h2>회원가입</h2>
-    <form action="memberInsert.do">
+    <form action="/memberInsert.do">
       <table border="1">
         <tr>
           <th>아이디</th>

@@ -8,7 +8,7 @@
   <br>
   <div align=center>
     <h2>상품등록</h2>
-    <form action="productInsert.do" method="post" enctype="multipart/form-data">
+    <form action="/a/productInsert.do" method="post" enctype="multipart/form-data">
       <table border="1">
         <tr>
           <th>상품이름</th>

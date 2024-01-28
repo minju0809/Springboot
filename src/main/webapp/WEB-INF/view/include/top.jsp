@@ -48,6 +48,7 @@
 					<ul class="list">
 						<li><a class="button" href="/memberForm.do"> 회원가입 </a></li>
 						<li><a class="button" href="/a/getMemberList.do"> 맴버목록 </a></li>
+						<li><a class="button" href="/a/updateAll.do"> 비밀번호동기화 </a></li>
 					</ul>
 				</div>
 				<div class="list-container">

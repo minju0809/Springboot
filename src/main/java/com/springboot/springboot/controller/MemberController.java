@@ -1,6 +1,7 @@
 package com.springboot.springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,9 @@ public class MemberController {
     
   @Autowired
   private MemberService service;
+
+  @Autowired
+	private PasswordEncoder encoder;
 
   @GetMapping("/a/getMemberList.do")
   String getMemberList(Model model, MemberVO vo) {
@@ -31,8 +35,9 @@ public class MemberController {
   @GetMapping("/memberInsert.do")
   String memberInsert(MemberVO vo) {
 
+    vo.setPassword(encoder.encode(vo.getPassword()));
     service.memberInsert(vo);
 
-    return "redirect:/getMemberList.do";
+    return "redirect:/login.do";
   } 
 }

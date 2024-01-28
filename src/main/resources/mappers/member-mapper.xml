@@ -45,9 +45,15 @@
 
   <insert id="memberInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
       insert into member (member_idx, username, password, name, phone, email, postcode, address, detailAddress, extraAddress, etc) 
-      values ((select nvl(max(member_idx), 0) + 1 from member), #{username}, #{password}, 
+      values ((select nvl(max(member_idx), 9999) + 1 from member), #{username}, #{password}, 
         #{name}, #{phone}, #{email}, #{postcode}, #{address}, #{detailAddress}, #{extraAddress}, #{etc})
   </insert>
+
+	<update id="updateAll"
+		parameterType="com.springboot.springboot.project.member.MemberVO">
+
+		update member set password = #{password} 
+	</update>
 
  </mapper>
 
