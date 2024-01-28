@@ -15,9 +15,9 @@ public class MemberController {
   private MemberService service;
 
   @GetMapping("/getMemberList.do")
-  String getMemberList(Model model) {
+  String getMemberList(Model model, MemberVO vo) {
 
-    model.addAttribute("li", service.getMemberList(null));
+    model.addAttribute("li", service.getMemberList(vo));
     
     return "/member/getMemberList";
   } 

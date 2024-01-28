@@ -21,9 +21,9 @@
 			and name like '%'||#{ch2}||'%'
 		]]>
 		</if>
-		<if test="ch1=='addr1'">
+		<if test="ch1=='address'">
 		<![CDATA[	
-			and addr1 like '%'||#{ch2}||'%'
+			and address like '%'||#{ch2}||'%'
 		]]>
 		</if>
 		<if test="ch1=='regdate'">

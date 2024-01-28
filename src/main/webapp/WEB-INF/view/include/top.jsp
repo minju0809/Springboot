@@ -37,6 +37,13 @@
 					</ul>
 				</div>
 				<div class="list-container">
+					<h4>상품</h4>
+					<ul class="list">
+						<li><a class="button" href="getProductList.do"> 상품목록 </a></li>
+						<li><a class="button" href="productForm.do"> 상품등록 </a></li>
+					</ul>
+				</div>
+				<div class="list-container">
 					<h4>맴버</h4>
 					<ul class="list">
 						<li><a class="button" href="memberForm.do"> 회원가입 </a></li>

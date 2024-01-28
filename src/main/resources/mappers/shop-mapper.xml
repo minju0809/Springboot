@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.springboot.springboot.project.shop.ShopDao">
+
+  <select id="getProductList"
+    parameterType="com.springboot.springboot.project.shop.ProductVO"
+    resultType="com.springboot.springboot.project.shop.ProductVO">
+
+    <![CDATA[
+      select * from product where 1=1
+		]]>
+		<if test="ch1=='product_name'">
+		<![CDATA[
+			and product_name like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='product_desc'">
+		<![CDATA[
+			and product_desc like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<![CDATA[
+			order by product_idx desc
+		]]>
+  </select>
+
+	<select id="getProduct"
+    parameterType="com.springboot.springboot.project.shop.ProductVO"
+    resultType="com.springboot.springboot.project.shop.ProductVO">
+
+    select * from product where product_idx = #{product_idx}
+  </select>
+
+  <insert id="productInsert" parameterType="com.springboot.springboot.project.shop.ProductVO">
+      insert into product (product_idx, product_name, product_price, product_desc, product_imgStr) 
+      values ((select nvl(max(product_idx), 50000) + 1 from product), #{product_name}, #{product_price}, #{product_desc}, #{product_imgStr})
+  </insert>
+
+ </mapper>
+

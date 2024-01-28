@@ -45,11 +45,11 @@
       </c:forEach>
     </table>
 
-    <form action="getGuestbookList.do">
+    <form action="getMemberList.do">
       <select name="ch1">
         <option value="username">아이디</option>
         <option value="name">이름</option>
-        <option value="addr1">지역</option>
+        <option value="address">지역</option>
         <option value="regdate">날짜</option>
       </select>
       <input type="text" name="ch2">
@@ -58,15 +58,5 @@
   </div>
   <br>
 </section>
-
-<script>
-  function confirmDelete(guestbook_idx) {
-    var result = confirm("정말로 삭제하시겠습니까?");
-    if (result) {
-      location.href = 'guestbookDelete.do?guestbook_idx=' + guestbook_idx + '&start=${start}&ch1=${ch1}&ch2=${ch2}';
-    }
-    return result;
-  }
-</script>
 
 <c:import url="${path}/WEB-INF/view/include/bottom.jsp" />
