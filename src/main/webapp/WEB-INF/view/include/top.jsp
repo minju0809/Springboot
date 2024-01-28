@@ -15,7 +15,7 @@
 		<body>
 			<nav id="nav">
 				<div class="list-container">
-					<h2>Protfolio</h2>
+					<h2>Portfolio</h2>
 					<ul class="list">
 						<li><a class="button" href="/">시작으로</a></li>
 						<li><a class="button" href="jsp.do">홈으로</a></li>
@@ -34,6 +34,13 @@
 					<ul class="list">
 						<li><a class="button" href="getRestaurantList.do"> 맛집목록 </a></li>
 						<li><a class="button" href="getRestaurantMap.do"> 맛집지도 </a></li>
+					</ul>
+				</div>
+				<div class="list-container">
+					<h4>맴버</h4>
+					<ul class="list">
+						<li><a class="button" href="memberForm.do"> 회원가입 </a></li>
+						<li><a class="button" href="getMemberList.do"> 맴버목록 </a></li>
 					</ul>
 				</div>
 			</nav>

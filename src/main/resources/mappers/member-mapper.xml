@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="com.springboot.springboot.project.member.MemberDao">
+
+  <select id="getMemberList"
+    parameterType="com.springboot.springboot.project.member.MemberVO"
+    resultType="com.springboot.springboot.project.member.MemberVO">
+
+    <![CDATA[
+      select * from member where 1=1
+		]]>
+		<if test="ch1=='username'">
+		<![CDATA[
+			and username like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='name'">
+		<![CDATA[
+			and name like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='addr1'">
+		<![CDATA[	
+			and addr1 like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='regdate'">
+		<![CDATA[	
+			and regdate like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<![CDATA[
+			order by member_idx desc
+		]]>
+  </select>
+
+  <insert id="memberInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
+      insert into member (member_idx, username, password, name, phone, email, postcode, address, detailAddress, extraAddress, etc) 
+      values ((select nvl(max(member_idx), 0) + 1 from member), #{username}, #{password}, 
+        #{name}, #{phone}, #{email}, #{postcode}, #{address}, #{detailAddress}, #{extraAddress}, #{etc})
+  </insert>
+
+ </mapper>
+
