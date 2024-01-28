@@ -9,4 +9,6 @@ public interface MemberDao {
   List<MemberVO> getMemberList(MemberVO vo);
 
   void memberInsert(MemberVO vo);
+
+  MemberVO login(MemberVO vo);
 }

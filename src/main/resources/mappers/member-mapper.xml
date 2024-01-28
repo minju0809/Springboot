@@ -36,6 +36,13 @@
 		]]>
   </select>
 
+	<select id="login"
+    parameterType="com.springboot.springboot.project.member.MemberVO"
+    resultType="com.springboot.springboot.project.member.MemberVO">
+
+      select * from member where username = #{username}
+  </select>
+
   <insert id="memberInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
       insert into member (member_idx, username, password, name, phone, email, postcode, address, detailAddress, extraAddress, etc) 
       values ((select nvl(max(member_idx), 0) + 1 from member), #{username}, #{password}, 

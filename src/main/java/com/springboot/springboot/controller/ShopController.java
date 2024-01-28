@@ -47,7 +47,7 @@ public class ShopController {
     return "/shop/productForm";
   }
 
-  @PostMapping("/productInsert.do")
+  @PostMapping("/a/productInsert.do")
   String productInsert(ProductVO vo) throws Exception {
     String path = request.getSession().getServletContext().getRealPath("/img/shop/");
     System.out.println("path: " + path);

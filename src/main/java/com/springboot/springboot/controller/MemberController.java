@@ -14,7 +14,7 @@ public class MemberController {
   @Autowired
   private MemberService service;
 
-  @GetMapping("/getMemberList.do")
+  @GetMapping("/a/getMemberList.do")
   String getMemberList(Model model, MemberVO vo) {
 
     model.addAttribute("li", service.getMemberList(vo));

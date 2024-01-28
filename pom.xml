@@ -96,6 +96,18 @@
           <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       </dependency>
 
+
+			<!-- 시큐리티 스타터 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-test</artifactId>
+				<scope>test</scope>
+			</dependency>
+
 	</dependencies>
 
 	<build>

@@ -85,10 +85,10 @@ public class GuestbookController {
 
     service.guestbookInsert(vo);
 
-    return "redirect:getGuestbookList.do";
+    return "redirect:/getGuestbookList.do";
   }
 
-  @GetMapping("/guestbookAdd.do")
+  @GetMapping("/a/guestbookAdd.do")
   String guestbookAdd(GuestbookVO vo) {
 
     String[] name = { "하니", "둘리", "세실", "사샤", "다솔", "여신", "일환", "팔득", "아힌", "시우" };
@@ -106,7 +106,7 @@ public class GuestbookController {
       service.guestbookInsert(vo);
     }
 
-    return "redirect:getGuestbookList.do";
+    return "redirect:/getGuestbookList.do";
   }
 
   @GetMapping("/guestbookUpdate.do")
@@ -118,11 +118,11 @@ public class GuestbookController {
       String encodedCh1 = URLEncoder.encode(vo.getCh1(), StandardCharsets.UTF_8.toString());
       String encodedCh2 = URLEncoder.encode(vo.getCh2(), StandardCharsets.UTF_8.toString());
 
-      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
+      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
 
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
-      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
+      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
     }
   }
 
@@ -135,11 +135,11 @@ public class GuestbookController {
       String encodedCh1 = URLEncoder.encode(vo.getCh1(), StandardCharsets.UTF_8.toString());
       String encodedCh2 = URLEncoder.encode(vo.getCh2(), StandardCharsets.UTF_8.toString());
 
-      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
+      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
 
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
-      return "redirect:getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
+      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
     }
   }
 }
