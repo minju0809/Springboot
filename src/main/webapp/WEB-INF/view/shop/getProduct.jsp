@@ -8,10 +8,11 @@
     <br>
     <div align=center>
       <h2>상품 상세보기</h2>
-      <form action="cartAdd.do">
+      <form action="cartAdd.do" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="product_idx" value="${product.product_idx}">
         <table border="1">
           <tr>
-            <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" width="300"></td>
+            <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" name="product_imgStr" width="300"></td>
           </tr>
           <tr>
             <th>번호</th>
@@ -23,7 +24,7 @@
           </tr>
           <tr>
             <th>가격</th>
-            <td><input type="text" name="product_name" value="${product.product_price}" readonly></td>
+            <td><input type="text" name="product_price" value="${product.product_price}" readonly></td>
           </tr>
           <tr>
             <th>수량</th>
@@ -37,7 +38,7 @@
           </tr>
           <tr>
             <th>상세설명</th>
-            <td><textarea cols="30" rows="5" type="text" name="product" readonly>${product.product_desc}</textarea>
+            <td><textarea cols="30" rows="5" type="text" name="product_desc" readonly>${product.product_desc}</textarea>
             </td>
           </tr>
           <tr>

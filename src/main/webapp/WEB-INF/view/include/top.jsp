@@ -41,6 +41,7 @@
 					<ul class="list">
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
+						<li><a class="button" href="/getCartList.do"> 장바구니 </a></li>
 					</ul>
 				</div>
 				<div class="list-container">
@@ -48,7 +49,6 @@
 					<ul class="list">
 						<li><a class="button" href="/memberForm.do"> 회원가입 </a></li>
 						<li><a class="button" href="/a/getMemberList.do"> 맴버목록 </a></li>
-						<li><a class="button" href="/a/updateAll.do"> 비밀번호동기화 </a></li>
 					</ul>
 				</div>
 				<div class="list-container">

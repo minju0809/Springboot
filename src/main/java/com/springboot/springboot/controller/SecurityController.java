@@ -35,6 +35,7 @@ public class SecurityController {
     vo.setUsername(user.getName());
 
     session.setAttribute("session", service.login(vo));
+    System.out.println("##############login: " + service.login(vo));
 
     return "/login/loginSuccess";
   }

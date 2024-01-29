@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.springboot.project.member.MemberVO;
 import com.springboot.springboot.project.shop.CartVO;
 import com.springboot.springboot.project.shop.ProductVO;
 import com.springboot.springboot.project.shop.ShopService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ShopController {
@@ -24,6 +26,9 @@ public class ShopController {
 
   @Autowired
   private HttpServletRequest request;
+
+  @Autowired
+	private HttpSession session;
 
   @GetMapping("/getProductList.do")
   String getProductList(Model model, ProductVO vo) {
@@ -79,10 +84,38 @@ public class ShopController {
     return "redirect:/getProductList.do";
   }
 
+  @PostMapping("/cartAdd.do")
+  String cartAdd(ProductVO productVO) {
+    CartVO cartVO = new CartVO();
+    MemberVO mvo = (MemberVO) session.getAttribute("session");
+    int midx = mvo.getMember_idx();
+    cartVO.setMember_idx(midx);
+    
+    System.out.println("==============================>>>>" + productVO);
+    ProductVO pvo = service.getProduct(productVO);
+    System.out.println("==============================>>>>" + pvo);
+    cartVO.setProduct_idx(pvo.getProduct_idx());
+    cartVO.setProduct_name(pvo.getProduct_name());
+    cartVO.setProduct_amount(productVO.getProduct_amount());
+    cartVO.setProduct_price(pvo.getProduct_price());
+    cartVO.setProduct_imgStr(pvo.getProduct_imgStr());
+    System.out.println("!!!!!!!!!!!!!!!cartVO: " + cartVO);
+
+    CartVO cvo = service.cartCheck(cartVO);
+    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@cvo" + cvo);
+    if(cvo == null) {
+      service.cartInsert(cartVO);
+    } else {
+      service.cartUpdate(cartVO);
+    }
+
+    return "redirect:/getCartList.do";
+  }
+  
   @GetMapping("/getCartList.do")
   String getCartList(Model model, CartVO vo) {
 
-    // model.addAttribute("li", service.getCartList(vo));
+    model.addAttribute("li", service.getCartList(vo));
 
     return "/shop/getCartList";
   }

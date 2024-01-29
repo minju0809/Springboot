@@ -38,5 +38,30 @@
       values ((select nvl(max(product_idx), 50000) + 1 from product), #{product_name}, #{product_price}, #{product_desc}, #{product_imgStr})
   </insert>
 
+
+	<select id="cartCheck"
+    parameterType="com.springboot.springboot.project.shop.CartVO"
+    resultType="com.springboot.springboot.project.shop.CartVO">
+    select * from cart where member_idx = #{member_idx} and product_idx = #{product_idx}
+  </select>
+
+	<insert id="cartInsert" parameterType="com.springboot.springboot.project.shop.CartVO">
+      insert into cart (cart_idx, product_idx, member_idx, product_name, product_amount, product_price, product_imgStr) 
+      values ((select nvl(max(cart_idx), 60000) + 1 from cart), #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
+				#{product_price}, #{product_imgStr})
+  </insert>
+
+	<update id="cartUpdate" parameterType="com.springboot.springboot.project.shop.CartVO">
+      update cart set product_price = product_price + (#{product_amount} * #{product_price}), product_amount = product_amount + #{product_amount}
+      	where product_idx = #{product_idx}
+  </update>
+
+		<select id="getCartList"
+    parameterType="com.springboot.springboot.project.shop.CartVO"
+    resultType="com.springboot.springboot.project.shop.CartVO">
+    select * from cart
+  </select>
+
+
  </mapper>
 

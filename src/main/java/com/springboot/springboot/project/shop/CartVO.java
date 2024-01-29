@@ -9,6 +9,7 @@ public class CartVO { // 60001
   private int cart_idx;
   private int member_idx;
   private int product_idx;
+
   private String product_name;
   private int product_amount;
   private int product_price;
