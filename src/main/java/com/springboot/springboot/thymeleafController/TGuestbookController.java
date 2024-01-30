@@ -1,5 +1,7 @@
 package com.springboot.springboot.thymeleafController;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,5 +56,31 @@ public class TGuestbookController {
     model.addAttribute("ch2", vo.getCh2());
 
     model.addAttribute("li", service.getGuestbookList(vo));
+  }
+
+  @GetMapping("/thymeleaf/guestbook/tGetGuestbook")
+  void getGuestbook(Model model, GuestbookVO vo) {
+
+    model.addAttribute("guestbook", service.getGuestbook(vo));
+  }
+  
+  @GetMapping("/thymeleaf/guestbook/tGuestbookAdd")
+  String guestbookInsert(GuestbookVO vo) {
+
+    String[] nameArr = { "타하니", "타둘리", "타세실", "타사샤", "타다솔", "타여신", "타일환", "타팔득", "타아힌", "타시우" };
+    String[] memoArr = { "반갑습니다", "내용이 유용합니다", "또 오고 싶네요", "자주 만났으면 좋겠습니다", "도움이 많이 되었어요" };
+
+    Random random = new Random();
+
+    for (int i = 0; i < 10; i++) {
+      String name = nameArr[random.nextInt(nameArr.length)];
+      String memo = name + ": " + memoArr[random.nextInt(memoArr.length)];
+
+      vo.setGuestbook_name(name);
+      vo.setGuestbook_memo(memo);
+
+      service.guestbookInsert(vo);
+    }
+    return "redirect:/thymeleaf/guestbook/tGetGuestbookList";
   }
 }

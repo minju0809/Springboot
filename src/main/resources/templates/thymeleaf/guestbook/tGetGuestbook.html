@@ -1,53 +1,56 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <div th:replace="/include/thymeleafTop"></div>
 
-  <section>
-    <br>
-    <div align="center">
-      <h2>방명록 상세보기</h2>
-      <form th:action="@{/guestbookUpdate}" method="get">
-        <input type="hidden" name="start" th:value="${param.start}">
-        <input type="hidden" name="ch1" th:value="${param.ch1}">
-        <input type="hidden" name="ch2" th:value="${param.ch2}">
-        <table border="1">
-          <tr>
-            <th>번호</th>
-            <td><input type="text" name="guestbook_idx" th:value="${guestbook.guestbook_idx}" readonly></td>
-          </tr>
-          <tr>
-            <th>이름</th>
-            <td><input type="text" name="guestbook_name" th:value="${guestbook.guestbook_name}" readonly></td>
-          </tr>
-          <tr>
-            <th>메모</th>
-            <td><textarea cols="30" rows="5" name="guestbook_memo" th:text="${guestbook.guestbook_memo}"></textarea></td>
-          </tr>
-          <tr>
-            <th>날짜</th>
-            <td><input type="text" name="guestbook_today" th:value="${guestbook.guestbook_today}" readonly></td>
-          </tr>
-          <tr>
-            <td align="center" colspan="2">
-              <input type="submit" value="수정">
-              <input type="button" th:onclick="|confirmDelete('${guestbook.guestbook_idx}', '${param.start}', '${param.ch1}', '${param.ch2}')|" value="삭제">
-            </td>
-          </tr>
-        </table>
-      </form>
-    </div>
-    <br>
-  </section>
+<div th:replace=~{/include/thymeleafTop}></div>
 
-  <script th:inline="javascript">
-    function confirmDelete(guestbook_idx, start, ch1, ch2) {
-      var result = confirm("정말로 삭제하시겠습니까?");
-      if (result) {
-        location.href = 'guestbookDelete.do?guestbook_idx=' + guestbook_idx + '&start=' + start + '&ch1=' + ch1 + '&ch2=' + ch2;
-      }
-      return result;
+<section>
+  <br>
+  <div align="center">
+    <h2>방명록 상세보기</h2>
+    <br>
+    <form th:action="@{/guestbookUpdate}" method="get">
+      <input type="hidden" name="start" th:value="${param.start}">
+      <input type="hidden" name="ch1" th:value="${param.ch1}">
+      <input type="hidden" name="ch2" th:value="${param.ch2}">
+      <table border="1">
+        <tr>
+          <th>번호</th>
+          <td><input type="text" name="guestbook_idx" th:value="${guestbook.guestbook_idx}" readonly></td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td><input type="text" name="guestbook_name" th:value="${guestbook.guestbook_name}" readonly></td>
+        </tr>
+        <tr>
+          <th>메모</th>
+          <td><textarea cols="30" rows="5" name="guestbook_memo" th:text="${guestbook.guestbook_memo}"></textarea></td>
+        </tr>
+        <tr>
+          <th>날짜</th>
+          <td><input type="text" name="guestbook_today" th:value="${guestbook.guestbook_today}" readonly></td>
+        </tr>
+        <tr>
+          <td align="center" colspan="2">
+            <input type="submit" value="수정">
+            <input type="button" value="삭제" th:onclick="|confirmDelete('${guestbook_idx}'); return false;|">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <br>
+</section>
+
+<script th:inline="javascript">
+  function confirmDelete(guestbook_idx) {
+    var result = confirm("정말로 삭제하시겠습니까?");
+    if (result) {
+      location.href = 'tGuestbookDelete?guestbook_idx=' + guestbook_idx + '&start=' + [[${start}]] + '&ch1=' + [[${ch1}]] + '&ch2=' + [[${ch2}]];
     }
-  </script>
+    return result;
+  }
+</script>
 
-  <div th:replace="/include/thymeleafBottom"></div>
-</html> -->
+<div th:replace="~{/include/thymeleafBottom}"></div>
+
+</html>

@@ -8,19 +8,16 @@
 <section>
   <br>
   <div class="record-info">
-    <div>1. 전체 레코드 수: ${totalCount}</div>
-    <div>2. 페이지 사이즈 : ${pageSize}</div>
-    <div>3. 페이지 List사이즈 : ${pageListSize}</div>
+    <div>1. 페이지 사이즈 : ${pageSize}</div>
+    <div>2. 페이지 List사이즈 : ${pageListSize}</div>
+    <div>3. 전체 레코드 수 : ${totalCount}</div>
+    <div>4. 총 페이지 수 : ${totalPage}</div>
   </div>
   <div class="record-info">
-    <div>4. 전체 레코드 수 : ${totalCount}</div>
-    <div>5. 총 페이지 수 : ${totalPage}</div>
-    <div>6. 현재 레코드 : ${start}</div>
-  </div>
-  <div class="record-info">
-    <div>7. 현재 페이지 : ${currentPage}</div>
-    <div>8. 가로 하단 시작 :${listStartPage}</div>
-    <div>9. 가로 하단 마지막 : ${listEndPage}</div>
+    <div>5. 현재 레코드 : ${start}</div>
+    <div>6. 현재 페이지 : ${currentPage}</div>
+    <div>7. 가로 하단 시작 :${listStartPage}</div>
+    <div>8. 가로 하단 마지막 : ${listEndPage}</div>
   </div>
   <br>
   <div align=center>
@@ -42,7 +39,7 @@
 				<th>rnum</th>
         <th>번호</th>
         <th>이름</th>
-        <th width="150">메모</th>
+        <th class="memo">메모</th>
         <th>날짜</th>
         <th>삭제</th>
       </tr>
