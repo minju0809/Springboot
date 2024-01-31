@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.springboot.project.member.MemberVO;
@@ -28,7 +29,7 @@ public class ShopController {
   private HttpServletRequest request;
 
   @Autowired
-	private HttpSession session;
+  private HttpSession session;
 
   @GetMapping("/getProductList.do")
   String getProductList(Model model, ProductVO vo) {
@@ -66,8 +67,8 @@ public class ShopController {
     String fileName = file.getOriginalFilename();
     File f = new File(path + fileName);
 
-    if(!file.isEmpty()) {
-      if(f.exists()) {
+    if (!file.isEmpty()) {
+      if (f.exists()) {
         String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
         String ext = fileName.substring(fileName.lastIndexOf("."));
         fileName = onlyFileName + "_" + timeStr + ext;
@@ -90,7 +91,7 @@ public class ShopController {
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     int midx = mvo.getMember_idx();
     cartVO.setMember_idx(midx);
-    
+
     System.out.println("==============================>>>>" + productVO);
     ProductVO pvo = service.getProduct(productVO);
     System.out.println("==============================>>>>" + pvo);
@@ -103,22 +104,69 @@ public class ShopController {
 
     CartVO cvo = service.cartCheck(cartVO);
     System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@cvo" + cvo);
-    if(cvo == null) {
+    if (cvo == null) {
       service.cartInsert(cartVO);
     } else {
       service.cartUpdate(cartVO);
     }
 
-    return "redirect:/getCartList.do";
+    if (mvo.getRole().equals("ROLE_ADMIN")) {
+      // If the username is admin, redirect to adminGetCartList
+      return "redirect:/adminGetCartList.do?member_idx=" + midx;
+    } else {
+      // For non-admin users, redirect to getCartList
+      return "redirect:/getCartList.do?member_idx=" + midx;
+    }
   }
-  
+
+  @GetMapping("/adminGetCartList.do")
+  String adminGetCartList(Model model, CartVO vo) {
+
+    model.addAttribute("li", service.adminGetCartList(vo));
+
+    return "/shop/getCartList";
+  }
+
   @GetMapping("/getCartList.do")
   String getCartList(Model model, CartVO vo) {
 
+    MemberVO mvo = (MemberVO) session.getAttribute("session");
+    vo.setMember_idx(mvo.getMember_idx());
+    System.out.println("cart:" + service.getCartList(vo));
     model.addAttribute("li", service.getCartList(vo));
 
     return "/shop/getCartList";
   }
 
-  
+  @GetMapping("/cartUpdateAll.do")
+  public String cartUpdateAll(@RequestParam String[] member_idx,
+      @RequestParam String[] cart_idx,
+      @RequestParam String[] product_idx,
+      @RequestParam String[] product_amount,
+      @RequestParam String[] product_price
+      ) {
+
+    // Iterate through the arrays to update each cart item
+    for (int i = 0; i < cart_idx.length; i++) {
+      CartVO vo = new CartVO();
+      vo.setMember_idx(Integer.parseInt(member_idx[i]));
+      vo.setCart_idx(Integer.parseInt(cart_idx[i]));
+      vo.setProduct_idx(Integer.parseInt(product_idx[i]));
+      vo.setProduct_amount(Integer.parseInt(product_amount[i]));
+      vo.setProduct_price(Integer.parseInt(product_price[i]));
+
+      service.cartUpdateAll(vo);
+    }
+
+    return "redirect:/getCartList.do";
+  }
+
+  @GetMapping("/cartDelete.do")
+  public String cartDelete(CartVO vo) {
+
+    service.cartDelete(vo);
+
+    return "redirect:/getCartList.do";
+  }
+
 }

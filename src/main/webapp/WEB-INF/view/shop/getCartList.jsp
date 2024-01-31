@@ -7,20 +7,52 @@
 <script>
 	function updateAll() {
 		alert("전체수정");
-		f1.action = "cartTotalUpdate.do"
+		f1.action = "/cartUpdateAll.do"
 	}
 
 	function orderAll() {
 		alert("전체주문");
-		f1.action = "cartOrderAll.do"
+		f1.action = "/cartOrderAll.do"
 	}
+
+	function onAmountChange(ev, idx, price, amount) {
+		const p = document.getElementById(idx + "_price");
+		console.log("price element: ", p);
+		console.log(idx, price, amount);
+
+		p.value = price / amount * ev.value;
+
+		updateTotal();
+	}
+
+	function updateTotal() {
+
+		const priceElements = document.getElementsByName("product_price");
+		console.log("!!!!!",priceElements);
+		let total = 0;
+
+		for (const element of priceElements) {
+			total += parseFloat(element.value);
+		}
+		console.log(total);
+
+		const formattedTotal = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(total);
+		document.getElementById("formattedTotal").innerText = formattedTotal;
+
+	}
+
+	window.onload = function () {
+			updateTotal();
+	};
+
 </script>
 
 <section>
 	<br>
 	<div align=center>
 		<h3>장바구니 목록</h3>
-		<form name=f1>
+		<br>
+		<form name="f1">
 			<table border=1>
 				<tr>
 					<td>cart_id</td>
@@ -30,22 +62,52 @@
 					<td>product_name</td>
 					<td>amount</td>
 					<td>price</td>
+					<td>삭제</td>
 				</tr>
 				<c:forEach items="${ li }" var="m" varStatus="status">
 					<input type=hidden name="member_idx" value="${ m.member_idx }" />
 					<input type=hidden name="cart_idx" value="${ m.cart_idx }" />
 					<input type=hidden name="product_idx" value="${ m.product_idx }" />
 					<input type=hidden name="product_name" value="${ m.product_name }" />
+					<c:set var="total" value="${total + m.product_price}"></c:set>
 					<tr>
 						<td>${ m.cart_idx }</td>
 						<td><img src="${ path }/img/shop/${ m.product_imgStr }" width=50 height=50 /></td>
 						<td>${ m.member_idx }</td>
 						<td>${ m.product_idx }</td>
 						<td>${ m.product_name }</td>
-						<td>${ m.product_amount }</td>
-						<td>${ m.product_price }</td>
+						<td>
+							<select name="product_amount"
+								onchange="onAmountChange(this, `${m.product_idx}`,`${m.product_price}`,`${m.product_amount}`)">
+								<option value="1" ${m.product_amount==1 ? 'selected' : '' }>1</option>
+								<option value="2" ${m.product_amount==2 ? 'selected' : '' }>2</option>
+								<option value="3" ${m.product_amount==3 ? 'selected' : '' }>3</option>
+								<option value="4" ${m.product_amount==4 ? 'selected' : '' }>4</option>
+								<option value="5" ${m.product_amount==5 ? 'selected' : '' }>5</option>
+							</select>
+						</td>
+						<td><input id=${m.product_idx}_price type="text" name="product_price" value="${ m.product_price }"
+								readonly></td>
+						<td><input type="button" onclick="location.href='/cartDelete.do?cart_idx=${m.cart_idx}'" value="삭제">
+						</td>
 					</tr>
 				</c:forEach>
+				<c:if test="${empty li}">
+					<tr>
+						<td colspan="8" align="center">장바구니가 비어있습니다.</td>
+					</tr>
+				</c:if>
+				<tr>
+					<td colspan="8" align="right">전체 구매 금액:
+						<span id="formattedTotal">${total}</span>원
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="8" align="center">
+						<input type=submit value="전체수정" onclick="updateAll()" />
+					</td>
+				</tr>
 			</table>
 			<br>
 

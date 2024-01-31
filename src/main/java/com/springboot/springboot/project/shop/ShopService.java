@@ -12,5 +12,9 @@ public interface ShopService {
   CartVO cartCheck(CartVO vo);
   void cartInsert(CartVO vo);
   void cartUpdate(CartVO vo);
+  List<CartVO> adminGetCartList(CartVO vo);
   List<CartVO> getCartList(CartVO vo);
+
+  void cartUpdateAll(CartVO vo);
+  void cartDelete(CartVO vo);
 }

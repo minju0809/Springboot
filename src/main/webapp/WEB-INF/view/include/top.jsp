@@ -41,43 +41,62 @@
 					<ul class="list">
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
-						<li><a class="button" href="/getCartList.do"> 장바구니 </a></li>
-					</ul>
-				</div>
-				<div class="list-container">
-					<h4>맴버</h4>
-					<ul class="list">
-						<li><a class="button" href="/memberForm.do"> 회원가입 </a></li>
-						<li><a class="button" href="/a/getMemberList.do"> 맴버목록 </a></li>
-					</ul>
-				</div>
-				<div class="list-container">
-					<c:choose>
-							<c:when test="${empty session.username}">
-									<h4>로그인</h4>
-									<ul class="list">
-											<li class="menu5">
-													<a href="/login.do">
-															<span>로그인</span>
-													</a>
-											</li>
-											<li class="menu6">
-												<a href="/logout">
-														<span>로그아웃</span>
-												</a>
-										</li>
-									</ul>
+
+						<c:set var="cartListUrl" value="" />
+						<c:choose>
+							<c:when test="${session.username eq 'admin'}">
+								<c:set var="cartListUrl" value="/adminGetCartList.do" />
 							</c:when>
 							<c:otherwise>
-									<h4>${session.username}(${session.name})</h4>
-									<ul class="list">
-											<li class="menu6">
-													<a href="/logout">
-															<span>로그아웃</span>
-													</a>
-											</li>
-									</ul>
+								<c:set var="cartListUrl" value="/getCartList.do" />
 							</c:otherwise>
+						</c:choose>
+					</ul>
+				</div>
+				<c:if test="${session.username eq 'admin'}">
+					<div class="list-container">
+						<h4>맴버</h4>
+						<ul class="list">
+							<li><a class="button" href="/a/getMemberList.do"> 맴버목록 </a></li>
+						</ul>
+					</div>
+				</c:if>
+				<div class="list-container">
+					<c:choose>
+						<c:when test="${empty session.username}">
+							<h4>로그인</h4>
+							<ul class="list">
+								<li><a class="button" href="/memberForm.do"> 회원가입 </a></li>
+								<li class="menu5">
+									<a href="/login.do">
+										<span>로그인</span>
+									</a>
+								</li>
+								<li class="menu6">
+									<a href="/logout">
+										<span>로그아웃</span>
+									</a>
+								</li>
+							</ul>
+						</c:when>
+						<c:otherwise>
+							<h4>${session.username}(${session.name})</h4>
+							<ul class="list">
+								<li>
+									<a href="/getMember.do?member_idx=${session.member_idx}">
+										<span>마이페이지</span>
+									</a>
+								</li>
+								<c:if test="${not empty session.username}">
+									<li><a class="button" href="<c:out value='${cartListUrl}'/>">장바구니</a></li>
+								</c:if>
+								<li class="menu6">
+									<a href="/logout">
+										<span>로그아웃</span>
+									</a>
+								</li>
+							</ul>
+						</c:otherwise>
 					</c:choose>
-			</div>
+				</div>
 			</nav>

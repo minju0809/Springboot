@@ -48,7 +48,7 @@
 	<insert id="cartInsert" parameterType="com.springboot.springboot.project.shop.CartVO">
       insert into cart (cart_idx, product_idx, member_idx, product_name, product_amount, product_price, product_imgStr) 
       values ((select nvl(max(cart_idx), 60000) + 1 from cart), #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
-				#{product_price}, #{product_imgStr})
+				(#{product_amount} * #{product_price}), #{product_imgStr})
   </insert>
 
 	<update id="cartUpdate" parameterType="com.springboot.springboot.project.shop.CartVO">
@@ -56,12 +56,26 @@
       	where product_idx = #{product_idx}
   </update>
 
-		<select id="getCartList"
+	<select id="adminGetCartList"
     parameterType="com.springboot.springboot.project.shop.CartVO"
     resultType="com.springboot.springboot.project.shop.CartVO">
-    select * from cart
+    select * from cart order by cart_idx
   </select>
 
+	<select id="getCartList"
+    parameterType="com.springboot.springboot.project.shop.CartVO"
+    resultType="com.springboot.springboot.project.shop.CartVO">
+    select * from cart where member_idx = #{member_idx}
+  </select>
+
+	<update id="cartUpdateAll" parameterType="com.springboot.springboot.project.shop.CartVO">
+      update cart set product_price = #{product_price}, product_amount = #{product_amount}
+      	where cart_idx = #{cart_idx}
+  </update>
+
+	<delete id="cartDelete" parameterType="com.springboot.springboot.project.shop.CartVO">
+      delete from cart where cart_idx = #{cart_idx}
+  </delete>
 
  </mapper>
 

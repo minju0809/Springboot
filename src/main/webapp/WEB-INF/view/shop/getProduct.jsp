@@ -8,8 +8,9 @@
     <br>
     <div align=center>
       <h2>상품 상세보기</h2>
-      <form action="cartAdd.do" method="post" enctype="multipart/form-data">
+      <form id="addToCartForm" action="cartAdd.do" method="post" enctype="multipart/form-data">
         <input type="hidden" name="product_idx" value="${product.product_idx}">
+        <input type="hidden" id="loginCheck" value="${empty session.username}">
         <table border="1">
           <tr>
             <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" name="product_imgStr" width="300"></td>
@@ -44,7 +45,7 @@
           <tr>
             <td align="center" colspan="2">
               <input type=button onClick="location.href='getProductList.do'" value="목록으로" />
-              <input type="submit" value="장바구니에 추가">
+              <input type="button" onclick="addToCart()" value="장바구니에 추가">
             </td>
           </tr>
         </table>
@@ -52,5 +53,21 @@
     </div>
     <br>
   </section>
+
+  <script>
+    function addToCart() {
+        var loginCheck = document.getElementById("loginCheck").value;
+
+        if (loginCheck === "true") {
+            // Show alert and redirect to login page
+            if (confirm("로그인이 되어 있지 않습니다. 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")) {
+                window.location.href = '/login.do'; // Change the URL to your login page
+            }
+        } else {
+            // Submit the form if the user is logged in
+            document.getElementById("addToCartForm").submit();
+        }
+    }
+</script>
 
   <c:import url="${path}/WEB-INF/view/include/bottom.jsp" />
