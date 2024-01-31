@@ -15,6 +15,11 @@ public class MemberServiceImpl implements MemberService {
   public List<MemberVO> getMemberList(MemberVO vo) {
     return dao.getMemberList(vo);
   }
+  
+  @Override
+  public MemberVO getMember(MemberVO vo) {
+    return dao.getMember(vo);
+  }
 
   @Override
   public void memberInsert(MemberVO vo) {
@@ -30,5 +35,6 @@ public class MemberServiceImpl implements MemberService {
   public void updateAll(MemberVO vo) {
     dao.updateAll(vo);
   }
+
   
 }

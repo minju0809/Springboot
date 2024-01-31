@@ -26,6 +26,14 @@ public class MemberController {
     return "/member/getMemberList";
   } 
 
+  @GetMapping("/getMember.do")
+  String getMember(Model model, MemberVO vo) {
+
+    model.addAttribute("member", service.getMember(vo));
+    
+    return "/member/getMember";
+  } 
+
   @GetMapping("/memberForm.do")
   String memberForm(Model model) {
 

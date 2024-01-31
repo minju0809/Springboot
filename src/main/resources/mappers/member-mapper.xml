@@ -36,6 +36,13 @@
 		]]>
   </select>
 
+	<select id="getMember"
+    parameterType="com.springboot.springboot.project.member.MemberVO"
+    resultType="com.springboot.springboot.project.member.MemberVO">
+
+      select * from member where member_idx = #{member_idx}
+  </select>
+
 	<select id="login"
     parameterType="com.springboot.springboot.project.member.MemberVO"
     resultType="com.springboot.springboot.project.member.MemberVO">
