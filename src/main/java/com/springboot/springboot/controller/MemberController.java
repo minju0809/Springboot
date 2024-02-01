@@ -1,5 +1,7 @@
 package com.springboot.springboot.controller;
 
+import java.io.PrintWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.springboot.springboot.project.member.MemberService;
 import com.springboot.springboot.project.member.MemberVO;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class MemberController {
@@ -48,4 +53,16 @@ public class MemberController {
 
     return "redirect:/login.do";
   } 
+
+  @GetMapping("/usernameCk.do")
+  void usernameCk(MemberVO vo, HttpServletResponse response) throws Exception {
+
+    PrintWriter out = response.getWriter();
+
+    if (service.login(vo) == null) {
+      out.print("T");
+    } else {
+      out.print("F");
+    }
+  }
 }

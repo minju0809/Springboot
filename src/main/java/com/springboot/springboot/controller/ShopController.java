@@ -132,7 +132,6 @@ public class ShopController {
 
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     vo.setMember_idx(mvo.getMember_idx());
-    System.out.println("cart:" + service.getCartList(vo));
     model.addAttribute("li", service.getCartList(vo));
 
     return "/shop/getCartList";

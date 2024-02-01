@@ -8,11 +8,14 @@
   <br>
   <div align=center>
     <h2>회원가입</h2>
-    <form action="/memberInsert.do">
+    <form name="f1" action="/memberInsert.do">
       <table border="1">
         <tr>
           <th>아이디</th>
-          <td><input type="text" name="username"></td>
+          <td>
+            <input type="text" id="username" name="username">
+            <input type="button" id="usernameBtn" value="중복체크">
+          </td>
         </tr>
         <tr>
           <th>암호</th>
@@ -52,6 +55,35 @@
   </div>
   <br>
 </section>
+
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#usernameBtn").click(function(){
+            var usernameVal = $("#username").val();
+            var data = { username: usernameVal };
+
+            $.ajax({
+                type: "GET",
+                url: "/usernameCk.do",
+                data: data,
+                success: function(data){
+                    if (usernameVal == "") {
+                      alert("아이디를 입력해주세요!!!");
+                    } else if (usernameVal.length <= 5) {
+                      alert("아이디를 5자리 이상 입력해주세요!!!");
+                    } else if (data === "T"){
+                      alert("사용 가능한 아이디입니다.");
+                    } else {
+                      alert("이미 등록되어 있는 아이디입니다.");
+                      $("#username").val("");
+                      $("#username").focus();
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
