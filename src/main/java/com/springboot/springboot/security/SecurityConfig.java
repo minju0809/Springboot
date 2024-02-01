@@ -25,15 +25,15 @@ public class SecurityConfig {
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     http.authorizeHttpRequests(authorize -> authorize
+        .requestMatchers("/a/**").hasAuthority("ROLE_A")
+        .requestMatchers("/m/**").hasAnyAuthority("ROLE_M", "ROLE_A")
         .requestMatchers("/teacher/**", "/class/**").authenticated()
-        .requestMatchers("/m/**").hasRole("M")
-        .requestMatchers("/a/**").hasRole("A")
         .anyRequest().permitAll());
 
-    http.csrf().disable();
-    http.formLogin().loginPage("/login.do").defaultSuccessUrl("/loginSuccess.do", true);
-    http.exceptionHandling().accessDeniedPage("/accessDenied.do");
-    http.logout().invalidateHttpSession(true).logoutSuccessUrl("/login.do");
+    http.csrf(csrf -> csrf.disable());
+    http.formLogin(login -> login.loginPage("/login.do").defaultSuccessUrl("/loginSuccess.do", true));
+    http.exceptionHandling(handling -> handling.accessDeniedPage("/accessDenied.do"));
+    http.logout(logout -> logout.invalidateHttpSession(true).logoutSuccessUrl("/login.do"));
     http.userDetailsService(securityUserDetail);
     return http.build();
   }

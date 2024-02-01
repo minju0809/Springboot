@@ -70,7 +70,7 @@
                 success: function(data){
                     if (usernameVal == "") {
                       alert("아이디를 입력해주세요!!!");
-                    } else if (usernameVal.length <= 5) {
+                    } else if (usernameVal.length <= 4) {
                       alert("아이디를 5자리 이상 입력해주세요!!!");
                     } else if (data === "T"){
                       alert("사용 가능한 아이디입니다.");

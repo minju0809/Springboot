@@ -22,14 +22,6 @@
 					</ul>
 				</div>
 				<div class="list-container">
-					<h4>방명록</h4>
-					<ul class="list">
-						<li><a class="button" href="/getGuestbookList.do"> 목록보기 </a></li>
-						<li><a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a></li>
-						<li><a class="button" href="/guestbookForm.do"> 글쓰기 </a></li>
-					</ul>
-				</div>
-				<div class="list-container">
 					<h4>맛집</h4>
 					<ul class="list">
 						<li><a class="button" href="/getRestaurantList.do"> 맛집목록 </a></li>
@@ -41,7 +33,7 @@
 					<ul class="list">
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
-
+						
 						<c:set var="cartListUrl" value="" />
 						<c:choose>
 							<c:when test="${session.username eq 'admin'}">
@@ -51,6 +43,21 @@
 								<c:set var="cartListUrl" value="/getCartList.do" />
 							</c:otherwise>
 						</c:choose>
+					</ul>
+				</div>
+				<div class="list-container">
+					<h4>게시판</h4>
+					<ul class="list">
+						<li><a class="button" href="/getBoardList.do"> 목록보기 </a></li>
+						<li><a class="button" href="/m/boardForm.do"> 글쓰기 </a></li>
+					</ul>
+				</div>
+				<div class="list-container">
+					<h4>방명록</h4>
+					<ul class="list">
+						<li><a class="button" href="/getGuestbookList.do"> 목록보기 </a></li>
+						<li><a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a></li>
+						<li><a class="button" href="/guestbookForm.do"> 글쓰기 </a></li>
 					</ul>
 				</div>
 				<c:if test="${session.username eq 'admin'}">
