@@ -10,6 +10,18 @@
   <div align=center>
     <h2>게시판 목록</h2>
     <br>
+    <div class="board-container">
+      <c:forEach items="${li}" var="record">
+        <div class="board" onclick="location.href='/getBoard.do?board_idx=${record.board_idx}&start=${start}&ch1=${ch1}&ch2=${ch2}'">
+          <img class="img" src="/img/board/${record.board_imgStr}" alt="image" width="100">
+          <div class="board-content">
+            <p>제목: ${record.board_title}</p>
+            <p>조회수: ${record.board_cnt}</p>
+            <p>등록일: ${record.board_today.substring(0, 10)}</p>
+          </div>
+        </div>
+      </c:forEach>
+    </div>
     <table border="1">
       <tr>
         <th colspan="7">

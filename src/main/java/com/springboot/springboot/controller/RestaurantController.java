@@ -98,7 +98,7 @@ public class RestaurantController {
         RestaurantVO restaurantVO = new RestaurantVO();
         restaurantVO.setTitle(title);
         restaurantVO.setRstrNm(rstrNm);
-        restaurantVO.setRights(rights);
+        restaurantVO.setRights(rights); 
         restaurantVO.setRstrMenuNm(rstrMenuNm);
         restaurantVO.setRstrMenuPri(rstrMenuPri);
         restaurantVO.setRstrRoadAddr(rstrRoadAddr);

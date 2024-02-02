@@ -17,10 +17,6 @@
 }
 
 body {
-<<<<<<< Updated upstream
-	/* width: 90%; */
-=======
->>>>>>> Stashed changes
 	margin: auto;
 }
 
@@ -64,6 +60,10 @@ th {
 td {
 	height: 32px;
 	padding: 0px 4px;
+}
+
+.img {
+	border-radius: 8px;
 }
 
 .memo {
@@ -156,4 +156,22 @@ a:hover {
 .record-info div {
 	flex: 0 0 calc(25% - 1px);
 	box-sizing: border-box;
+}
+
+.board-container {
+	display: flex;
+	justify-content: space-around;
+}
+
+.board {
+	cursor: pointer;
+	margin: 4px;
+	padding: 4px;
+	border: 1px solid black;
+	border-radius: 8px;
+	width: 200px;
+}
+
+.board-content {
+	text-align: left;
 }
