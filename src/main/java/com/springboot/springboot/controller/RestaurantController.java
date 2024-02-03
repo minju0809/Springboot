@@ -96,9 +96,10 @@ public class RestaurantController {
         String description = itemElement.getElementsByTagName("description").item(0).getTextContent();
 
         RestaurantVO restaurantVO = new RestaurantVO();
+        restaurantVO.setIdx(i);
         restaurantVO.setTitle(title);
         restaurantVO.setRstrNm(rstrNm);
-        restaurantVO.setRights(rights); 
+        restaurantVO.setRights(rights);
         restaurantVO.setRstrMenuNm(rstrMenuNm);
         restaurantVO.setRstrMenuPri(rstrMenuPri);
         restaurantVO.setRstrRoadAddr(rstrRoadAddr);
@@ -160,5 +161,33 @@ public class RestaurantController {
     model.addAttribute("li", restaurantList);
 
     return "/restaurant/getRestaurantMap";
+  }
+
+  @GetMapping("/getRestaurant.do")
+  String getRestaurant(Model model, @RequestParam(name = "idx", required = true) int idx) {
+
+    try {
+      List<RestaurantVO> restaurantList = processApiData();
+
+      // Find the RestaurantVO with the specified index
+      RestaurantVO restaurant = restaurantList.stream()
+          .filter(getRestaurant -> getRestaurant.getIdx() == idx)
+          .findFirst()
+          .orElse(null);
+
+      if (restaurant != null) {
+        // Add the selected RestaurantVO to the model
+        model.addAttribute("restaurant", restaurant);
+      } else {
+        // Handle the case where the specified index is not found
+        model.addAttribute("error", "Restaurant not found");
+      }
+
+      return "/restaurant/getRestaurant";
+    } catch (Exception e) {
+      // Handle exceptions
+      model.addAttribute("error", "Error retrieving restaurant");
+      return "/errorPage"; // Provide a custom error page
+    }
   }
 }

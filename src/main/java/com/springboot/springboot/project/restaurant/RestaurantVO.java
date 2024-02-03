@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class RestaurantVO {
+  private int idx;
   private String title; // 시티투어명
   private String extent; // 시티투어유형(순환형,고정형)
   private String reference; // 시티투어 문의처

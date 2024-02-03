@@ -22,6 +22,7 @@
           <br>
           <table border="1">
             <tr>
+              <th>번호</th>
               <th>식당명</th>
               <th>식당주소</th>
               <th>메뉴이름</th>
@@ -29,7 +30,12 @@
             </tr>
             <c:forEach var="restaurant" items="${li}">
               <tr>
-                <td>${restaurant.rstrNm}</td>
+                <td>${restaurant.idx}</td>
+                <td>
+                  <a href="/getRestaurant.do?idx=${restaurant.idx}">
+                    ${restaurant.rstrNm}
+                  </a>
+                </td>
                 <td>${restaurant.rstrRoadAddr}</td>
                 <td>
                   <c:choose>
