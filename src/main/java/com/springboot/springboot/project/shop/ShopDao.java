@@ -17,7 +17,7 @@ public interface ShopDao {
   List<CartVO> getCartList(CartVO vo);
   void cartUpdateAll(CartVO vo);
   void cartDelete(CartVO vo);
-  void cartDeleteAll();
+  void cartDeleteAll(OrderVO vo);
   
 
   int order_idx(OrderVO vo);

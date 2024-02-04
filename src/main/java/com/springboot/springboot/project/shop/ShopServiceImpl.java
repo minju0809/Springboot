@@ -62,8 +62,8 @@ public class ShopServiceImpl implements ShopService {
   }
 
   @Override
-  public void cartDeleteAll() {
-    dao.cartDeleteAll();
+  public void cartDeleteAll(OrderVO vo) {
+    dao.cartDeleteAll(vo);
   }
 
   @Override
@@ -78,7 +78,7 @@ public class ShopServiceImpl implements ShopService {
 
   @Override
   public List<OrderVO> adminGetOrderList(OrderVO vo) {
-    return dao.getOrderList(vo);
+    return dao.adminGetOrderList(vo);
   }
   
   @Override

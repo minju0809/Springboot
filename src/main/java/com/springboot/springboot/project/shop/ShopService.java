@@ -17,7 +17,7 @@ public interface ShopService {
 
   void cartUpdateAll(CartVO vo);
   void cartDelete(CartVO vo);
-  void cartDeleteAll();
+  void cartDeleteAll(OrderVO vo);
 
   int order_idx(OrderVO vo);
   void orderInsert(OrderVO vo);

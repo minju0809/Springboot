@@ -83,7 +83,7 @@
   </select>
 
 	<delete id="cartDeleteAll" parameterType="com.springboot.springboot.project.shop.CartVO">
-      delete from cart
+      delete from cart where member_idx = #{member_idx}
   </delete>
 
 	<insert id="orderInsert" parameterType="com.springboot.springboot.project.shop.OrderVO">

@@ -186,7 +186,7 @@ public class ShopController {
       vo.setOrder_price(Integer.parseInt(order_price[i]));
       vo.setProduct_imgStr(product_imgStr[i]);
 
-      service.cartDeleteAll();
+      service.cartDeleteAll(vo);
       service.orderInsert(vo);
 
       System.out.println("!!!!!!!!!!!!!!!OrderVO: " + vo);
