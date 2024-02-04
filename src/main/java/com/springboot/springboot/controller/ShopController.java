@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.springboot.project.member.MemberVO;
 import com.springboot.springboot.project.shop.CartVO;
+import com.springboot.springboot.project.shop.OrderVO;
 import com.springboot.springboot.project.shop.ProductVO;
 import com.springboot.springboot.project.shop.ShopService;
 
@@ -86,24 +87,14 @@ public class ShopController {
   }
 
   @PostMapping("/cartAdd.do")
-  String cartAdd(ProductVO productVO) {
-    CartVO cartVO = new CartVO();
+  String cartAdd(CartVO cartVO) {
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     int midx = mvo.getMember_idx();
     cartVO.setMember_idx(midx);
 
-    System.out.println("==============================>>>>" + productVO);
-    ProductVO pvo = service.getProduct(productVO);
-    System.out.println("==============================>>>>" + pvo);
-    cartVO.setProduct_idx(pvo.getProduct_idx());
-    cartVO.setProduct_name(pvo.getProduct_name());
-    cartVO.setProduct_amount(productVO.getProduct_amount());
-    cartVO.setProduct_price(pvo.getProduct_price());
-    cartVO.setProduct_imgStr(pvo.getProduct_imgStr());
     System.out.println("!!!!!!!!!!!!!!!cartVO: " + cartVO);
 
     CartVO cvo = service.cartCheck(cartVO);
-    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@cvo" + cvo);
     if (cvo == null) {
       service.cartInsert(cartVO);
     } else {
@@ -111,10 +102,8 @@ public class ShopController {
     }
 
     if (mvo.getRole().equals("ROLE_ADMIN")) {
-      // If the username is admin, redirect to adminGetCartList
       return "redirect:/adminGetCartList.do?member_idx=" + midx;
     } else {
-      // For non-admin users, redirect to getCartList
       return "redirect:/getCartList.do?member_idx=" + midx;
     }
   }
@@ -122,6 +111,7 @@ public class ShopController {
   @GetMapping("/adminGetCartList.do")
   String adminGetCartList(Model model, CartVO vo) {
 
+    model.addAttribute("order_idx", service.order_idx(null));
     model.addAttribute("li", service.adminGetCartList(vo));
 
     return "/shop/getCartList";
@@ -132,6 +122,8 @@ public class ShopController {
 
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     vo.setMember_idx(mvo.getMember_idx());
+
+    model.addAttribute("order_idx", service.order_idx(null));
     model.addAttribute("li", service.getCartList(vo));
 
     return "/shop/getCartList";
@@ -145,7 +137,6 @@ public class ShopController {
       @RequestParam String[] product_price
       ) {
 
-    // Iterate through the arrays to update each cart item
     for (int i = 0; i < cart_idx.length; i++) {
       CartVO vo = new CartVO();
       vo.setMember_idx(Integer.parseInt(member_idx[i]));
@@ -168,4 +159,63 @@ public class ShopController {
     return "redirect:/getCartList.do";
   }
 
+  // order
+
+  @PostMapping("/orderAll.do")
+  String orderAll(@RequestParam String[] order_idx,
+      @RequestParam String[] cart_idx,
+      @RequestParam String[] product_idx,
+      @RequestParam String[] product_name,
+      @RequestParam String[] product_amount,
+      @RequestParam String[] product_price,
+      @RequestParam String[] order_price,
+      @RequestParam String[] product_imgStr) {
+
+    MemberVO mvo = (MemberVO) session.getAttribute("session");
+    int midx = mvo.getMember_idx();
+
+    for(int i = 0; i < cart_idx.length; i++) {
+      OrderVO vo = new OrderVO();
+      vo.setMember_idx(midx);
+      vo.setOrder_idx(Integer.parseInt(order_idx[i]));
+      vo.setCart_idx(Integer.parseInt(cart_idx[i]));
+      vo.setProduct_idx(Integer.parseInt(product_idx[i]));
+      vo.setProduct_name(product_name[i]);
+      vo.setProduct_amount(Integer.parseInt(product_amount[i]));
+      vo.setProduct_price(Integer.parseInt(product_price[i]));
+      vo.setOrder_price(Integer.parseInt(order_price[i]));
+      vo.setProduct_imgStr(product_imgStr[i]);
+
+      service.cartDeleteAll();
+      service.orderInsert(vo);
+
+      System.out.println("!!!!!!!!!!!!!!!OrderVO: " + vo);
+    }
+
+
+    if (mvo.getRole().equals("ROLE_ADMIN")) {
+      return "redirect:/adminGetOrderList.do?member_idx=" + midx;
+    } else {
+      return "redirect:/getOrderList.do?member_idx=" + midx;
+    }
+  }
+
+  @GetMapping("/adminGetOrderList.do")
+  String adminGetOrderList(Model model, OrderVO vo) {
+
+    model.addAttribute("li", service.adminGetOrderList(vo));
+
+    return "/shop/getOrderList";
+  }
+
+  @GetMapping("/getOrderList.do")
+  String getOrderList(Model model, OrderVO vo) {
+
+    MemberVO mvo = (MemberVO) session.getAttribute("session");
+    vo.setMember_idx(mvo.getMember_idx());
+    System.out.println();
+    model.addAttribute("li", service.getOrderList(vo));
+
+    return "/shop/getOrderList";
+  }
 }

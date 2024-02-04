@@ -43,6 +43,15 @@
 								<c:set var="cartListUrl" value="/getCartList.do" />
 							</c:otherwise>
 						</c:choose>
+						<c:set var="orderListUrl" value="" />
+						<c:choose>
+							<c:when test="${session.username eq 'admin'}">
+								<c:set var="orderListUrl" value="/adminGetOrderList.do" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="orderListUrl" value="/getOrderList.do" />
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 				<div class="list-container">
@@ -96,6 +105,9 @@
 								</li>
 								<c:if test="${not empty session.username}">
 									<li><a class="button" href="<c:out value='${cartListUrl}'/>">장바구니</a></li>
+								</c:if>
+								<c:if test="${not empty session.username}">
+									<li><a class="button" href="<c:out value='${orderListUrl}'/>">주문확인</a></li>
 								</c:if>
 								<li class="menu6">
 									<a href="/logout">

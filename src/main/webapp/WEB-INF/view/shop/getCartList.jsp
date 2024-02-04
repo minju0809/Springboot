@@ -12,7 +12,7 @@
 
 	function orderAll() {
 		alert("전체주문");
-		f1.action = "/cartOrderAll.do"
+		f1.action = "/orderAll.do"
 	}
 
 	function onAmountChange(ev, idx, price, amount) {
@@ -52,7 +52,7 @@
 	<div align=center>
 		<h3>장바구니 목록</h3>
 		<br>
-		<form name="f1">
+		<form name="f1" method="post" enctype="multipart/form-data">
 			<table border=1>
 				<tr>
 					<td>cart_id</td>
@@ -65,11 +65,13 @@
 					<td>삭제</td>
 				</tr>
 				<c:forEach items="${ li }" var="m" varStatus="status">
-					<input type=hidden name="member_idx" value="${ m.member_idx }" />
-					<input type=hidden name="cart_idx" value="${ m.cart_idx }" />
-					<input type=hidden name="product_idx" value="${ m.product_idx }" />
-					<input type=hidden name="product_name" value="${ m.product_name }" />
-					<c:set var="total" value="${total + m.product_price}"></c:set>
+					<c:set var="order_price" value="${order_price + m.product_price}"></c:set>
+					<input type="hidden" name="order_idx" value="${ order_idx }" />
+					<input type="hidden" name="cart_idx" value="${ m.cart_idx }" />
+					<input type="hidden" name="product_idx" value="${ m.product_idx }" />
+					<input type="hidden" name="product_name" value="${ m.product_name }" />
+					<input type="hidden" name="product_imgStr" value="${ m.product_imgStr }">
+					<input type="hidden" name="order_price" value="${ order_price }">
 					<tr>
 						<td>${ m.cart_idx }</td>
 						<td><img src="${ path }/img/shop/${ m.product_imgStr }" width=50 height=50 /></td>
@@ -99,13 +101,14 @@
 				</c:if>
 				<tr>
 					<td colspan="8" align="right">전체 구매 금액:
-						<span id="formattedTotal">${total}</span>원
+						<span id="formattedTotal">${order_price}</span>원
 					</td>
 				</tr>
 
 				<tr>
 					<td colspan="8" align="center">
 						<input type=submit value="전체수정" onclick="updateAll()" />
+						<input type=submit value="전체주문" onclick="orderAll()" />
 					</td>
 				</tr>
 			</table>

@@ -9,11 +9,11 @@
     <div align=center>
       <h2>상품 상세보기</h2>
       <form id="addToCartForm" action="cartAdd.do" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="product_idx" value="${product.product_idx}">
+        <input type="hidden" name="product_imgStr" value="${product.product_imgStr}">
         <input type="hidden" id="loginCheck" value="${empty session.username}">
         <table border="1">
           <tr>
-            <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" name="product_imgStr" width="300"></td>
+            <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" width="300"></td>
           </tr>
           <tr>
             <th>번호</th>

@@ -31,7 +31,6 @@ public class BoardController {
 
   @GetMapping("/getBoardList.do")
   String getBoardList(Model model, BoardVO vo) {
-    System.out.println("@@@@@@@@@@@@@vo: "+ vo);
     model.addAttribute("li", service.getBoardList(vo));
     return "/board/getBoardList";
   }

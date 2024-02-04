@@ -13,11 +13,11 @@
           <table border="1">
             <tr>
               <th>아이디</th>
-              <th><input type="text" name="username" value="admin"></th>
+              <th><input type="text" name="username" value="lina"></th>
             </tr>
             <tr>
               <th>암호</th>
-              <th><input type="text" name="password" placeholder="1234"></th>
+              <th><input type="text" name="password" value="1234"></th>
             </tr>
             <tr>
               <th colspan="2" align="center"><input type="submit" value="로그인"></th>

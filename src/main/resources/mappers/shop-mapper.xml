@@ -77,5 +77,32 @@
       delete from cart where cart_idx = #{cart_idx}
   </delete>
 
+
+	<select id="order_idx" resultType="int">
+    select nvl(max(order_idx), 70000) + 1  from orderTBL
+  </select>
+
+	<delete id="cartDeleteAll" parameterType="com.springboot.springboot.project.shop.CartVO">
+      delete from cart
+  </delete>
+
+	<insert id="orderInsert" parameterType="com.springboot.springboot.project.shop.OrderVO">
+      insert into orderTbl (order_idx, cart_idx, product_idx, member_idx, product_name, product_amount, product_price, order_price, product_imgStr) 
+      values (#{order_idx}, #{cart_idx}, #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
+				#{product_price}, #{order_price}, #{product_imgStr})
+  </insert>
+
+	<select id="adminGetOrderList"
+    parameterType="com.springboot.springboot.project.shop.OrderVO"
+    resultType="com.springboot.springboot.project.shop.OrderVO">
+    select * from orderTbl order by order_idx
+  </select>
+
+	<select id="getOrderList"
+    parameterType="com.springboot.springboot.project.shop.OrderVO"
+    resultType="com.springboot.springboot.project.shop.OrderVO">
+    select * from orderTbl where member_idx = #{member_idx} order by order_idx
+  </select>
+
  </mapper>
 

@@ -17,4 +17,10 @@ public interface ShopService {
 
   void cartUpdateAll(CartVO vo);
   void cartDelete(CartVO vo);
+  void cartDeleteAll();
+
+  int order_idx(OrderVO vo);
+  void orderInsert(OrderVO vo);
+  List<OrderVO> adminGetOrderList(OrderVO vo);
+  List<OrderVO> getOrderList(OrderVO vo);
 }
