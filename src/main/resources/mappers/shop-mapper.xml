@@ -47,7 +47,7 @@
 
 	<insert id="cartInsert" parameterType="com.springboot.springboot.project.shop.CartVO">
       insert into cart (cart_idx, product_idx, member_idx, product_name, product_amount, product_price, product_imgStr) 
-      values ((select nvl(max(cart_idx), 60000) + 1 from cart), #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
+      values ((cart_seq.nextval), #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
 				(#{product_amount} * #{product_price}), #{product_imgStr})
   </insert>
 
@@ -59,13 +59,13 @@
 	<select id="adminGetCartList"
     parameterType="com.springboot.springboot.project.shop.CartVO"
     resultType="com.springboot.springboot.project.shop.CartVO">
-    select * from cart order by cart_idx
+    select * from cart order by cart_idx desc
   </select>
 
 	<select id="getCartList"
     parameterType="com.springboot.springboot.project.shop.CartVO"
     resultType="com.springboot.springboot.project.shop.CartVO">
-    select * from cart where member_idx = #{member_idx}
+    select * from cart where member_idx = #{member_idx} order by cart_idx desc
   </select>
 
 	<update id="cartUpdateAll" parameterType="com.springboot.springboot.project.shop.CartVO">
@@ -95,14 +95,41 @@
 	<select id="adminGetOrderList"
     parameterType="com.springboot.springboot.project.shop.OrderVO"
     resultType="com.springboot.springboot.project.shop.OrderVO">
-    select * from orderTbl order by order_idx
+    select o.order_idx, o.member_idx, m.username, 
+      sum(o.product_price) as product_price, o.order_today
+      from orderTbl o join member m
+      on o.member_idx = m.member_idx
+      group by o.order_idx, o.member_idx, m.username, o.order_today
+      order by o.order_idx desc
   </select>
 
 	<select id="getOrderList"
     parameterType="com.springboot.springboot.project.shop.OrderVO"
     resultType="com.springboot.springboot.project.shop.OrderVO">
-    select * from orderTbl where member_idx = #{member_idx} order by order_idx
+    select o.order_idx, o.member_idx, m.username, 
+      sum(o.product_price) as product_price, o.order_today
+      from orderTbl o join member m
+      on o.member_idx = m.member_idx
+      where o.member_idx = #{member_idx}
+      group by o.order_idx, o.member_idx, m.username, o.order_today
+      order by order_idx desc
   </select>
+
+  <select id="getDetailOrderList"
+    parameterType="com.springboot.springboot.project.shop.OrderVO"
+    resultType="com.springboot.springboot.project.shop.OrderVO">
+    select o.order_idx, o.cart_idx, o.member_idx, o.product_idx, o.product_name, 
+      o.product_amount, sum(o.product_price) as product_price, o.order_today, o.product_imgStr,
+      m.username, m.name, m.phone, m.postcode, m.address, m.detailAddress, m.etc 
+      from orderTbl o join member m
+      on o.member_idx = m.member_idx
+      where o.order_idx = #{order_idx} 
+      group by o.order_idx, o.cart_idx, o.member_idx, o.product_idx, o.product_name, 
+      o.product_amount, o.order_today, o.product_imgStr,
+      m.username, m.name, m.phone, m.postcode, m.address, m.detailAddress, m.etc
+      order by o.cart_idx desc
+  </select>
+
 
  </mapper>
 

@@ -122,20 +122,18 @@ public class ShopController {
 
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     vo.setMember_idx(mvo.getMember_idx());
-
     model.addAttribute("order_idx", service.order_idx(null));
     model.addAttribute("li", service.getCartList(vo));
 
     return "/shop/getCartList";
   }
 
-  @GetMapping("/cartUpdateAll.do")
+  @PostMapping("/cartUpdateAll.do")
   public String cartUpdateAll(@RequestParam String[] member_idx,
       @RequestParam String[] cart_idx,
       @RequestParam String[] product_idx,
       @RequestParam String[] product_amount,
-      @RequestParam String[] product_price
-      ) {
+      @RequestParam String[] product_price) {
 
     for (int i = 0; i < cart_idx.length; i++) {
       CartVO vo = new CartVO();
@@ -174,7 +172,7 @@ public class ShopController {
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     int midx = mvo.getMember_idx();
 
-    for(int i = 0; i < cart_idx.length; i++) {
+    for (int i = 0; i < cart_idx.length; i++) {
       OrderVO vo = new OrderVO();
       vo.setMember_idx(midx);
       vo.setOrder_idx(Integer.parseInt(order_idx[i]));
@@ -192,9 +190,8 @@ public class ShopController {
       System.out.println("!!!!!!!!!!!!!!!OrderVO: " + vo);
     }
 
-
-    if (mvo.getRole().equals("ROLE_ADMIN")) {
-      return "redirect:/adminGetOrderList.do?member_idx=" + midx;
+    if (mvo.getRole().equals("ROLE_A")) {
+      return "redirect:/adminGetOrderList.do";
     } else {
       return "redirect:/getOrderList.do?member_idx=" + midx;
     }
@@ -217,5 +214,13 @@ public class ShopController {
     model.addAttribute("li", service.getOrderList(vo));
 
     return "/shop/getOrderList";
+  }
+
+  @GetMapping("/getDetailOrderList.do")
+  String getDetailOrderList(Model model, OrderVO vo) {
+    System.out.println("@#$@#$" + service.getDetailOrderList(vo));
+    model.addAttribute("li", service.getDetailOrderList(vo));
+
+    return "/shop/getDetailOrderList";
   }
 }

@@ -67,6 +67,7 @@
 				<c:forEach items="${ li }" var="m" varStatus="status">
 					<c:set var="order_price" value="${order_price + m.product_price}"></c:set>
 					<input type="hidden" name="order_idx" value="${ order_idx }" />
+					<input type="hidden" name="member_idx" value="${ m.member_idx }" />
 					<input type="hidden" name="cart_idx" value="${ m.cart_idx }" />
 					<input type="hidden" name="product_idx" value="${ m.product_idx }" />
 					<input type="hidden" name="product_name" value="${ m.product_name }" />

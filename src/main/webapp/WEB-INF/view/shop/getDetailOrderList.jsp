@@ -14,32 +14,44 @@
 <section>
 	<br>
 	<div align=center>
-		<h3>주문 목록</h3>
+		<h3>주문서</h3>
 		<br>
 		<form name="f1">
 			<table border=1>
+			  <c:forEach items="${li}" var="m" varStatus="status" begin="0" end="0">
+					<tr>
+						<td colspan="9">
+							<p>주문자: ${m.username} (이름: ${m.name}) &emsp;&emsp; 연락처: ${m.phone}</p>
+							<p>주소: (${m.postcode}) ${m.address}, ${m.detailAddress}</p>
+							<p>주문일: ${m.order_today}</p>
+						</td>
+					</tr>
+				</c:forEach>
 				<tr>
 					<td>order_id</td>
-					<td>memberId</td>
-					<td>username</td>
-					<td>price</td>
-					<td>order_today</td>
-					<!-- <td>삭제</td> -->
+					<td>cart_id</td>
+					<td>member_id</td>
+					<td>product_id</td>
+					<td>img</td>
+					<td>product_name</td>
+					<td>amount</td>
+					<td>order_price</td>
 				</tr>
 				<c:forEach items="${ li }" var="m" varStatus="status">
 					<c:set var="order_price" value="${order_price + m.product_price}"></c:set>
 					<tr>
-						<td><a href="/getDetailOrderList.do?order_idx=${m.order_idx}">${ m.order_idx }</a></td>
+						<td>${ m.order_idx }</td>
+						<td>${ m.cart_idx }</td>
 						<td>${ m.member_idx }</td>
-						<td>${ m.username }</td>
+						<td>${ m.product_idx }</td>
+						<td><img src="/img/shop/${m.product_imgStr}" alt="image" width="50" height="50"></td>
+						<td>${ m.product_name }</td>
+						<td>${ m.product_amount }</td>
 						<td>
 							<span id="${m.product_idx}_price">
 								<fmt:formatNumber value="${m.product_price}" pattern="#,##0"/>
 							</span>원
-						</td>
-						<td>${ m.order_today }</td>
-						<!-- <td><input type="button" onclick="location.href='/cartDelete.do?cart_idx=${m.cart_idx}'" value="삭제"> -->
-						</td>
+					  </td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty li}">

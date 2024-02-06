@@ -14,8 +14,12 @@ public class OrderVO { // 70001
 	private int product_amount;
 	private int product_price;
 	private int order_price;
+	private String username;
 	private String name;
 	private String phone;
+	private String postcode;
+	private String address;
+	private String detailAddress;
 	private String etc;
 	private String order_today;
 	private MultipartFile product_img;

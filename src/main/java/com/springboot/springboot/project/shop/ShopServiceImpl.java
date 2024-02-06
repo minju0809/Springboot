@@ -86,4 +86,9 @@ public class ShopServiceImpl implements ShopService {
     return dao.getOrderList(vo);
   }
 
+  @Override
+  public List<OrderVO> getDetailOrderList(OrderVO vo) {
+    return dao.getDetailOrderList(vo);
+  }
+
 }

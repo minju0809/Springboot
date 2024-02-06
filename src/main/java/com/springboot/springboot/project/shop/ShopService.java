@@ -23,4 +23,5 @@ public interface ShopService {
   void orderInsert(OrderVO vo);
   List<OrderVO> adminGetOrderList(OrderVO vo);
   List<OrderVO> getOrderList(OrderVO vo);
+  List<OrderVO> getDetailOrderList(OrderVO vo);
 }
