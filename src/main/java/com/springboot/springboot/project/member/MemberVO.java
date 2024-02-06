@@ -20,9 +20,6 @@ public class MemberVO {
     
     private String ch1;
     private String ch2;
-
-    private String order_idx;
-    private String order_today;
   
     private int memo_idx;
     private String memo;

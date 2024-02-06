@@ -210,7 +210,6 @@ public class ShopController {
 
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     vo.setMember_idx(mvo.getMember_idx());
-    System.out.println();
     model.addAttribute("li", service.getOrderList(vo));
 
     return "/shop/getOrderList";
@@ -218,7 +217,7 @@ public class ShopController {
 
   @GetMapping("/getDetailOrderList.do")
   String getDetailOrderList(Model model, OrderVO vo) {
-    System.out.println("@#$@#$" + service.getDetailOrderList(vo));
+    
     model.addAttribute("li", service.getDetailOrderList(vo));
 
     return "/shop/getDetailOrderList";

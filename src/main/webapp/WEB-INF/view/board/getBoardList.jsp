@@ -13,7 +13,7 @@
     <div class="board-container">
       <c:forEach items="${li}" var="record">
         <div class="board" onclick="location.href='/getBoard.do?board_idx=${record.board_idx}&start=${start}&ch1=${ch1}&ch2=${ch2}'">
-          <img class="img" src="/img/board/${record.board_imgStr}" alt="image" width="100">
+          <img class="img" src="/img/board/${record.board_imgStr}" alt="image" width="100" height="80">
           <div class="board-content">
             <p>제목: ${record.board_title}</p>
             <p>조회수: ${record.board_cnt}</p>
@@ -57,7 +57,7 @@
             </c:choose>
           </td>
           <td>
-            <img src="/img/board/${record.board_imgStr}" alt="image" width="50">
+            <img src="/img/board/${record.board_imgStr}" alt="image" width="50" height="40">
           </td>
           <td>${record.board_today.substring(0, 10)}</td>
         </tr>
