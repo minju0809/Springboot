@@ -22,9 +22,9 @@
     parameterType="com.springboot.springboot.project.board.BoardVO">
 
     insert into board
-    (board_idx, member_idx, member_name, board_title, board_content, board_imgStr) 
+    (board_idx, member_idx, member_name, board_map, board_title, board_content, board_imgStr) 
     values ((select nvl(max(board_idx), 90000) + 1 from board), #{member_idx}, #{member_name},
-    #{board_title}, #{board_content}, #{board_imgStr})
+    #{board_map}, #{board_title}, #{board_content}, #{board_imgStr})
   </insert>
   
  </mapper>

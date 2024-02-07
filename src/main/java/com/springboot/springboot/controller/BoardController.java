@@ -35,8 +35,17 @@ public class BoardController {
     return "/board/getBoardList";
   }
 
+  @GetMapping("/getBoard.do")
+  String getBoard(Model model, BoardVO vo) {
+    
+    model.addAttribute("board", service.getBoard(vo));
+    return "/board/getBoard";
+  }
+
   @GetMapping("/m/boardForm.do")
-  String boardForm() {
+  String boardForm(Model model) {
+
+    model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
 
     return "/board/boardForm";
   }
