@@ -19,6 +19,7 @@
 					<ul class="list">
 						<li><a class="button" href="/">시작으로</a></li>
 						<li><a class="button" href="/jsp.do">홈으로</a></li>
+						<li><a class="button" href="https://firstnumberbaseballgame.netlify.app/" target="_blank">야구게임</a></li>
 					</ul>
 				</div>
 				<div class="list-container">

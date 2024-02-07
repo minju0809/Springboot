@@ -52,61 +52,61 @@
     #pagination .on {font-weight: bold; cursor: default;color:#777;}
   </style>
 
-    <section>
-      <br>
-      <div align=center>
-        <h2>게시 글 등록</h2>
-        <br>
-        <form action="/m/boardInsert.do" method="post" enctype="multipart/form-data">
-          <table border="1" width="600px">
-            <tr>
-              <td colspan="2">
-                <div class="map_wrap">
-                  <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-              
-                  <div id="menu_wrap" class="bg_white">
-                      <div class="option">
-                              키워드 : <input type="text" value="신림" id="keyword" size="15"> 
-                              <button type="button" onclick="searchPlaces()">검색하기</button> 
-                      </div>
-                      <hr>
-                      <ul id="placesList"></ul>
-                      <div id="pagination"></div>
+<section>
+  <br>
+  <div align=center>
+    <h2>게시 글 등록</h2>
+    <br>
+    <form action="/m/boardInsert.do" method="post" enctype="multipart/form-data">
+      <table border="1" width="600px">
+        <tr>
+          <td colspan="2">
+            <div class="map_wrap">
+              <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+          
+              <div id="menu_wrap" class="bg_white">
+                  <div class="option">
+                          키워드 : <input type="text" value="신림" id="keyword" size="15"> 
+                          <button type="button" onclick="searchPlaces()">검색하기</button> 
                   </div>
+                  <hr>
+                  <ul id="placesList"></ul>
+                  <div id="pagination"></div>
               </div>
-                  <p>
-                    <em>지도를 마우스로 클릭하면 선 그리기가 시작되고<br>오른쪽 마우스를 클릭하면 선 그리기가 종료됩니다</em>
-                  </p>
-              </td>
-            </tr>
-            <tr>
-              <th>총 이동거리</th>
-              <td><input type="text" name="board_map"></td>
-            </tr>
-            <tr>
-              <th>제목</th>
-              <td><input type="text" name="board_title"></td>
-            </tr>
-            <tr>
-              <th>내용</th>
-              <td><textarea cols="30" rows="5" name="board_content"></textarea></td>
-            </tr>
-            <tr>
-              <th>사진</th>
-              <td>
-                <input type="file" name="board_img">
-              </td>
-            </tr>
-            <tr>
-              <td align="center" colspan="2"><input type="submit" value="저장하기"></td>
-            </tr>
-          </table>
-        </form>
-      </div>
-      <br>
-    </section>
+          </div>
+              <p>
+                <em>지도를 마우스로 클릭하면 선 그리기가 시작되고<br>오른쪽 마우스를 클릭하면 선 그리기가 종료됩니다</em>
+              </p>
+          </td>
+        </tr>
+        <tr>
+          <th>총 이동거리</th>
+          <td><input type="text" name="board_map"></td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td><input type="text" name="board_title"></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td><textarea cols="30" rows="5" name="board_content"></textarea></td>
+        </tr>
+        <tr>
+          <th>사진</th>
+          <td>
+            <input type="file" name="board_img">
+          </td>
+        </tr>
+        <tr>
+          <td align="center" colspan="2"><input type="submit" value="저장하기"></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <br>
+</section>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
 <script>
 
   // 마커를 담을 배열입니다
@@ -133,6 +133,7 @@ var moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그
 var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
 var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
 var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
+
 
 // 지도에 클릭 이벤트를 등록합니다
 // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
@@ -334,9 +335,10 @@ function displayCircleDot(position, distance) {
         // 이동거리를 입력란에 업데이트합니다
         updateBoardMap(distance);
     }
-
+    console.log(dots);
     // 배열에 추가합니다
     dots.push({circle:circleOverlay, distance: distanceOverlay});
+    // dots.push({position: position, distance: distance});
 }
 
 // 클릭 지점에 대한 정보 (동그라미와 클릭 지점까지의 총거리)를 지도에서 모두 제거하는 함수입니다
@@ -404,6 +406,7 @@ function updateBoardMap(distance) {
     boardMapInput.value = distance + "m";
   }
 }
+
 
 // 검색을 처리하는 함수
 function searchPlaces() {
