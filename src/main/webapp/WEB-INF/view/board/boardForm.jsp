@@ -55,10 +55,12 @@
 <section>
   <br>
   <div align=center>
+    <br>
     <h2>게시 글 등록</h2>
     <br>
     <form action="/m/boardInsert.do" method="post" enctype="multipart/form-data">
-      <table border="1" width="600px">
+      <input type="hidden" id="map_dot" name="map_dot"></input>
+      <table border="1" width="600px">  
         <tr>
           <td colspan="2">
             <div class="map_wrap">
@@ -133,15 +135,15 @@ var moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그
 var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
 var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
 var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
-
+var dotsString = "";
 
 // 지도에 클릭 이벤트를 등록합니다
 // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-
+  
     // 마우스로 클릭한 위치입니다 
     var clickPosition = mouseEvent.latLng;
-
+    console.log("================+++", clickPosition);
     // 지도 클릭이벤트가 발생했는데 선을 그리고있는 상태가 아니면
     if (!drawingFlag) {
 
@@ -335,10 +337,13 @@ function displayCircleDot(position, distance) {
         // 이동거리를 입력란에 업데이트합니다
         updateBoardMap(distance);
     }
-    console.log(dots);
+    console.log(circleOverlay.getPosition());
     // 배열에 추가합니다
-    dots.push({circle:circleOverlay, distance: distanceOverlay});
-    // dots.push({position: position, distance: distance});
+    // dots.push({circle:circleOverlay, distance: distanceOverlay});
+    dots.push({position});
+    dotsString = JSON.stringify(dots);
+    document.querySelector("#map_dot").value = dotsString;
+    console.log("dotsString" , dotsString);
 }
 
 // 클릭 지점에 대한 정보 (동그라미와 클릭 지점까지의 총거리)를 지도에서 모두 제거하는 함수입니다

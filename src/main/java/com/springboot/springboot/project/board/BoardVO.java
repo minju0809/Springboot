@@ -12,6 +12,7 @@ public class BoardVO {
   private String board_title;
   private String board_content;
   private String board_map;
+  private String map_dot;
   private String board_imgStr;
   private MultipartFile board_img;
   private String board_today;

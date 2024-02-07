@@ -8,6 +8,7 @@
 <section>
   <br>
   <div align=center>
+    <br>
     <h2>게시판 목록</h2>
     <br>
     <div class="board-container">
@@ -22,47 +23,7 @@
         </div>
       </c:forEach>
     </div>
-    <table border="1">
-      <tr>
-        <th colspan="7">
-          <div style="text-align: right; float: right;">
-            <a class="button" href="/m/boardForm.do"> 글쓰기 </a>
-          </div>
-        </th>
-      </tr>
-
-      <tr>
-        <th>번호</th>
-        <th>이름</th>
-        <th>제목</th>
-        <th>내용</th>
-        <th>사진</th>
-        <th>날짜</th>
-      </tr>
-      <c:forEach items="${li}" var="record">
-        <tr>
-          <td>${record.board_idx}</td>
-          <td><a class="button"
-              href="getBoard.do?board_idx=${record.board_idx}&start=${start}&ch1=${ch1}&ch2=${ch2}">${record.member_name}</a>
-          </td>
-          <td>${record.board_title}</td>
-          <td>
-            <c:choose>
-              <c:when test="${fn:length(record.board_content) > 10}">
-                ${fn:substring(record.board_content, 0, 10)}...
-              </c:when>
-              <c:otherwise>
-                ${record.board_content}
-              </c:otherwise>
-            </c:choose>
-          </td>
-          <td>
-            <img src="/img/board/${record.board_imgStr}" alt="image" width="50" height="40">
-          </td>
-          <td>${record.board_today.substring(0, 10)}</td>
-        </tr>
-      </c:forEach>
-    </table>
+    <br>
     <form action="getBoardList.do">
       <select name="ch1">
         <option value="board_title">제목</option>
