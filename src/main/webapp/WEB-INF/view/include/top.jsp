@@ -20,6 +20,9 @@
 						<li><a class="button" href="/">시작으로</a></li>
 						<li><a class="button" href="/jsp.do">홈으로</a></li>
 						<li><a class="button" href="https://firstnumberbaseballgame.netlify.app/" target="_blank">야구게임</a></li>
+						<c:if test="${session.username eq 'admin'}">
+							<li><a class="button" href="/a/dashboard.do">대시보드</a></li>
+						</c:if>
 					</ul>
 				</div>
 				<div class="list-container">
@@ -34,7 +37,7 @@
 					<ul class="list">
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
-						
+
 						<c:set var="cartListUrl" value="" />
 						<c:choose>
 							<c:when test="${session.username eq 'admin'}">
