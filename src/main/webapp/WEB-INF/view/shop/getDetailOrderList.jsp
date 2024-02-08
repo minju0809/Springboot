@@ -17,7 +17,7 @@
 		<h3>주문서</h3>
 		<br>
 		<form name="f1">
-			<table border=1>
+			<table class="basic-table">
 			  <c:forEach items="${li}" var="m" varStatus="status" begin="0" end="0">
 					<tr>
 						<td colspan="9">

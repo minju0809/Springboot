@@ -11,7 +11,7 @@
   <div align=center>
     <h2>상품 목록</h2>
     <br>
-    <table border="1">
+    <table class="basic-table">
       <tr>
         <th>번호</th>
         <th>이름</th>

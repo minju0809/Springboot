@@ -23,7 +23,7 @@
   <div align=center>
     <h2>방명록 목록</h2>
     <br>
-    <table border="1">
+    <table class="basic-table">
       <tr>
         <th colspan="7">
           <div style="text-align: left; float: left;">

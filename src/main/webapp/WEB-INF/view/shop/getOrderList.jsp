@@ -17,7 +17,7 @@
 		<h3>주문 목록</h3>
 		<br>
 		<form name="f1">
-			<table border=1>
+			<table class="basic-table">
 				<tr>
 					<td>order_id</td>
 					<td>memberId</td>

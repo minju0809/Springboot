@@ -53,7 +53,7 @@
 		<h3>장바구니 목록</h3>
 		<br>
 		<form name="f1" method="post" enctype="multipart/form-data">
-			<table border=1>
+			<table class="basic-table">
 				<tr>
 					<td>cart_id</td>
 					<td>img</td>
