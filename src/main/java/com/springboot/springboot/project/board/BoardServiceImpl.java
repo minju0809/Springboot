@@ -28,5 +28,10 @@ public class BoardServiceImpl implements BoardService{
 
     dao.boardInsert(vo);
   }
+
+  @Override
+  public void boardCnt(BoardVO vo) {
+    dao.boardCnt(vo);
+  }
   
 }

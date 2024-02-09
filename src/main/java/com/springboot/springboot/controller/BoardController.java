@@ -38,6 +38,7 @@ public class BoardController {
   @GetMapping("/getBoard.do")
   String getBoard(Model model, BoardVO vo) {
     
+    service.boardCnt(vo);
     model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
     model.addAttribute("board", service.getBoard(vo));
     return "/board/getBoard";

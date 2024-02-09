@@ -11,4 +11,6 @@ public interface BoardDao {
   BoardVO getBoard(BoardVO vo);
 
   void boardInsert(BoardVO vo);
+
+  void boardCnt(BoardVO vo);
 }

@@ -26,6 +26,12 @@
     values ((select nvl(max(board_idx), 90000) + 1 from board), #{member_idx}, #{member_name},
     #{board_map}, #{map_dot}, #{board_title}, #{board_content}, #{board_imgStr})
   </insert>
-  
+
+  <update id="boardCnt"
+    parameterType="com.springboot.springboot.project.board.BoardVO">
+
+    update board set board_cnt = board_cnt + 1 where board_idx = #{board_idx}
+  </update>
+
  </mapper>
 
