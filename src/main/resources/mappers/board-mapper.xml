@@ -8,7 +8,28 @@
     parameterType="com.springboot.springboot.project.board.BoardVO"
     resultType="com.springboot.springboot.project.board.BoardVO">
 
-    select * from board order by board_idx desc
+    <!-- select * from board order by board_idx desc -->
+    <![CDATA[
+				select * from board where 1=1
+		]]>
+		<if test="ch1=='member_name'">
+		<![CDATA[
+			and member_name like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='board_title'">
+		<![CDATA[	
+			and board_title like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='board_content'">
+		<![CDATA[
+			and board_content like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<![CDATA[
+			order by board_idx desc
+		]]>
   </select>
 
   <select id="getBoard"
