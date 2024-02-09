@@ -39,7 +39,6 @@
         <th>이름</th>
         <th class="memo">메모</th>
         <th>날짜</th>
-        <th>삭제</th>
       </tr>
       <tr th:each="record : ${li}">
         <td th:text="${record.rownum}"></td>
@@ -55,9 +54,6 @@
             th:utext="${record.guestbook_memo.length() > 10 ? record.guestbook_memo.subSequence(0, 10) + '...' : record.guestbook_memo}"></span>
         </td>
         <td th:text="${record.guestbook_today}"></td>
-        <td>
-          <a href="#" th:onclick="|confirmDelete('${record.guestbook_idx}'); return false;|">삭제</a>
-        </td>
       </tr>
     </table>
 

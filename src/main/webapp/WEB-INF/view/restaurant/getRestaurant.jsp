@@ -20,6 +20,14 @@
               <td>${restaurant.rstrRoadAddr}</td>
             </tr>
             <tr>
+              <th>식당번호</th>
+              <td>${restaurant.rstrTelNo}</td>
+            </tr>
+            <tr>
+              <th>식당홈페이지</th>
+              <td>${restaurant.rstrUrl}</td>
+            </tr>
+            <tr>
               <th>메뉴이름</th>
               <td>
                 <c:choose>
@@ -35,6 +43,10 @@
             <tr>
               <th>메뉴가격</th>
               <td>${restaurant.rstrMenuPri}</td>
+            </tr>
+            <tr>
+              <th>코스정보</th>
+              <td>${restaurant.description}</td>
             </tr>
           </table>
         </div>

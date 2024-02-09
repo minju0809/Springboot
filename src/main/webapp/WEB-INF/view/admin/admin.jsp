@@ -86,18 +86,8 @@
             <td>${ m.member_idx }</td>
             <td>${ m.product_idx }</td>
             <td>${ m.product_name }</td>
-            <td>
-              <select name="product_amount"
-                onchange="onAmountChange(this, `${m.product_idx}`,`${m.product_price}`,`${m.product_amount}`)">
-                <option value="1" ${m.product_amount==1 ? 'selected' : '' }>1</option>
-                <option value="2" ${m.product_amount==2 ? 'selected' : '' }>2</option>
-                <option value="3" ${m.product_amount==3 ? 'selected' : '' }>3</option>
-                <option value="4" ${m.product_amount==4 ? 'selected' : '' }>4</option>
-                <option value="5" ${m.product_amount==5 ? 'selected' : '' }>5</option>
-              </select>
-            </td>
-            <td><input id=${m.product_idx}_price type="text" name="product_price" value="${ m.product_price }"
-                readonly></td>
+            <td>${m.product_amount}</td>
+            <td>${ m.product_price }</td>
           </tr>
         </c:forEach>
         <c:if test="${empty cartList}">

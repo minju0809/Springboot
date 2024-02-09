@@ -6,9 +6,9 @@
 <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
 <section>
-	<br>
+	<br><br><br><br>
 	<div align=center>
-		<h1>권한 없음</h1>
+		<h1>관리자만 접근할 수 있습니다.</h1>
 	</div>	
 	<br>
 </section>

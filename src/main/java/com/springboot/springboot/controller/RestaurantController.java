@@ -88,18 +88,19 @@ public class RestaurantController {
       if (!processedAddresses.contains(rstrRoadAddr)) {
         processedAddresses.add(rstrRoadAddr);
 
-        String title = itemElement.getElementsByTagName("title").item(0).getTextContent();
         String rstrNm = itemElement.getElementsByTagName("rstrNm").item(0).getTextContent();
-        String rights = itemElement.getElementsByTagName("rights").item(0).getTextContent();
+        String rstrTelNo = itemElement.getElementsByTagName("rstrTelNo").item(0).getTextContent();
+        String rstrUrl = itemElement.getElementsByTagName("rstrUrl").item(0).getTextContent();
         String rstrMenuNm = itemElement.getElementsByTagName("rstrMenuNm").item(0).getTextContent();
         String rstrMenuPri = itemElement.getElementsByTagName("rstrMenuPri").item(0).getTextContent();
         String description = itemElement.getElementsByTagName("description").item(0).getTextContent();
 
         RestaurantVO restaurantVO = new RestaurantVO();
         restaurantVO.setIdx(i);
-        restaurantVO.setTitle(title);
         restaurantVO.setRstrNm(rstrNm);
-        restaurantVO.setRights(rights);
+        restaurantVO.setRstrTelNo(rstrTelNo);
+        restaurantVO.setRstrUrl(rstrUrl);
+        restaurantVO.setRstrNm(rstrNm);
         restaurantVO.setRstrMenuNm(rstrMenuNm);
         restaurantVO.setRstrMenuPri(rstrMenuPri);
         restaurantVO.setRstrRoadAddr(rstrRoadAddr);

@@ -17,6 +17,7 @@
           <img class="img" src="/img/board/${record.board_imgStr}" alt="image" width="100" height="80">
           <div class="board-content">
             <p>제목: ${record.board_title}</p>
+            <p>작성자: ${record.member_name}</p>
             <p>조회수: ${record.board_cnt}</p>
             <p>등록일: ${record.board_today.substring(0, 10)}</p>
           </div>
