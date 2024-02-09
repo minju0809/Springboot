@@ -20,7 +20,7 @@
             <input type="submit" value="검색">
           </form>
           <br>
-          <table border="1">
+          <table class="basic-table">
             <tr>
               <th>번호</th>
               <th>식당명</th>

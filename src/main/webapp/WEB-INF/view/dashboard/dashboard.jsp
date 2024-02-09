@@ -16,7 +16,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="./css/dashboard.css" />
   </head>
 
   <body>
@@ -24,7 +24,7 @@
       <aside>
         <div class="top">
           <div class="logo">
-            <img src="../img/dashboard/수박.jpeg" alt="" />
+            <img src="./img/dashboard/수박.jpeg" alt="" />
             <h2 class="title">
               <span class="success">Dash</span>board
             </h2>
@@ -177,7 +177,7 @@
               <small class="text-muted">Admin</small>
             </div>
             <div class="profile-photo">
-              <img src="../img/dashboard/셔틀콕.jpeg" alt="" />
+              <img src="./img/dashboard/셔틀콕.jpeg" alt="" />
             </div>
           </div>
         </div>
@@ -188,7 +188,7 @@
           <div class="updates">
             <div class="update">
               <div class="profile-photo">
-                <img src="../img/dashboard/바나나.jpeg" alt="" />
+                <img src="./img/dashboard/바나나.jpeg" alt="" />
               </div>
               <div class="message">
                 <p>
@@ -200,7 +200,7 @@
             </div>
             <div class="update">
               <div class="profile-photo">
-                <img src="../img/dashboard/포도.jpeg" alt="" />
+                <img src="./img/dashboard/포도.jpeg" alt="" />
               </div>
               <div class="message">
                 <p><b>Lina</b> declined her order of 2 DJI Air 2S.</p>
@@ -262,7 +262,7 @@
     </div>
 
     <!-- script 불러오는 순서 중요! order가 밑으로 가면 orders를 못 불러옴-->
-    <script src="../js/orders.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="./js/orders.js"></script>
+    <script src="./js/dashboard.js"></script>
   </body>
 </html>

@@ -101,20 +101,7 @@ public class ShopController {
       service.cartUpdate(cartVO);
     }
 
-    if (mvo.getRole().equals("ROLE_ADMIN")) {
-      return "redirect:/adminGetCartList.do?member_idx=" + midx;
-    } else {
-      return "redirect:/getCartList.do?member_idx=" + midx;
-    }
-  }
-
-  @GetMapping("/adminGetCartList.do")
-  String adminGetCartList(Model model, CartVO vo) {
-
-    model.addAttribute("order_idx", service.order_idx(null));
-    model.addAttribute("li", service.adminGetCartList(vo));
-
-    return "/shop/getCartList";
+    return "redirect:/getCartList.do?member_idx=" + midx;
   }
 
   @GetMapping("/getCartList.do")
@@ -197,14 +184,6 @@ public class ShopController {
     }
   }
 
-  @GetMapping("/adminGetOrderList.do")
-  String adminGetOrderList(Model model, OrderVO vo) {
-
-    model.addAttribute("li", service.adminGetOrderList(vo));
-
-    return "/shop/getOrderList";
-  }
-
   @GetMapping("/getOrderList.do")
   String getOrderList(Model model, OrderVO vo) {
 
@@ -217,7 +196,7 @@ public class ShopController {
 
   @GetMapping("/getDetailOrderList.do")
   String getDetailOrderList(Model model, OrderVO vo) {
-    
+
     model.addAttribute("li", service.getDetailOrderList(vo));
 
     return "/shop/getDetailOrderList";

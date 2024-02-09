@@ -10,6 +10,10 @@
 			<meta charset="UTF-8">
 			<title>스프링 게시판</title>
 			<link type="text/css" rel="stylesheet" href="/css/style.css" />
+			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" />
+			<link rel="stylesheet"
+				href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 		</head>
 
 		<body>
@@ -20,9 +24,7 @@
 						<li><a class="button" href="/">시작으로</a></li>
 						<li><a class="button" href="/jsp.do">홈으로</a></li>
 						<li><a class="button" href="https://firstnumberbaseballgame.netlify.app/" target="_blank">야구게임</a></li>
-						<c:if test="${session.username eq 'admin'}">
-							<li><a class="button" href="/a/dashboard.do">대시보드</a></li>
-						</c:if>
+						<li><a class="button" href="/dashboard.do" target="_blank">대시보드</a></li>
 					</ul>
 				</div>
 				<div class="list-container">
@@ -37,25 +39,6 @@
 					<ul class="list">
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
-
-						<c:set var="cartListUrl" value="" />
-						<c:choose>
-							<c:when test="${session.username eq 'admin'}">
-								<c:set var="cartListUrl" value="/adminGetCartList.do" />
-							</c:when>
-							<c:otherwise>
-								<c:set var="cartListUrl" value="/getCartList.do" />
-							</c:otherwise>
-						</c:choose>
-						<c:set var="orderListUrl" value="" />
-						<c:choose>
-							<c:when test="${session.username eq 'admin'}">
-								<c:set var="orderListUrl" value="/adminGetOrderList.do" />
-							</c:when>
-							<c:otherwise>
-								<c:set var="orderListUrl" value="/getOrderList.do" />
-							</c:otherwise>
-						</c:choose>
 					</ul>
 				</div>
 				<div class="list-container">
@@ -75,9 +58,9 @@
 				</div>
 				<c:if test="${session.username eq 'admin'}">
 					<div class="list-container">
-						<h4>맴버</h4>
+						<h4>관리자</h4>
 						<ul class="list">
-							<li><a class="button" href="/a/getMemberList.do"> 맴버목록 </a></li>
+							<li><a class="button" href="/a/admin.do"> 관리페이지 </a></li>
 						</ul>
 					</div>
 				</c:if>
@@ -108,10 +91,12 @@
 									</a>
 								</li>
 								<c:if test="${not empty session.username}">
-									<li><a class="button" href="<c:out value='${cartListUrl}'/>">장바구니</a></li>
+									<li><a class="button" href="/getCartList.do">장바구니</a></li>
 								</c:if>
+
+
 								<c:if test="${not empty session.username}">
-									<li><a class="button" href="<c:out value='${orderListUrl}'/>">주문확인</a></li>
+									<li><a class="button" href="/getOrderList.do">주문확인</a></li>
 								</c:if>
 								<li class="menu6">
 									<a href="/logout">

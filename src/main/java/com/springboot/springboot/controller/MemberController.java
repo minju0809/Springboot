@@ -23,14 +23,6 @@ public class MemberController {
   @Autowired
 	private PasswordEncoder encoder;
 
-  @GetMapping("/a/getMemberList.do")
-  String getMemberList(Model model, MemberVO vo) {
-
-    model.addAttribute("li", service.getMemberList(vo));
-    
-    return "/member/getMemberList";
-  } 
-
   @GetMapping("/getMember.do")
   String getMember(Model model, MemberVO vo) {
 
