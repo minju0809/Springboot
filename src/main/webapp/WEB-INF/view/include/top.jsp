@@ -8,7 +8,7 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<title>스프링 게시판</title>
+			<title>Portfolio</title>
 			<link type="text/css" rel="stylesheet" href="/css/style.css" />
 			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" />
 			<link rel="stylesheet"
@@ -70,12 +70,12 @@
 							<h4>로그인</h4>
 							<ul class="list">
 								<li><a class="button" href="/memberForm.do"> 회원가입 </a></li>
-								<li class="menu5">
+								<li>
 									<a href="/login.do">
 										<span>로그인</span>
 									</a>
 								</li>
-								<li class="menu6">
+								<li>
 									<a href="/logout">
 										<span>로그아웃</span>
 									</a>
@@ -93,12 +93,10 @@
 								<c:if test="${not empty session.username}">
 									<li><a class="button" href="/getCartList.do">장바구니</a></li>
 								</c:if>
-
-
 								<c:if test="${not empty session.username}">
 									<li><a class="button" href="/getOrderList.do">주문확인</a></li>
 								</c:if>
-								<li class="menu6">
+								<li>
 									<a href="/logout">
 										<span>로그아웃</span>
 									</a>
@@ -108,3 +106,4 @@
 					</c:choose>
 				</div>
 			</nav>
+
