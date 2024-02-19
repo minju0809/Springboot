@@ -5,13 +5,14 @@
   <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
   <section>
-    <br>
+    <br><br>
     <div align=center>
       <h2>상품 상세보기</h2>
+      <br>
       <form id="addToCartForm" action="cartAdd.do" method="post" enctype="multipart/form-data">
         <input type="hidden" name="product_imgStr" value="${product.product_imgStr}">
         <input type="hidden" id="loginCheck" value="${empty session.username}">
-        <table border="1">
+        <table class="another-table">
           <tr>
             <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" width="300"></td>
           </tr>
@@ -59,12 +60,10 @@
         var loginCheck = document.getElementById("loginCheck").value;
 
         if (loginCheck === "true") {
-            // Show alert and redirect to login page
             if (confirm("로그인이 되어 있지 않습니다. 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?")) {
-                window.location.href = '/login.do'; // Change the URL to your login page
+                window.location.href = '/login.do'; 
             }
         } else {
-            // Submit the form if the user is logged in
             document.getElementById("addToCartForm").submit();
         }
     }

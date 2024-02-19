@@ -6,11 +6,11 @@
       <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
       <section>
-        <br>
+        <br><br>
         <div align=center>
           <h2>마이페이지</h2>
           <br>
-          <table border="1">
+          <table class="another-table">
             <tr>
               <th>번호</th>
               <td>${member.member_idx}</td>

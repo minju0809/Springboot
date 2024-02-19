@@ -7,7 +7,7 @@
 <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
 <section>
-  <br>
+  <br><br>
   <div align=center>
     <h2>상품 목록</h2>
     <br>

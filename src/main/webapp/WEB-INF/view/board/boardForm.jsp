@@ -55,12 +55,12 @@
 <section>
   <br>
   <div align=center>
-    <br>
+    <br><br>
     <h2>게시 글 등록</h2>
     <br>
     <form action="/m/boardInsert.do" method="post" enctype="multipart/form-data">
       <input type="hidden" id="map_dot" name="map_dot"></input>
-      <table border="1" width="600px">  
+      <table class="another-table" width="800px">  
         <tr>
           <td colspan="2">
             <div class="map_wrap">
@@ -412,13 +412,11 @@ function updateBoardMap(distance) {
   }
 }
 
-
 // 검색을 처리하는 함수
 function searchPlaces() {
   var keyword = document.getElementById('keyword').value;
 
   if (!keyword.replace(/^\s+|\s+$/g, '')) {
-      // alert('키워드를 입력해주세요!');
       return false;
   }
 

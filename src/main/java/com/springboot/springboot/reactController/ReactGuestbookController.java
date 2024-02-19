@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +28,6 @@ public class ReactGuestbookController {
     int pageListSize = 10;
     int totalCount = service.getTotalCount(vo);
 
-    System.out.println("!@#@@@@@@@@@@@@@@@@" + vo.getStart());
     if (vo.getStart() == 0) {
       start = 1;
     } else {
@@ -45,7 +43,6 @@ public class ReactGuestbookController {
     int listEndPage = listStartPage + pageListSize - 1;
 
     vo.setStart(start);
-    System.out.println("@@@@@@@@@@@@@@@@" + vo.getStart());
     vo.setPageSize(pageSize);
     vo.setEnd(end);
 

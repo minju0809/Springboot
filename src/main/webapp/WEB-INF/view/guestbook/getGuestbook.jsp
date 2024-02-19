@@ -5,14 +5,15 @@
   <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
   <section>
-    <br>
+    <br><br>
     <div align=center>
       <h2>방명록 상세보기</h2>
+      <br>
       <form action="guestbookUpdate.do">
         <input type="hidden" name="start" value="${param.start}">
         <input type="hidden" name="ch1" value="${param.ch1}">
         <input type="hidden" name="ch2" value="${param.ch2}">
-        <table border="1">
+        <table class="another-table">
           <tr>
             <th>번호</th>
             <td><input type="text" name="guestbook_idx" value="${guestbook.guestbook_idx}" readonly></td>

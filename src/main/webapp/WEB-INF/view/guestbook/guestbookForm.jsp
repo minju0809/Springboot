@@ -5,11 +5,12 @@
     <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
     <section>
-      <br>
+      <br><br>
       <div align=center>
         <h2>방명록 입력</h2>
+        <br>
         <form action="guestbookInsert.do">
-          <table border="1">
+          <table class="another-table">
             <tr>
               <th>이름</th>
               <td><input type="text" name="guestbook_name"></td>

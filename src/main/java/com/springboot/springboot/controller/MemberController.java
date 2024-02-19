@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.springboot.springboot.project.member.MemberService;
 import com.springboot.springboot.project.member.MemberVO;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -58,3 +57,4 @@ public class MemberController {
     }
   }
 }
+

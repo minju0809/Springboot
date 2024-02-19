@@ -92,8 +92,6 @@ public class ShopController {
     int midx = mvo.getMember_idx();
     cartVO.setMember_idx(midx);
 
-    System.out.println("!!!!!!!!!!!!!!!cartVO: " + cartVO);
-
     CartVO cvo = service.cartCheck(cartVO);
     if (cvo == null) {
       service.cartInsert(cartVO);
@@ -178,7 +176,7 @@ public class ShopController {
     }
 
     if (mvo.getRole().equals("ROLE_A")) {
-      return "redirect:/adminGetOrderList.do";
+      return "redirect:/a/admin.do";
     } else {
       return "redirect:/getOrderList.do?member_idx=" + midx;
     }

@@ -6,11 +6,11 @@
 
     <section>
       <div align="center">
-        <br>
+        <br><br>
         <h2>로그인 화면</h2>
         <br>
         <form method="post">
-          <table border="1">
+          <table class="another-table">
             <tr>
               <th>아이디</th>
               <th><input type="text" name="username" value="lina"></th>
@@ -20,7 +20,7 @@
               <th><input type="text" name="password" value="1234"></th>
             </tr>
             <tr>
-              <th colspan="2" align="center"><input type="submit" value="로그인"></th>
+              <td colspan="2" align="center"><input type="submit" value="로그인"></td>
             </tr>
           </table>      
         </form>

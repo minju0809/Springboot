@@ -12,7 +12,7 @@
 </script>
 
 <section>
-	<br>
+	<br><br>
 	<div align=center>
 		<h3>주문 목록</h3>
 		<br>
@@ -24,7 +24,6 @@
 					<td>username</td>
 					<td>price</td>
 					<td>order_today</td>
-					<!-- <td>삭제</td> -->
 				</tr>
 				<c:forEach items="${ li }" var="m" varStatus="status">
 					<c:set var="order_price" value="${order_price + m.product_price}"></c:set>
@@ -38,7 +37,6 @@
 							</span>원
 						</td>
 						<td>${ m.order_today }</td>
-						<!-- <td><input type="button" onclick="location.href='/cartDelete.do?cart_idx=${m.cart_idx}'" value="삭제"> -->
 						</td>
 					</tr>
 				</c:forEach>

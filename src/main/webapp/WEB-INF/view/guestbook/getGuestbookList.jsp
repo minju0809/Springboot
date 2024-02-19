@@ -27,7 +27,7 @@
       <tr>
         <th colspan="7">
           <div style="text-align: left; float: left;">
-              <a class="button" href="guestbookAdd.do"> 방명록 추가 </a>
+              <a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a>
           </div>
           <div style="text-align: right; float: right;">
               <a class="button" href="guestbookForm.do"> 글쓰기 </a>

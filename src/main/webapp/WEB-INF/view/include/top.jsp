@@ -52,8 +52,8 @@
 					<h4>방명록</h4>
 					<ul class="list">
 						<li><a class="button" href="/getGuestbookList.do"> 목록보기 </a></li>
-						<li><a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a></li>
 						<li><a class="button" href="/guestbookForm.do"> 글쓰기 </a></li>
+						<li><a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a></li>
 					</ul>
 				</div>
 				<c:if test="${session.username eq 'admin'}">

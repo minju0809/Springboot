@@ -43,9 +43,7 @@
         </div>
       </div>
     </div>
-    
     <br>
-    
   </div>
 </section>
 

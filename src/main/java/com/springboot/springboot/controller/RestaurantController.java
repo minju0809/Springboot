@@ -139,7 +139,6 @@ public class RestaurantController {
     List<RestaurantVO> restaurantList = processApiData();
     restaurantList = filterRestaurantList(restaurantList, ch1, ch2);
 
-    // System.out.println("@" + ch1 + "::" + ch2 + "@");
     model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
     model.addAttribute("ch1", ch1);
     model.addAttribute("ch2", ch2);
@@ -155,7 +154,6 @@ public class RestaurantController {
     List<RestaurantVO> restaurantList = processApiData();
     restaurantList = filterRestaurantList(restaurantList, ch1, ch2);
 
-    // System.out.println("@" + ch1 + "::" + ch2 + "@");
     model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
     model.addAttribute("ch1", ch1);
     model.addAttribute("ch2", ch2);
@@ -177,10 +175,8 @@ public class RestaurantController {
           .orElse(null);
 
       if (restaurant != null) {
-        // Add the selected RestaurantVO to the model
         model.addAttribute("restaurant", restaurant);
       } else {
-        // Handle the case where the specified index is not found
         model.addAttribute("error", "Restaurant not found");
       }
 
@@ -188,7 +184,7 @@ public class RestaurantController {
     } catch (Exception e) {
       // Handle exceptions
       model.addAttribute("error", "Error retrieving restaurant");
-      return "/errorPage"; // Provide a custom error page
+      return "/errorPage"; 
     }
   }
 }

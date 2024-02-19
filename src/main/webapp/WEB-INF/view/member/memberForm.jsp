@@ -5,11 +5,12 @@
 <c:import url="${path}/WEB-INF/view/include/top.jsp" />
 
 <section>
-  <br>
+  <br><br>
   <div align=center>
     <h2>회원가입</h2>
+    <br>
     <form name="f1" action="/memberInsert.do">
-      <table border="1">
+      <table class="another-table">
         <tr>
           <th>아이디</th>
           <td>

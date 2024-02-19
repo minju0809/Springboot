@@ -5,7 +5,7 @@
 
 <section>
   <div align="center">
-    <br>
+    <br><br>
     <h2>로그인 성공</h2>
     <br>
   </div>

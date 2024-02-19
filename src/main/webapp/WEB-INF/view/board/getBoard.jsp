@@ -65,12 +65,11 @@
   }
 </style>
 <section>
-  <br>
   <div align=center>
-    <br>
+    <br><br>
     <h2>게시판 상세보기</h2>
     <br>
-    <table border="1">
+    <table class="another-table">
       <tr>
         <td colspan="2">
           <div id="map" style="width:700px;height:500px;position:relative;overflow:hidden;"></div>
