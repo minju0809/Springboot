@@ -72,6 +72,18 @@ h2 {
 	font-size: 1.8rem;
 }
 
+.background {
+		/* 배경 이미지 설정 */
+		background-image: url('/img/background/paris.jpeg');
+		/* 이미지가 꽉 차도록 배경 설정 */
+		/* background-size: cover; */
+		/* 이미지가 반복되지 않도록 설정 */
+		background-repeat: no-repeat;
+		/* 배경 이미지가 중앙 정렬되도록 설정 */
+		background-position: center;
+		opacity: 0.9;
+}
+
 /* 원 큰 모드 */
 /* Timer */
 .timer {

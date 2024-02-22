@@ -4,7 +4,7 @@
 
 <c:import url="/WEB-INF/view/include/top.jsp" />
 
-<section>
+<section class="background">
   <div class="start-container" align=center>
     <!-- <div>
       <a href="#" class="logo" onmouseover="changeText()" onmouseout="resetText()">
