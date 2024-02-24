@@ -19,7 +19,7 @@
   color:#ddaf35;
   float: left;
   width: 100%;
-  padding: 30px;
+  padding: 10px 30px;
 }
 .main-wrap{
   text-align: center;
@@ -32,7 +32,7 @@
 .main-date{
   font-size: 120px;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 0;
 }
 .todo-wrap{
   padding: 0 0 0 40px;

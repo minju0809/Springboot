@@ -77,7 +77,7 @@ function prev() {
 function next() {
     today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); // 다음 월로 변경
     updateCalendar();
-    reshowingList(); // 다음 월로 변경 시 todo 리스트 다시 표시
+    reshowingList(); // 다음 월로 변경 시 todo 리스트 다시 표시wkr
 }
 
 
