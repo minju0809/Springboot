@@ -54,5 +54,19 @@
     update board set board_cnt = board_cnt + 1 where board_idx = #{board_idx}
   </update>
 
+  <update id="boardUpdate"
+    parameterType="com.springboot.springboot.project.board.BoardVO">
+
+    update board set board_title = #{board_title}, board_content = #{board_content},
+    board_imgStr = #{board_imgStr} 
+    where board_idx = #{board_idx}
+  </update>
+
+  <delete id="boardDelete"
+    parameterType="com.springboot.springboot.project.board.BoardVO">
+
+    delete from board where board_idx = #{board_idx}
+  </delete>
+
  </mapper>
 

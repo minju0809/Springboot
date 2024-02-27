@@ -64,52 +64,79 @@
     content: none;
   }
 </style>
+
 <section>
   <div align=center>
     <br><br>
     <h2>게시판 상세보기</h2>
     <br>
-    <table class="another-table">
-      <tr>
-        <td colspan="2">
-          <div id="map" style="width:700px;height:500px;position:relative;overflow:hidden;"></div>
-        </td>
-      </tr>
-      <tr>
-        <th>번호</th>
-        <td>${board.board_idx}</td>
-      </tr>
-      <tr>
-        <th>이름</th>
-        <td>${board.member_name}</td>
-      </tr>
-      <tr>
-        <th>제목</th>
-        <td>${board.board_title}</td>
-      </tr>
-      <tr>
-        <th>내용</th>
-        <td>${board.board_content}</td>
-      </tr>
-      <tr>
-        <th>총 이동거리</th>
-        <td>${board.board_map}</td>
-      </tr>
-      <tr>
-        <th>사진</th>
-        <td>
-          <img src="/img/board/${board.board_imgStr}" alt="image" width="50" height="40">
-        </td>
-      </tr>
-      <tr>
-        <th>날짜</th>
-        <td>${board.board_today}</td>
-      </tr>
-    </table>
+    <form method="post" action="/m/boardUpdate.do" enctype="multipart/form-data">
+      <input type="hidden" name="board_idx" value="${board.board_idx}">
+      <input type="hidden" name="board_imgStr" value="${board.board_imgStr}">
+      <table class="another-table">
+        <tr>
+          <td colspan="3">
+            <div id="map" style="width:700px;height:400px;position:relative;overflow:hidden;"></div>
+          </td>
+        </tr>
+        <tr>
+          <th>번호</th>
+          <td>${board.board_idx}</td>
+          <td rowspan="7">
+            <img src="/img/board/${board.board_imgStr}" alt="image" width="300" height="300">
+          </td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td>${board.member_name}</td>
+        </tr>
+        <tr>
+          <th>제목</th>
+          <td><input type="text" name="board_title" value="${board.board_title}" /></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td>
+            <textarea rows="5" cols="30" name="board_content">${board.board_content}</textarea>
+          </td>
+        </tr>
+        <tr>
+          <th>사진수정</th>
+          <td>
+            <input type="file" name="board_img">
+          </td>
+        </tr>
+        <tr>
+          <th>총 이동거리</th>
+          <td>${board.board_map}</td>
+        </tr>
+        <tr>
+          <th>날짜</th>
+          <td>${board.board_today}</td>
+        </tr>
+        <c:if test="${board.member_name eq session.name}">
+          <tr>
+            <td colspan="3" align="center">
+              <input type="submit" value="수정">
+              <input type="button" value="삭제" onclick="boardDelete()">
+            </td>
+          </tr>
+        </c:if>
+      </table>
+    </form>
   </div>
   <br>
 </section>
 
+<script>
+  function boardDelete() {
+    var result = confirm("정말로 삭제하시겠습니까?");
+      if (result) {
+        location.href = '/m/boardDelete.do?board_idx=${board.board_idx}';
+      }
+      return result;
+  }
+</script>
 <script type="text/javascript"
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
 <script>

@@ -52,10 +52,13 @@ public class BoardController {
     return "/board/boardForm";
   }
 
+  String path = "";
+  String timeStr = "";
+
   @PostMapping("/m/boardInsert.do")
   String boardInsert(BoardVO vo) throws Exception {
 
-    String path = request.getSession().getServletContext().getRealPath("/img/board/");
+    path = request.getSession().getServletContext().getRealPath("/img/board/");
     System.out.println("path: " + path);
     // path: /Users/minju/Springboot/src/main/webapp/img/board/
 
@@ -67,7 +70,7 @@ public class BoardController {
 
     long time = System.currentTimeMillis();
     SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
-    String timeStr = sdf.format(time);
+    timeStr = sdf.format(time);
 
     MultipartFile file = vo.getBoard_img();
     String fileName = file.getOriginalFilename();
@@ -86,8 +89,63 @@ public class BoardController {
 
     vo.setBoard_imgStr(fileName);
     
-    System.out.println("vo: " + vo);
     service.boardInsert(vo);
+
+    return "redirect:/getBoardList.do";
+  }
+
+  @PostMapping("/m/boardUpdate.do")
+  String boardUpdate(BoardVO vo) throws Exception {
+
+    path = request.getSession().getServletContext().getRealPath("/img/board/");
+
+    long time = System.currentTimeMillis();
+    SimpleDateFormat daytime = new SimpleDateFormat("HHmmss");
+    timeStr = daytime.format(time);
+
+    MultipartFile board_img = vo.getBoard_img();
+    String fileName = board_img.getOriginalFilename();
+    File f = new File(path + fileName);
+
+    if(!board_img.isEmpty()) {
+      // 기존 파일 이름이 space.png가 아니면 삭제
+      if (vo.getBoard_imgStr() != null && !vo.getBoard_imgStr().equals("space.png")) {
+        File delF = new File(path + vo.getBoard_imgStr());
+        delF.delete();
+    }
+
+      // 동일한 파일이 존재 하면 중복 처리
+      if(f.exists()) {
+        String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
+        String extension = fileName.substring(fileName.lastIndexOf("."));
+        fileName = onlyFileName + "_" + timeStr + extension;
+      }
+      board_img.transferTo(new File(path + fileName));
+    } else {
+      // 첨부파일이 없으면
+      fileName = vo.getBoard_imgStr();
+
+    }
+    vo.setBoard_imgStr(fileName);
+
+    service.boardUpdate(vo);
+
+    return "redirect:/getBoardList.do";
+  }
+
+  @GetMapping("/m/boardDelete.do")
+  String boardDelete(BoardVO vo) {
+    vo = service.getBoard(vo);
+
+    String delFile = vo.getBoard_imgStr();
+    String path = request.getSession().getServletContext().getRealPath("/img/board/");
+    File f = new File(path + delFile);
+
+    if(!delFile.equals("space.png")) {
+      f.delete();
+    }
+
+    service.boardDelete(vo);
 
     return "redirect:/getBoardList.do";
   }
