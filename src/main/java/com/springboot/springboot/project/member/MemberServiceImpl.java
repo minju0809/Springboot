@@ -27,8 +27,28 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
+  public MemberVO uuidCk(MemberVO vo) {
+    return dao.uuidCk(vo);
+  }
+
+  @Override
+  public void kakaoInsert(MemberVO vo) {
+    dao.kakaoInsert(vo);
+  }
+
+  @Override
   public MemberVO login(MemberVO vo) {
     return dao.login(vo);
+  }
+
+  @Override
+  public MemberVO kakaoLogin(MemberVO vo) {
+    return dao.kakaoLogin(vo);
+  }
+
+  @Override
+  public void kakaoUpdate(MemberVO vo) {
+    dao.kakaoUpdate(vo);
   }
 
   @Override
@@ -36,5 +56,4 @@ public class MemberServiceImpl implements MemberService {
     dao.updateAll(vo);
   }
 
-  
 }

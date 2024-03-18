@@ -20,7 +20,12 @@
               <th><input type="text" name="password" value="1234"></th>
             </tr>
             <tr>
-              <td colspan="2" align="center"><input type="submit" value="로그인"></td>
+              <td colspan="2" align="center">
+                <input type="submit" value="로그인">
+                <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${rest_api_key}&redirect_uri=${redirect_uri}">
+                  <img src="/img/kakao_login_small.png" alt="kakao">
+                </a>
+              </td>
             </tr>
           </table>      
         </form>

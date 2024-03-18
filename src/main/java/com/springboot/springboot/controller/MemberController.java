@@ -26,12 +26,13 @@ public class MemberController {
   String getMember(Model model, MemberVO vo) {
 
     model.addAttribute("member", service.getMember(vo));
-    
+
     return "/member/getMember";
   } 
 
   @GetMapping("/memberForm.do")
   String memberForm(Model model) {
+
 
     return "/member/memberForm";
   } 
@@ -43,6 +44,23 @@ public class MemberController {
     service.memberInsert(vo);
 
     return "redirect:/login.do";
+  } 
+
+  @GetMapping("/kakaoForm.do")
+  String kakaoForm(Model model) {
+    System.out.println("kakaoForm check");
+    return "/member/kakaoForm";
+  } 
+
+  @GetMapping("/kakaoUpdate.do")
+  String kakaoInsert(MemberVO vo) {
+
+    vo.setPassword(encoder.encode(vo.getPassword()));
+    service.kakaoUpdate(vo);
+
+    System.out.println("kakao update vo: " + vo);
+
+    return "redirect:/loginSuccess.do?member_idx=" + vo.getMember_idx();
   } 
 
   @GetMapping("/usernameCk.do")

@@ -18,6 +18,8 @@ public class MemberVO {
     private String regdate;
     private String etc;
     
+    private String uuid;
+    
     private String ch1;
     private String ch2;
   

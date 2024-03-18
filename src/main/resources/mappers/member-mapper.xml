@@ -51,10 +51,35 @@
   </select>
 
   <insert id="memberInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
+
       insert into member (member_idx, username, password, name, phone, email, postcode, address, detailAddress, extraAddress, etc) 
       values ((select nvl(max(member_idx), 9999) + 1 from member), #{username}, #{password}, 
         #{name}, #{phone}, #{email}, #{postcode}, #{address}, #{detailAddress}, #{extraAddress}, #{etc})
   </insert>
+
+	<select id="uuidCk"
+    parameterType="com.springboot.springboot.project.member.MemberVO"
+    resultType="com.springboot.springboot.project.member.MemberVO">
+
+      select * from member where uuid = #{uuid}
+  </select>
+
+	<insert id="kakaoInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
+
+      insert into member (member_idx, uuid) 
+      values ((select nvl(max(member_idx), 9999) + 1 from member), #{uuid})
+  </insert>
+
+	<update id="kakaoUpdate"
+		parameterType="com.springboot.springboot.project.member.MemberVO">
+
+		update member set username = #{username}, password = #{password},
+		name = #{name}, phone = #{phone}, email = #{email}, 
+		postcode = #{postcode}, address = #{address}, 
+		detailAddress = #{detailAddress}, 
+		extraAddress = #{extraAddress}, etc = #{etc}
+		where member_idx = #{member_idx}
+	</update>
 
 	<update id="updateAll"
 		parameterType="com.springboot.springboot.project.member.MemberVO">

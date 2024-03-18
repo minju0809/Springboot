@@ -137,8 +137,8 @@ public class BoardController {
   String boardDelete(BoardVO vo) {
     vo = service.getBoard(vo);
 
+    path = request.getSession().getServletContext().getRealPath("/img/board/");
     String delFile = vo.getBoard_imgStr();
-    String path = request.getSession().getServletContext().getRealPath("/img/board/");
     File f = new File(path + delFile);
 
     if(!delFile.equals("space.png")) {

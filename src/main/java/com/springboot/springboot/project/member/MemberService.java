@@ -7,7 +7,12 @@ public interface MemberService {
   MemberVO getMember(MemberVO vo);
 
   void memberInsert(MemberVO vo);
+  MemberVO uuidCk(MemberVO vo);
+  void kakaoInsert(MemberVO vo);
 
   MemberVO login(MemberVO vo);
+  MemberVO kakaoLogin(MemberVO vo);
+
+  void kakaoUpdate(MemberVO vo);
   void updateAll(MemberVO vo);
 }

@@ -7,14 +7,21 @@
 <section>
   <br><br>
   <div align=center>
-    <h2>회원가입</h2>
+    <h2>추가정보입력</h2>
     <br>
-    <form name="f1" id="registrationForm" action="/memberInsert.do">
+    <form name="f1" id="registrationForm" action="/kakaoUpdate.do">
+      <input type="hidden" name="member_idx" value="${param.member_idx}">
       <table class="another-table">
+        <tr>
+          <th>닉네임</th>
+          <td>
+            <input type="text" id="nickname" name="nickname" value="${nickname}" readonly>
+          </td>
+        </tr>
         <tr>
           <th>아이디</th>
           <td>
-            <input type="text" id="username" name="username" value="${nickname}">
+            <input type="text" id="username" name="username">
             <input type="button" id="usernameBtn" value="중복체크">
           </td>
         </tr>
