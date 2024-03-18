@@ -45,7 +45,14 @@
       <c:forEach items="${memberList}" var="record">
         <tr>
           <td>${record.member_idx}</td>
-          <td><a href="/getMember.do?member_idx=${record.member_idx}">${record.username}</a></td>
+          <td>
+            <a href="/getMember.do?member_idx=${record.member_idx}">
+              <c:if test="${not empty record.uuid}">
+                <span class="warning">(카)</span>
+              </c:if>
+              ${record.username}
+            </a>
+          </td>
           <td>${record.password.substring(0,10)}...</td>
           <td>${record.role}</td>
           <td>${record.name}</td>

@@ -21,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.springboot.springboot.project.member.MemberService;
 import com.springboot.springboot.project.member.MemberVO;
 
@@ -166,7 +165,6 @@ public class SecurityController {
         int member_idx = member.getMember_idx();
 
         service.getMember(member);
-        System.out.println("아이디 있는지 확인: " + service.getMember(member));
         if (member.getUsername() == null) {
           // 아이디가 없으면
           return "redirect:/kakaoForm.do?member_idx=" + member_idx;
@@ -179,22 +177,23 @@ public class SecurityController {
   }
 
   @GetMapping("/loginSuccess.do")
-  String loginSuccess(Principal user, @RequestParam("member_idx") String memberIdx) {
+  String loginSuccess(Principal user, @RequestParam(value = "member_idx", required = false) String memberIdx) {
+    // 기본적으로 @RequestParam 어노테이션을 사용할 때 파라미터는 필수적으로 요청되어야 함
+    // required = false를 사용하면 해당 요청 파라미터가 요청에 포함되지 않아도 핸들러 메서드가 호출 됨
+    // 선택적인 요청 파라미터에 대해 유연하게 처리 가능
     MemberVO vo = new MemberVO();
     
     if (user != null) {
       System.out.println("===> loginSuccess.do: " + user.getName());
-
       vo.setUsername(user.getName());
-  
-      session.setAttribute("session", service.login(vo));
-      System.out.println("login: " + service.login(vo));
 
+      MemberVO member = service.login(vo);
+  
+      session.setAttribute("session", member);
     } else {
       vo.setMember_idx(Integer.parseInt(memberIdx));
-      service.getMember(vo);
-      System.out.println("vo: " + service.getMember(vo));
-      session.setAttribute("session", service.getMember(vo));
+      MemberVO member = service.getMember(vo);
+      session.setAttribute("session", member);
     }
     return "/login/loginSuccess";
   }

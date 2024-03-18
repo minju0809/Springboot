@@ -81,6 +81,16 @@
 		where member_idx = #{member_idx}
 	</update>
 
+	<update id="memberUpdate"
+		parameterType="com.springboot.springboot.project.member.MemberVO">
+
+		update member set name = #{name}, phone = #{phone}, email = #{email}, 
+		postcode = #{postcode}, address = #{address}, 
+		detailAddress = #{detailAddress}, 
+		extraAddress = #{extraAddress}, etc = #{etc}
+		where member_idx = #{member_idx}
+	</update>
+
 	<update id="updateAll"
 		parameterType="com.springboot.springboot.project.member.MemberVO">
 

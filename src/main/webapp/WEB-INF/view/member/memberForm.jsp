@@ -12,19 +12,20 @@
     <form name="f1" id="registrationForm" action="/memberInsert.do">
       <table class="another-table">
         <tr>
-          <th>아이디</th>
+          <th>아이디</th> 
           <td>
             <input type="text" id="username" name="username" value="${nickname}">
             <input type="button" id="usernameBtn" value="중복체크">
+            <span class="warning">필수입력</span>
           </td>
         </tr>
         <tr>
           <th>암호</th>
-          <td><input type="text" id="password" name="password"></td>
+          <td><input type="text" id="password" name="password"><span class="warning">필수입력</span></td>
         </tr>
         <tr>
           <th>이름</th>
-          <td><input type="text" id="name" name="name"></td>
+          <td><input type="text" id="name" name="name"><span class="warning">필수입력</span></td>
         </tr>
         <tr>
           <th>번호</th>

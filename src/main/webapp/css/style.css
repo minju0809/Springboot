@@ -9,6 +9,7 @@
 
 	--main-color: #474747;
 	--button-color: #000;
+	--warning-color: red;
 
 	--color-info-light: #dce1eb;
 	--color-light: rgba(132, 139, 200, 0.18);
@@ -71,6 +72,7 @@ h2 {
 	font-weight: 800;
 	font-size: 1.8rem;
 }
+
 
 .background {
 		/* 배경 이미지 설정 */
@@ -240,6 +242,12 @@ td {
 
 .memo {
 	width: 170px;
+}
+
+.warning {
+	color: var(--warning-color);
+	padding: 4px;
+	font-size: medium;
 }
 
 p {

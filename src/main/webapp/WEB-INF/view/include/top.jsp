@@ -83,7 +83,14 @@
 							</ul>
 						</c:when>
 						<c:otherwise>
-							<h4>${session.username}(${session.name})</h4>
+							<c:choose>
+								<c:when test="${not empty nickname}">
+									<h4>${session.username}(${nickname})</h4>
+								</c:when>
+								<c:otherwise>
+									<h4>${session.username}(${session.name})</h4>
+								</c:otherwise>
+							</c:choose>
 							<ul class="list">
 								<li>
 									<a href="/getMember.do?member_idx=${session.member_idx}">
@@ -106,4 +113,3 @@
 					</c:choose>
 				</div>
 			</nav>
-

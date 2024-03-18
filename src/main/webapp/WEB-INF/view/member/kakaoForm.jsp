@@ -13,7 +13,8 @@
       <input type="hidden" name="member_idx" value="${param.member_idx}">
       <table class="another-table">
         <tr>
-          <th>닉네임</th>
+          <th>닉네임
+          </th>
           <td>
             <input type="text" id="nickname" name="nickname" value="${nickname}" readonly>
           </td>
@@ -23,15 +24,16 @@
           <td>
             <input type="text" id="username" name="username">
             <input type="button" id="usernameBtn" value="중복체크">
+            <span class="warning">필수입력</span>
           </td>
         </tr>
         <tr>
           <th>암호</th>
-          <td><input type="text" id="password" name="password"></td>
+          <td><input type="text" id="password" name="password"><span class="warning">필수입력</span></td>
         </tr>
         <tr>
           <th>이름</th>
-          <td><input type="text" id="name" name="name"></td>
+          <td><input type="text" id="name" name="name"><span class="warning">필수입력</span></td>
         </tr>
         <tr>
           <th>번호</th>

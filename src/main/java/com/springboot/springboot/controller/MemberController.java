@@ -33,7 +33,6 @@ public class MemberController {
   @GetMapping("/memberForm.do")
   String memberForm(Model model) {
 
-
     return "/member/memberForm";
   } 
 
@@ -48,7 +47,7 @@ public class MemberController {
 
   @GetMapping("/kakaoForm.do")
   String kakaoForm(Model model) {
-    System.out.println("kakaoForm check");
+
     return "/member/kakaoForm";
   } 
 
@@ -73,6 +72,14 @@ public class MemberController {
     } else {
       out.print("F");
     }
+  }
+
+  @GetMapping("/memberUpdate.do")
+  String memberUpdate(MemberVO vo) {
+
+    service.memberUpdate(vo);
+
+    return "redirect:/getMember.do?member_idx=" + vo.getMember_idx();
   }
 }
 
