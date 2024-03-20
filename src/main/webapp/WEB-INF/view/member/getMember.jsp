@@ -19,10 +19,11 @@
           font-size: 16px;
         }
 
-        input[type="submit"] {
+        input[type="submit"],
+        input[type="button"] {
           background-color: #4CAF50;
           color: white;
-          padding: 10px 20px;
+          padding: 8px 20px;
           border: none;
           border-radius: 5px;
           cursor: pointer;
@@ -105,6 +106,7 @@
               <tr>
                 <td colspan="2" align="center">
                   <input type="submit" value="수정">
+                  <input type="button" value="탈퇴" onclick="memberDelete('${member.member_idx}')">
                 </td>
               </tr>
             </table>
@@ -112,6 +114,14 @@
         </div>
         <br>
       </section>
+
+      <script>
+        function memberDelete(member_idx) {
+          if(confirm("정말 탈퇴하시겠습니까?")) {
+           window.location.href="/memberDelete.do?member_idx=" + member_idx;
+          }
+        }
+      </script>
 
       <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
       <script>

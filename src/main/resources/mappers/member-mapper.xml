@@ -97,5 +97,11 @@
 		update member set password = #{password} 
 	</update>
 
+	<delete id="memberDelete"
+		parameterType="com.springboot.springboot.project.member.MemberVO">
+
+		delete from member where member_idx = #{member_idx}
+	</delete>
+
  </mapper>
 

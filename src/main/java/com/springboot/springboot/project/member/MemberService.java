@@ -16,4 +16,6 @@ public interface MemberService {
   void kakaoUpdate(MemberVO vo);
   void updateAll(MemberVO vo);
   void memberUpdate(MemberVO vo);
+
+  void memberDelete(int member_idx);
 }

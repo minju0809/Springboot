@@ -81,5 +81,12 @@ public class MemberController {
 
     return "redirect:/getMember.do?member_idx=" + vo.getMember_idx();
   }
+
+  @GetMapping("/memberDelete.do")
+  String memberDelete(int member_idx) {
+
+    service.memberDelete(member_idx);
+    return "redirect:/logout";
+  }
 }
 

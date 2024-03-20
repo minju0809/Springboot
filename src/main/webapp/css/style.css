@@ -356,7 +356,8 @@ li:last-child {
 	/* 요소들이 넘치면 다음 줄로 이동하도록 설정 */
 	flex-wrap: wrap;
 	display: flex;
-	justify-content: space-around;
+	/* justify-content: space-around; */
+	justify-content: start;
 }
 
 .board {
@@ -365,7 +366,7 @@ li:last-child {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
-	margin-bottom: 0.7rem;
+	margin: 4px;
 	padding: 1.4rem var(--card-padding);
 	border-radius: var(--border-radius-3);
 	box-shadow: var(--box-shadow);
