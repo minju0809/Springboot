@@ -40,12 +40,7 @@ public class MemberServiceImpl implements MemberService {
   public MemberVO login(MemberVO vo) {
     return dao.login(vo);
   }
-
-  @Override
-  public MemberVO kakaoLogin(MemberVO vo) {
-    return dao.kakaoLogin(vo);
-  }
-
+  
   @Override
   public void kakaoUpdate(MemberVO vo) {
     dao.kakaoUpdate(vo);

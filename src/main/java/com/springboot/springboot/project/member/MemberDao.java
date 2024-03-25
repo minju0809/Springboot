@@ -14,7 +14,6 @@ public interface MemberDao {
   void kakaoInsert(MemberVO vo);
 
   MemberVO login(MemberVO vo);
-  MemberVO kakaoLogin(MemberVO vo);
 
   void kakaoUpdate(MemberVO vo);
   void updateAll(MemberVO vo);

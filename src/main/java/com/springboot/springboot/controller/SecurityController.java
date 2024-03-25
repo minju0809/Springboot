@@ -36,61 +36,62 @@ public class SecurityController {
   private MemberService service;
 
   private final String rest_api_key = "bca2874a60dd557309b92b2eb396f029";
-  private final String redirect_uri = "http://localhost:8081/kakaoLogin.do";
+  private final String redirect_uri = "http://localhost:8081/login.do";
   // private final String redirect_uri =
   // "http://localhost:8081/login/oauth2/code/kakao";
 
   @GetMapping("/login.do")
-  String login(Model model) {
+  String login(Model model, @RequestParam(value = "code", required = false) String code, MemberVO vo) {
     System.out.println("===> index.do");
+    System.out.println("redirect_uri: " + redirect_uri);
+    System.out.println("code: " + code);
 
-    model.addAttribute("rest_api_key", rest_api_key);
-    model.addAttribute("redirect_uri", redirect_uri);
+    if (code == null) {
+      model.addAttribute("rest_api_key", rest_api_key);
+      model.addAttribute("redirect_uri", redirect_uri);
 
-    return "/login/login";
-  }
+      return "/login/login";
 
-  // @PostMapping("/login/oauth2/code/kakao")
-  @GetMapping("/kakaoLogin.do")
-  public String kakaoCallback(@RequestParam("code") String code, MemberVO vo) {
-    String accessToken = getAccessToken(code);
+    } else {
+      String accessToken = getAccessToken(code);
 
-    RestTemplate restTemplate = new RestTemplate();
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("Authorization", "Bearer " + accessToken);
-    headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+      RestTemplate restTemplate = new RestTemplate();
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("Authorization", "Bearer " + accessToken);
+      headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-    HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-    ResponseEntity<String> response = restTemplate.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
-        httpEntity, String.class);
-    // System.out.println("==========================================> " +
-    // response);
-    // Jackson ObjectMapper를 사용하여 JSON 문자열을 Map 객체로 변환
-    try {
-      ObjectMapper objectMapper = new ObjectMapper();
-      Map<String, Object> responseMap = objectMapper.readValue(response.getBody(),
-          new TypeReference<Map<String, Object>>() {
-          });
+      HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
+      ResponseEntity<String> response = restTemplate.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST,
+          httpEntity, String.class);
+      // System.out.println("==========================================> " +
+      // response);
+      // Jackson ObjectMapper를 사용하여 JSON 문자열을 Map 객체로 변환
+      try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> responseMap = objectMapper.readValue(response.getBody(),
+            new TypeReference<Map<String, Object>>() {
+            });
 
-      Map<String, Object> kakaoAccount = (Map<String, Object>) responseMap.get("kakao_account");
-      Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
-      String nickname = (String) profile.get("nickname");
-      System.out.println("======================+> " + nickname);
+        Map<String, Object> kakaoAccount = (Map<String, Object>) responseMap.get("kakao_account");
+        Map<String, Object> profile = (Map<String, Object>) kakaoAccount.get("profile");
+        String nickname = (String) profile.get("nickname");
+        System.out.println("======================+> " + nickname);
 
-      session.setAttribute("nickname", nickname);
-      System.out.println("token: " + accessToken);
-      // MemberVO uuidCk = service.uuidCk(vo);
-      // String uuid = uuidCk.getUuid();
-      // System.out.println("uuid!!!: " + uuid);
-      // if (uuid == null) {
-      // System.out.println("kakao!!!: " + service.uuidCk(vo));
-      // service.kakaoInsert(vo);
-      // }
+        session.setAttribute("nickname", nickname);
+        System.out.println("token: " + accessToken);
+        // MemberVO uuidCk = service.uuidCk(vo);
+        // String uuid = uuidCk.getUuid();
+        // System.out.println("uuid!!!: " + uuid);
+        // if (uuid == null) {
+        // System.out.println("kakao!!!: " + service.uuidCk(vo));
+        // service.kakaoInsert(vo);
+        // }
 
-    } catch (Exception err) {
-      System.out.println("======================+> 실패");
+      } catch (Exception err) {
+        System.out.println("======================+> 실패");
+      }
+      return "/member/kakaoCk";
     }
-    return "/member/kakaoCk";
   }
 
   private String getAccessToken(String code) {
@@ -182,17 +183,20 @@ public class SecurityController {
     // required = false를 사용하면 해당 요청 파라미터가 요청에 포함되지 않아도 핸들러 메서드가 호출 됨
     // 선택적인 요청 파라미터에 대해 유연하게 처리 가능
     MemberVO vo = new MemberVO();
-    
+
     if (user != null) {
       System.out.println("===> loginSuccess.do: " + user.getName());
-      vo.setUsername(user.getName());
+      // vo.setUsername(user.getName());
 
-      MemberVO member = service.login(vo);
-  
-      session.setAttribute("session", member);
+      // MemberVO member = service.login(vo);
+      // System.out.println("member: " + member);
+
+      // session.setAttribute("session", member);
     } else {
       vo.setMember_idx(Integer.parseInt(memberIdx));
       MemberVO member = service.getMember(vo);
+      System.out.println("kakaoMember: " + member);
+
       session.setAttribute("session", member);
     }
     return "/login/loginSuccess";
