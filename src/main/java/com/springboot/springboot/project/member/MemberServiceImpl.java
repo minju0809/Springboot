@@ -61,4 +61,19 @@ public class MemberServiceImpl implements MemberService {
     dao.memberDelete(member_idx);
   }
 
+  @Override
+  public void boardDeleteByMemberIdx(int member_idx) {
+    dao.boardDeleteByMemberIdx(member_idx);
+  }
+
+  @Override
+  public void cartDeleteByMemberIdx(int member_idx) {
+    dao.cartDeleteByMemberIdx(member_idx);
+  }
+
+  @Override
+  public void orderDeleteByMemberIdx(int member_idx) {
+    dao.orderDeleteByMemberIdx(member_idx);
+  }
+
 }

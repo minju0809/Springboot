@@ -85,7 +85,11 @@ public class MemberController {
   @GetMapping("/memberDelete.do")
   String memberDelete(int member_idx) {
 
+    service.boardDeleteByMemberIdx(member_idx);
+    service.cartDeleteByMemberIdx(member_idx);
+    service.orderDeleteByMemberIdx(member_idx);
     service.memberDelete(member_idx);
+    
     return "redirect:/logout";
   }
 }

@@ -117,7 +117,7 @@
 
       <script>
         function memberDelete(member_idx) {
-          if(confirm("정말 탈퇴하시겠습니까?")) {
+          if(confirm("작성한 게시글과 장바구니 등 모든 글이 삭제됩니다. 정말 탈퇴하시겠습니까?")) {
            window.location.href="/memberDelete.do?member_idx=" + member_idx;
           }
         }

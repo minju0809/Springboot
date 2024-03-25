@@ -103,5 +103,20 @@
 		delete from member where member_idx = #{member_idx}
 	</delete>
 
+	<!-- board 테이블에서 member_idx를 참조하는 레코드 삭제 -->
+	<delete id="boardDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
+			DELETE FROM board WHERE member_idx = #{member_idx}
+	</delete>
+
+	<!-- cart 테이블에서 member_idx를 참조하는 레코드 삭제 -->
+	<delete id="cartDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
+			DELETE FROM cart WHERE member_idx = #{member_idx}
+	</delete>
+
+	<!-- order 테이블에서 member_idx를 참조하는 레코드 삭제 -->
+	<delete id="orderDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
+			DELETE FROM orderTbl WHERE member_idx = #{member_idx}
+	</delete>
+
  </mapper>
 

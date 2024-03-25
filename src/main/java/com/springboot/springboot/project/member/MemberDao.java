@@ -20,4 +20,7 @@ public interface MemberDao {
   void memberUpdate(MemberVO vo);
 
   void memberDelete(int member_idx);
+  void boardDeleteByMemberIdx(int member_idx);
+  void cartDeleteByMemberIdx(int member_idx);
+  void orderDeleteByMemberIdx(int member_idx);
 }
