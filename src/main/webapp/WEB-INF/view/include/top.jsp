@@ -45,7 +45,15 @@
 					<h4>게시판</h4>
 					<ul class="list">
 						<li><a class="button" href="/getBoardList.do"> 목록보기 </a></li>
-						<li><a class="button" href="/m/boardForm.do"> 글쓰기 </a></li>
+						<c:choose>
+							<c:when test="${empty session.uuid}">
+								<c:set var="formUrl" value="/m/boardForm.do" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="formUrl" value="/kakaoBoardForm.do" />
+							</c:otherwise>
+						</c:choose>
+						<li><a class="button" href="${formUrl}"> 글쓰기 </a></li>
 					</ul>
 				</div>
 				<div class="list-container">

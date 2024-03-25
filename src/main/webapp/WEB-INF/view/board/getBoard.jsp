@@ -70,7 +70,9 @@
     <br><br>
     <h2>게시판 상세보기</h2>
     <br>
-    <form method="post" action="/m/boardUpdate.do" enctype="multipart/form-data">
+    <c:set var="updateUrl" value="${empty session.uuid ? '/m/boardUpdate.do' : '/kakaoBoardUpdate.do' }" />
+
+    <form method="post" action="${updateUrl}" enctype="multipart/form-data">
       <input type="hidden" name="board_idx" value="${board.board_idx}">
       <input type="hidden" name="board_imgStr" value="${board.board_imgStr}">
       <table class="another-table">
@@ -132,7 +134,14 @@
   function boardDelete() {
     var result = confirm("정말로 삭제하시겠습니까?");
       if (result) {
-        location.href = '/m/boardDelete.do?board_idx=${board.board_idx}';
+        <c:choose>
+          <c:when test="${empty session.uuid}">
+            location.href = '/m/boardDelete.do?board_idx=${board.board_idx}';
+          </c:when>
+          <c:otherwise>
+            location.href = '/kakaoBoardDelete.do?board_idx=${board.board_idx}';
+          </c:otherwise>
+        </c:choose>
       }
       return result;
   }

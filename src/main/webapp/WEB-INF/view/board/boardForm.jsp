@@ -58,7 +58,9 @@
     <br><br>
     <h2>게시 글 등록</h2>
     <br>
-    <form action="/m/boardInsert.do" method="post" enctype="multipart/form-data">
+    <c:set var="actionUrl" value="${empty session.uuid ? '/m/boardInsert.do' : '/kakaoBoardInsert.do'}" />
+     
+    <form action="${actionUrl}" method="post" enctype="multipart/form-data">
       <input type="hidden" id="map_dot" name="map_dot"></input>
       <table class="another-table" width="800px">  
         <tr>
