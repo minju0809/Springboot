@@ -2,6 +2,8 @@ package com.springboot.springboot.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -149,5 +151,22 @@ public class BoardController {
 
     return "redirect:/getBoardList.do";
   }
-  
+
+  @GetMapping("/m/getBoardBookmark.do")
+  String getBoardBookmark(Model model, BoardVO vo) {
+
+    List<BoardVO> li = service.getBoardList(vo);
+    
+    List<BoardVO> bookmarked = new ArrayList<>();
+
+    for (BoardVO board : li) {
+      if(board.getBookmarked() == 1) {
+        bookmarked.add(board);
+      }
+    }
+    
+    model.addAttribute("li", bookmarked);
+    
+    return "/board/getBoardBookmarkList";
+  }
 }

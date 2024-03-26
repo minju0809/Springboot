@@ -54,6 +54,10 @@
 							</c:otherwise>
 						</c:choose>
 						<li><a class="button" href="${formUrl}"> 글쓰기 </a></li>
+						<c:set var="boardBookmarkUrl" value="${empty session.uuid ? '/m/getBoardBookmark.do' : '/kakaoBoardBookmark.do'}" />
+						<c:if test="${not empty session.username}">
+							<li><a class="button" href="${boardBookmarkUrl}"> 북마크 </a></li>
+						</c:if>
 					</ul>
 				</div>
 				<div class="list-container">
