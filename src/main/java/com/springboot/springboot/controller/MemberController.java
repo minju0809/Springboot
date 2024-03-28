@@ -88,6 +88,7 @@ public class MemberController {
     service.boardDeleteByMemberIdx(member_idx);
     service.cartDeleteByMemberIdx(member_idx);
     service.orderDeleteByMemberIdx(member_idx);
+    service.bookmarkDeleteByMemberIdx(member_idx);
     service.memberDelete(member_idx);
     
     return "redirect:/logout";

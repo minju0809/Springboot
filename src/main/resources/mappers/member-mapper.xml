@@ -113,9 +113,14 @@
 			DELETE FROM cart WHERE member_idx = #{member_idx}
 	</delete>
 
-	<!-- order 테이블에서 member_idx를 참조하는 레코드 삭제 -->
+	<!-- orderTbl 테이블에서 member_idx를 참조하는 레코드 삭제 -->
 	<delete id="orderDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
 			DELETE FROM orderTbl WHERE member_idx = #{member_idx}
+	</delete>
+
+	<!-- bookmark 테이블에서 member_idx를 참조하는 레코드 삭제 -->
+	<delete id="bookmarkDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
+			DELETE FROM bookmark WHERE member_idx = #{member_idx}
 	</delete>
 
  </mapper>

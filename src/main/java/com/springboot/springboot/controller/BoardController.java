@@ -68,7 +68,7 @@ public class BoardController {
   String boardInsert(BoardVO vo) throws Exception {
 
     path = request.getSession().getServletContext().getRealPath("/img/board/");
-    System.out.println("path: " + path);
+    // System.out.println("path: " + path);
     // path: /Users/minju/Springboot/src/main/webapp/img/board/
 
     MemberVO mvo = (MemberVO) session.getAttribute("session");
@@ -173,11 +173,11 @@ public class BoardController {
   @GetMapping("/toggleBookmark.do")
   @ResponseBody // 응답 반환
   String toggleBookmark(int member_idx, int board_idx) {
-    System.out.println("로그인 member_idx: " + member_idx +  ", board_idx: " + board_idx);
+    // System.out.println("로그인 member_idx: " + member_idx +  ", board_idx: " + board_idx);
     BookmarkVO bookmark = bookmarkService.getMemberIdxAndBoardIdx(member_idx, board_idx);
     if(bookmark != null) {
       bookmarkService.deleteBoardBookmark(member_idx, board_idx);
-      System.out.println("북마크가 삭제되었습니다: " + bookmark);
+      // System.out.println("북마크가 삭제되었습니다: " + bookmark);
       return "deleted";
     } else {
       BookmarkVO newBookmark = new BookmarkVO();
@@ -185,7 +185,7 @@ public class BoardController {
       newBookmark.setBoard_idx(board_idx);
       newBookmark.setBoardBookmarked(1);
       bookmarkService.insertBoardBookmark(newBookmark);
-      System.out.println("북마크가 추가되었습니다: " + newBookmark);
+      // System.out.println("북마크가 추가되었습니다: " + newBookmark);
       return "added";
     }
   }

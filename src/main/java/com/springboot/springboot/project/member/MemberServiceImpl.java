@@ -76,4 +76,9 @@ public class MemberServiceImpl implements MemberService {
     dao.orderDeleteByMemberIdx(member_idx);
   }
 
+  @Override
+  public void bookmarkDeleteByMemberIdx(int member_idx) {
+    dao.bookmarkDeleteByMemberIdx(member_idx);
+  }
+
 }

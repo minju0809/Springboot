@@ -42,8 +42,7 @@ public class SecurityController {
 
   @GetMapping("/login.do")
   String login(Model model, @RequestParam(value = "code", required = false) String code, MemberVO vo) {
-    System.out.println("===> index.do");
-    System.out.println("redirect_uri: " + redirect_uri);
+    // System.out.println("redirect_uri: " + redirect_uri);
     System.out.println("code: " + code);
 
     if (code == null) {
@@ -152,7 +151,7 @@ public class SecurityController {
 
       MemberVO member = service.uuidCk(vo);
       int member_idx = member.getMember_idx();
-      System.out.println("member_idx: " + member_idx);
+      // System.out.println("member_idx: " + member_idx);
 
       return "redirect:/kakaoForm.do?member_idx=" + member_idx;
     } else {
