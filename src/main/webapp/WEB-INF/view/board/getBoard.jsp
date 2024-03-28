@@ -86,7 +86,7 @@
           <td class="position">
             ${board.board_idx} 
             <c:if test="${not empty session.username}">
-              <button class="bookmark-button" onclick="toggleBookmark(event, ${board.board_idx}, this)">
+              <button class="bookmark-button" onclick="toggleBookmark(event, ${session.member_idx}, ${board.board_idx}, this)">
                 <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path class="heart-path" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 4 2.36C10.46 5.99 11.96 5 13.5 5c2 0 3.5 1.5 3.5 3.5 0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
                 </svg>
@@ -139,13 +139,63 @@
   <br>
 </section>
 
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
-  function toggleBookmark(event, board_idx, button) {
+  $(document).ready(function() {
+    var member_idx = '${session.member_idx}';
+    var board_idx = '${board.board_idx}';
+    // 페이지가 로드될 때 
+    getBookmarkStatus(member_idx, board_idx);
+  });
+
+  function getBookmarkStatus(member_idx, board_idx) {
+    $.ajax({
+      url: "getBookmarkStatus.do",
+      type: "GET",
+      data: {
+        member_idx: member_idx,
+        board_idx: board_idx
+      },
+      success: function(response) {
+        console.log("북마크 상태 가져오기 성공: + response");
+        if (response === "bookmarked") {
+          $('.bookmark-button').addClass('bookmarked');
+          $('.heart-path').css('fill', 'red');
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log("북마크 상태 가져오기 실패: ", error);
+      }
+    });
+  }
+
+  function toggleBookmark(event, member_idx, board_idx, button) {
     event.preventDefault();
     const heartPath = button.querySelector('.heart-path');
     const isBookmarked = button.classList.toggle('bookmarked');
 
-    alert('게시물 번호 ' + board_idx + ' 의 즐겨찾기 상태: ' + isBookmarked);
+    $.ajax({
+      url: "toggleBookmark.do",
+      type: "GET",
+      data: {
+        member_idx: member_idx,
+        board_idx: board_idx
+      },
+      success: function(response) {
+        console.log("북마크 상태 변경");
+        if(response === "added") {
+          alert("북마크에 추가되었습니다.")
+          heartPath.style.fill = "red";
+        } else if (response === "deleted") {
+          alert("북마크가 해제되었습니다.")
+          heartPath.style.fill = "none";
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log("에러 발생: ", error);
+      }
+    });
+    // alert('로그인 번호 ' + member_idx + '게시물 번호 ' + board_idx + ' 의 즐겨찾기 상태: ' + isBookmarked);
   }
 
   function boardDelete() {

@@ -10,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.springboot.project.board.BoardService;
 import com.springboot.springboot.project.board.BoardVO;
+import com.springboot.springboot.project.bookmark.BookmarkService;
+import com.springboot.springboot.project.bookmark.BookmarkVO;
 import com.springboot.springboot.project.member.MemberVO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +29,9 @@ public class BoardController {
   private BoardService service;
 
   @Autowired
+  private BookmarkService bookmarkService;
+
+  @Autowired
   private HttpServletRequest request;
 
   @Autowired
@@ -33,6 +39,7 @@ public class BoardController {
 
   @GetMapping("/getBoardList.do")
   String getBoardList(Model model, BoardVO vo) {
+    
     model.addAttribute("li", service.getBoardList(vo));
     return "/board/getBoardList";
   }
@@ -152,21 +159,54 @@ public class BoardController {
     return "redirect:/getBoardList.do";
   }
 
-  @GetMapping("/m/getBoardBookmark.do")
-  String getBoardBookmark(Model model, BoardVO vo) {
+  @GetMapping("/getBookmarkStatus.do")
+  @ResponseBody
+  public String getBookmarkStatus(int member_idx, int board_idx) {
+    BookmarkVO bookmark = bookmarkService.getMemberIdxAndBoardIdx(member_idx, board_idx);
+    if (bookmark != null) {
+      return "bookmarked";
+    } else {
+      return "not_bookmarked";
+    }
+  }
 
-    List<BoardVO> li = service.getBoardList(vo);
-    
-    List<BoardVO> bookmarked = new ArrayList<>();
+  @GetMapping("/toggleBookmark.do")
+  @ResponseBody // 응답 반환
+  String toggleBookmark(int member_idx, int board_idx) {
+    System.out.println("로그인 member_idx: " + member_idx +  ", board_idx: " + board_idx);
+    BookmarkVO bookmark = bookmarkService.getMemberIdxAndBoardIdx(member_idx, board_idx);
+    if(bookmark != null) {
+      bookmarkService.deleteBoardBookmark(member_idx, board_idx);
+      System.out.println("북마크가 삭제되었습니다: " + bookmark);
+      return "deleted";
+    } else {
+      BookmarkVO newBookmark = new BookmarkVO();
+      newBookmark.setMember_idx(member_idx);
+      newBookmark.setBoard_idx(board_idx);
+      newBookmark.setBoardBookmarked(1);
+      bookmarkService.insertBoardBookmark(newBookmark);
+      System.out.println("북마크가 추가되었습니다: " + newBookmark);
+      return "added";
+    }
+  }
 
-    for (BoardVO board : li) {
-      if(board.getBookmarked() == 1) {
-        bookmarked.add(board);
+  @GetMapping("/getBoardBookmark.do")
+  String getBoardBookmark(Model model, int member_idx) {
+
+    List<BookmarkVO> bookmarks = bookmarkService.getBookmarkedBoards(member_idx);
+    List<BoardVO> boardBookmarks = new ArrayList<>();
+    for (BookmarkVO bookmark : bookmarks) {
+      BoardVO vo = new BoardVO();
+      vo.setBoard_idx(bookmark.getBoard_idx());
+      BoardVO board = service.getBoard(vo);
+      if(board != null) {
+        boardBookmarks.add(board);
       }
     }
     
-    model.addAttribute("li", bookmarked);
+    model.addAttribute("li", boardBookmarks);
     
     return "/board/getBoardBookmarkList";
   }
+
 }

@@ -9,7 +9,7 @@
   <br>
   <div align=center>
     <br>
-    <h2>즐겨찾기 목록</h2>
+    <h2>북마크 목록</h2>
     <br>
     <div class="board-container">
       <c:forEach items="${li}" var="record">
