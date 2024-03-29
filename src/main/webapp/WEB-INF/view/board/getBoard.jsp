@@ -72,72 +72,112 @@
     <br>
     <c:set var="updateUrl" value="${empty session.uuid ? '/m/boardUpdate.do' : '/kakaoBoardUpdate.do' }" />
 
-    <form method="post" action="${updateUrl}" enctype="multipart/form-data">
-      <input type="hidden" name="board_idx" value="${board.board_idx}">
-      <input type="hidden" name="board_imgStr" value="${board.board_imgStr}">
-      <table class="another-table">
-        <tr>
-          <td colspan="3">
-            <div id="map" style="width:700px;height:400px;position:relative;overflow:hidden;"></div>
-          </td>
-        </tr>
-        <tr>
-          <th>번호</th>
-          <td class="position">
-            ${board.board_idx} 
-            <c:if test="${not empty session.username}">
-              <button class="bookmark-button" onclick="toggleBookmark(event, ${session.member_idx}, ${board.board_idx}, this)">
-                <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path class="heart-path" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 4 2.36C10.46 5.99 11.96 5 13.5 5c2 0 3.5 1.5 3.5 3.5 0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                </svg>
-              </button>
-            </c:if>
-          </td>
-          <td rowspan="7">
-            <img src="/img/board/${board.board_imgStr}" alt="image" width="300" height="300">
-          </td>
-        </tr>
-        <tr>
-          <th>이름</th>
-          <td>${board.member_name}</td>
-        </tr>
-        <tr>
-          <th>제목</th>
-          <td><input type="text" name="board_title" value="${board.board_title}" /></td>
-        </tr>
-        <tr>
-          <th>내용</th>
-          <td>
-            <textarea rows="5" cols="30" name="board_content">${board.board_content}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <th>사진수정</th>
-          <td>
-            <input type="file" name="board_img">
-          </td>
-        </tr>
-        <tr>
-          <th>총 이동거리</th>
-          <td>${board.board_map}</td>
-        </tr>
-        <tr>
-          <th>날짜</th>
-          <td>${board.board_today}</td>
-        </tr>
-        <c:if test="${board.member_name eq session.name}">
+      <form method="post" action="${updateUrl}" enctype="multipart/form-data">
+        <input type="hidden" name="board_idx" value="${board.board_idx}">
+        <input type="hidden" name="board_imgStr" value="${board.board_imgStr}">
+        <table class="another-table">
           <tr>
-            <td colspan="3" align="center">
-              <input type="submit" value="수정">
-              <input type="button" value="삭제" onclick="boardDelete()">
+            <td colspan="3">
+              <div id="map" style="width:700px;height:400px;position:relative;overflow:hidden;"></div>
             </td>
           </tr>
-        </c:if>
-      </table>
-    </form>
-  </div>
-  <br>
-</section>
+          <tr>
+            <th>번호</th>
+            <td class="position">
+              ${board.board_idx}
+              <c:if test="${not empty session.username}">
+                <button class="bookmark-button"
+                  onclick="toggleBookmark(event, ${session.member_idx}, ${board.board_idx}, this)">
+                  <svg class="heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path class="heart-path"
+                      d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6.5 3.5 5 5.5 5c1.54 0 3.04.99 4 2.36C10.46 5.99 11.96 5 13.5 5c2 0 3.5 1.5 3.5 3.5 0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                    </path>
+                  </svg>
+                </button>
+              </c:if>
+            </td>
+            <td rowspan="7">
+              <img src="/img/board/${board.board_imgStr}" alt="image" width="300" height="300">
+            </td>
+          </tr>
+          <tr>
+            <th>이름</th>
+            <td>${board.member_name}</td>
+          </tr>
+          <tr>
+            <th>제목</th>
+            <td><input type="text" name="board_title" value="${board.board_title}" /></td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td>
+              <textarea rows="5" cols="30" name="board_content">${board.board_content}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>사진수정</th>
+            <td>
+              <input type="file" name="board_img">
+            </td>
+          </tr>
+          <tr>
+            <th>총 이동거리</th>
+            <td>${board.board_map}</td>
+          </tr>
+          <tr>
+            <th>날짜</th>
+            <td>${board.board_today}</td>
+          </tr>
+          <c:if test="${board.member_name eq session.name}">
+            <tr>
+              <td colspan="3" align="center">
+                <input type="submit" value="수정">
+                <input type="button" value="삭제" onclick="boardDelete()">
+              </td>
+            </tr>
+          </c:if>
+        </table>
+      </form>
+      <form action="/commentBoardInsert.do">
+        <input type="hidden" name="member_idx" value="${session.member_idx}">
+        <input type="hidden" name="board_idx" value="${board.board_idx}">
+        <table class="basic-table">
+          <c:if test="${not empty session.username}">
+            <tr>
+              <td>
+                <p>${session.username}</p>
+              </td>
+              <td><input type="text" size="85%" name="comment_content"></td>
+              <td><input type="submit" value="등록"></td>
+            </tr>
+          </c:if>
+          <tr>
+            <th>작성자</th>
+            <th>댓글</th>
+            <th>작성일자</th>
+          </tr>
+          <c:choose>
+            <c:when test="${not empty comment}">
+              <c:forEach items="${comment}" var="record">
+                <tr>
+                  <td>${record.username}</td>
+                  <td>${record.comment_content}</td>
+                  <td>${record.comment_date}</td>
+                </tr>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <tr>
+                <td colspan="3">댓글이 없습니다.</td>
+              </tr>
+            </c:otherwise>
+          </c:choose>
+        </table>
+      </form>
+    </div>
+    <br>
+  </section>
 
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script>

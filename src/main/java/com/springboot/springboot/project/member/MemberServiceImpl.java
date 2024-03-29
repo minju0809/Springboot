@@ -81,4 +81,9 @@ public class MemberServiceImpl implements MemberService {
     dao.bookmarkDeleteByMemberIdx(member_idx);
   }
 
+  @Override
+  public void commentBoardDeleteByMemberIdx(int member_idx) {
+    dao.commentBoardDeleteByMemberIdx(member_idx);
+  }
+
 }

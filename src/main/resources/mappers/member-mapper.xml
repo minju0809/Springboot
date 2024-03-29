@@ -123,5 +123,10 @@
 			DELETE FROM bookmark WHERE member_idx = #{member_idx}
 	</delete>
 
+	<!-- comment_board 테이블에서 member_idx를 참조하는 레코드 삭제 -->
+	<delete id="commentBoardDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
+			DELETE FROM comment_board WHERE member_idx = #{member_idx}
+	</delete>
+
  </mapper>
 

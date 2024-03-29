@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.springboot.project.board.BoardService;
 import com.springboot.springboot.project.board.BoardVO;
+import com.springboot.springboot.project.board.CommentBoardService;
+import com.springboot.springboot.project.board.CommentBoardVO;
 import com.springboot.springboot.project.bookmark.BookmarkService;
 import com.springboot.springboot.project.bookmark.BookmarkVO;
 import com.springboot.springboot.project.member.MemberVO;
@@ -32,6 +34,9 @@ public class BoardController {
   private BookmarkService bookmarkService;
 
   @Autowired
+  private CommentBoardService commentBoardService;
+
+  @Autowired
   private HttpServletRequest request;
 
   @Autowired
@@ -41,15 +46,20 @@ public class BoardController {
   String getBoardList(Model model, BoardVO vo) {
     
     model.addAttribute("li", service.getBoardList(vo));
+
     return "/board/getBoardList";
   }
 
   @GetMapping("/getBoard.do")
-  String getBoard(Model model, BoardVO vo) {
+  String getBoard(Model model, BoardVO vo, CommentBoardVO commentVo) {
     
     service.boardCnt(vo);
     model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
     model.addAttribute("board", service.getBoard(vo));
+
+    commentVo.setBoard_idx(vo.getBoard_idx());
+    model.addAttribute("comment", commentBoardService.getCommentBoardList(commentVo));
+    
     return "/board/getBoard";
   }
 
@@ -207,6 +217,16 @@ public class BoardController {
     model.addAttribute("li", boardBookmarks);
     
     return "/board/getBoardBookmarkList";
+  }
+
+
+  @GetMapping("/commentBoardInsert.do")
+  String commentBoardInsert(CommentBoardVO vo) {
+    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@vo: " + vo);
+
+    commentBoardService.commentBoardInsert(vo);
+
+    return "redirect:/getBoard.do?board_idx="+vo.getBoard_idx();
   }
 
 }

@@ -24,4 +24,5 @@ public interface MemberDao {
   void cartDeleteByMemberIdx(int member_idx);
   void orderDeleteByMemberIdx(int member_idx);
   void bookmarkDeleteByMemberIdx(int member_idx);
+  void commentBoardDeleteByMemberIdx(int member_idx);
 }
