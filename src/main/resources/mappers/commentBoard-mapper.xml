@@ -20,5 +20,11 @@
     on c.member_idx = m.member_idx
     where board_idx = #{board_idx}
   </select>
+
+  <delete id="commentBoardDelete"
+    parameterType="com.springboot.springboot.project.board.CommentBoardVO">
+
+    delete from comment_board where comment_idx = #{comment_idx}
+  </delete>
  </mapper>
 

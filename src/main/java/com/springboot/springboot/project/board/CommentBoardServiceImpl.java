@@ -20,5 +20,10 @@ public class CommentBoardServiceImpl implements CommentBoardService {
   public List<CommentBoardVO> getCommentBoardList(CommentBoardVO vo) {
     return dao.getCommentBoardList(vo);
   }
+
+  @Override
+  public void commentBoardDelete(CommentBoardVO vo) {
+    dao.commentBoardDelete(vo);
+  }
   
 }

@@ -6,4 +6,6 @@ public interface CommentBoardService {
   void commentBoardInsert(CommentBoardVO vo);
 
   List<CommentBoardVO> getCommentBoardList(CommentBoardVO vo);
+
+  void commentBoardDelete(CommentBoardVO vo);
 }

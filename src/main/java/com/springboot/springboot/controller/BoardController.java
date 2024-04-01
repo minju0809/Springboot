@@ -59,7 +59,7 @@ public class BoardController {
 
     commentVo.setBoard_idx(vo.getBoard_idx());
     model.addAttribute("comment", commentBoardService.getCommentBoardList(commentVo));
-    
+
     return "/board/getBoard";
   }
 
@@ -225,6 +225,14 @@ public class BoardController {
     System.out.println("@@@@@@@@@@@@@@@@@@@@@@@vo: " + vo);
 
     commentBoardService.commentBoardInsert(vo);
+
+    return "redirect:/getBoard.do?board_idx="+vo.getBoard_idx();
+  }
+
+  @GetMapping("/commentBoardDelete.do")
+  String commentBoardDelete(CommentBoardVO vo) {
+
+    commentBoardService.commentBoardDelete(vo);
 
     return "redirect:/getBoard.do?board_idx="+vo.getBoard_idx();
   }
