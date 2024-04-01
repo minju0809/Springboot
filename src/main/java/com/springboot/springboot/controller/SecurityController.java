@@ -185,13 +185,14 @@ public class SecurityController {
 
     if (user != null) {
       System.out.println("===> loginSuccess.do: " + user.getName());
-      // vo.setUsername(user.getName());
+      vo.setUsername(user.getName());
 
-      // MemberVO member = service.login(vo);
-      // System.out.println("member: " + member);
+      MemberVO member = service.login(vo);
+      System.out.println("member: " + member);
 
-      // session.setAttribute("session", member);
+      session.setAttribute("session", member);
     } else {
+      // 이때 session에 값을 담아야 아이디는 맞지만 비밀번호가 틀린 경우도 파악을 할 수 있음
       vo.setMember_idx(Integer.parseInt(memberIdx));
       MemberVO member = service.getMember(vo);
       System.out.println("kakaoMember: " + member);

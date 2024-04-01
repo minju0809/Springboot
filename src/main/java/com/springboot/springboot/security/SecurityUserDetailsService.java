@@ -34,7 +34,7 @@ public class SecurityUserDetailsService implements UserDetailsService  {
 		if (user == null) {
 			throw  new UsernameNotFoundException(username + "사용자 없음");
 		}else {
-      session.setAttribute("session", user);
+      // session.setAttribute("session", user);
 			return new SecurityUser(user);
 		}
 	}

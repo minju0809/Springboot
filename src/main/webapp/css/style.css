@@ -75,15 +75,15 @@ h2 {
 
 
 .background {
-		/* 배경 이미지 설정 */
-		background-image: url('/img/background/paris.jpeg');
-		/* 이미지가 꽉 차도록 배경 설정 */
-		/* background-size: cover; */
-		/* 이미지가 반복되지 않도록 설정 */
-		background-repeat: no-repeat;
-		/* 배경 이미지가 중앙 정렬되도록 설정 */
-		background-position: center;
-		opacity: 0.9;
+	/* 배경 이미지 설정 */
+	background-image: url('/img/background/paris.jpeg');
+	/* 이미지가 꽉 차도록 배경 설정 */
+	/* background-size: cover; */
+	/* 이미지가 반복되지 않도록 설정 */
+	background-repeat: no-repeat;
+	/* 배경 이미지가 중앙 정렬되도록 설정 */
+	background-position: center;
+	opacity: 0.9;
 }
 
 /* 원 큰 모드 */
@@ -354,10 +354,14 @@ li:last-child {
 
 .board-container {
 	/* 요소들이 넘치면 다음 줄로 이동하도록 설정 */
-	flex-wrap: wrap;
-	display: flex;
+	/* flex-wrap: wrap; */
+	/* display: flex; */
 	/* justify-content: space-around; */
-	justify-content: start;
+	/* justify-content: start; */
+	display: grid;
+	gap: 4px;
+	padding: 12px;
+	grid-template-columns: repeat(auto-fill, minmax(300px, auto));
 }
 
 .board {
@@ -414,4 +418,3 @@ li:last-child {
 .bookmark-button.bookmarked .heart-path {
 	fill: red;
 }
-
