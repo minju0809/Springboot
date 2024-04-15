@@ -40,7 +40,7 @@
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
 						<li>&ensp;</li>
-						<li><a class="button" href="/pokemonInsert.do"> 포켓몬도감 </a></li>
+						<li><a class="button" href="/getPokemonList.do"> 포켓몬도감 </a></li>
 					</ul>
 				</div>
 				<div class="list-container">

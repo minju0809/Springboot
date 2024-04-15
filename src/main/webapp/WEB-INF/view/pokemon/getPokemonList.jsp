@@ -26,6 +26,7 @@
       <select name="ch1">
         <option value="num">번호</option>
         <option value="name">이름</option>
+        <option value="type">타입</option>
       </select>
       <input type="text" name="ch2">
       <input type="submit" value="검색">
@@ -33,10 +34,10 @@
     <br>
     <div style="text-align:center; display: grid; gap:4px; grid-template-columns: repeat(auto-fill, minmax(200px, auto));">
       <c:forEach items="${li}" var="pokemon">
-        <div>
+        <div style="border:1px solid black; margin: 2px; padding: 4px; border-radius: 12px;">
           <img src="${pokemon.image}" alt="${pokemon.name} 이미지" width="100px">
           <p>도감 번호: ${pokemon.num}</p>
-          <h3>포켓몬 이름: ${pokemon.name}</h3>
+          <p>포켓몬 이름: ${pokemon.name}</p>
           <p>타입: ${pokemon.type1} ${pokemon.type2}</p>
         </div>
       </c:forEach>

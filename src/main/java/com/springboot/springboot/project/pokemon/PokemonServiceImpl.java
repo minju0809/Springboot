@@ -26,4 +26,9 @@ public class PokemonServiceImpl implements PokemonService {
     return dao.getPokemonList(vo);
   }
 
+  @Override
+  public int getTotalCount(PokemonVO vo) {
+    return dao.getTotalCount(vo);
+  }
+
 }

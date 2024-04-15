@@ -23,8 +23,14 @@
 			and name like '%'||#{ch2}||'%'
 		]]>
 		</if>
+		<if test="ch1=='type'">
+		<![CDATA[	
+			and type1 like '%'||#{ch2}||'%'
+			or type2 like '%'||#{ch2}||'%'
+		]]>
+		</if>
 		<![CDATA[
-			order by pokemon_idx desc) k
+			order by pokemon_idx) k
 			where rownum <= #{end} ) q
 		where rnum >= #{start}
 		]]>
@@ -58,6 +64,12 @@
 		<if test="ch1=='name'">
 		<![CDATA[	
 			and name like '%'||#{ch2}||'%'
+		]]>
+		</if>
+		<if test="ch1=='type'">
+		<![CDATA[	
+			and type1 like '%'||#{ch2}||'%'
+			or type2 like '%'||#{ch2}||'%'
 		]]>
 		</if>
 		<![CDATA[

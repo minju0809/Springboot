@@ -7,4 +7,5 @@ public interface PokemonService {
   void pokemonInsert(PokemonVO vo);
 
   List<PokemonVO> getPokemonList(PokemonVO vo);
+  int getTotalCount(PokemonVO vo);
 }
