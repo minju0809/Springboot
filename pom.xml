@@ -17,6 +17,8 @@
 	<properties>
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 
@@ -111,11 +113,14 @@
 	</dependencies>
 
 	<build>
+		<directory>/Users/minju/Springboot/target</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.springboot.springboot.SpringbootApplication</mainClass>
+        	<outputDirectory>/Users/minju/Springboot/target</outputDirectory>
 					<image>
 						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
 					</image>
