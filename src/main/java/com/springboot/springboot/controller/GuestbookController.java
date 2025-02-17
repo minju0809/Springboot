@@ -24,41 +24,33 @@ public class GuestbookController {
   @GetMapping("/getGuestbookList.do")
   String getGuestbookList(Model model, GuestbookVO vo) {
 
-    int start = 0;
-    int pageSize = 10;
-    int pageListSize = 10;
-    int totalCount = service.getTotalCount(vo);
-
-    if (vo.getStart() == 0) {
-      start = 1;
-    } else {
-      start = vo.getStart();
+    if (vo.getPage() == 0) {
+      vo.setPage(1);
     }
 
-    int end = start + pageSize - 1;
-
-    int totalPage = (totalCount / pageSize) + 1;
-    int currentPage = (start / pageSize) + 1;
-    int lastPage = (totalPage - 1) * pageSize + 1;
-    int listStartPage = (currentPage - 1) / pageListSize * pageListSize + 1;
-    int listEndPage = listStartPage + pageListSize - 1;
-
-    vo.setStart(start);
+    int pageSize = 10;
     vo.setPageSize(pageSize);
-    vo.setEnd(end);
+    int offset = Math.max((vo.getPage() - 1) * pageSize, 0);
+    vo.setOffset(offset);
+    int totalCount = service.getTotalCount(vo);
 
-    model.addAttribute("totalCount", totalCount);
-    model.addAttribute("start", start);
-    model.addAttribute("pageSize", pageSize);
-    model.addAttribute("end", end);
-    model.addAttribute("totalPage", totalPage);
+    int current_block = (int) Math.ceil((double) vo.getPage() / 10);
+    int currentPage = vo.getPage();
+    int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+    int startPage = (current_block - 1) * 10 + 1;
+    int endPage = Math.min(current_block * 10, totalPage);
+
+    if (currentPage < 1)
+      currentPage = 1;
+    if (currentPage > totalPage)
+      currentPage = totalPage;
+
+    model.addAttribute("page", vo.getPage());
     model.addAttribute("currentPage", currentPage);
-    model.addAttribute("lastPage", lastPage);
-
-    model.addAttribute("pageListSize", pageListSize);
-    model.addAttribute("listStartPage", listStartPage);
-    model.addAttribute("listEndPage", listEndPage);
-
+    model.addAttribute("totalCount", totalCount);
+    model.addAttribute("totalPage", totalPage);
+    model.addAttribute("startPage", startPage);
+    model.addAttribute("endPage", endPage);
     model.addAttribute("ch1", vo.getCh1());
     model.addAttribute("ch2", vo.getCh2());
 
@@ -118,11 +110,11 @@ public class GuestbookController {
       String encodedCh1 = URLEncoder.encode(vo.getCh1(), StandardCharsets.UTF_8.toString());
       String encodedCh2 = URLEncoder.encode(vo.getCh2(), StandardCharsets.UTF_8.toString());
 
-      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
+      return "redirect:/getGuestbookList.do?page=" + vo.getPage() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
 
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
-      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
+      return "redirect:/getGuestbookList.do?page=" + vo.getPage() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
     }
   }
 
@@ -135,11 +127,11 @@ public class GuestbookController {
       String encodedCh1 = URLEncoder.encode(vo.getCh1(), StandardCharsets.UTF_8.toString());
       String encodedCh2 = URLEncoder.encode(vo.getCh2(), StandardCharsets.UTF_8.toString());
 
-      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
+      return "redirect:/getGuestbookList.do?page=" + vo.getPage() + "&ch1=" + encodedCh1 + "&ch2=" + encodedCh2;
 
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
-      return "redirect:/getGuestbookList.do?start=" + vo.getStart() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
+      return "redirect:/getGuestbookList.do?page=" + vo.getPage() + "&ch1=" + vo.getCh1() + "&ch2=" + vo.getCh2();
     }
   }
 }

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.springboot.springboot.project.board.BoardService;
 import com.springboot.springboot.project.board.BoardVO;
@@ -28,10 +29,13 @@ public class KakaoController {
   @Autowired
   private HttpSession session;
 
+  @Value("${javascript.key}")
+  private String javascriptKey;
+
   @GetMapping("/kakaoBoardForm.do")
   String kakaoBoardForm(Model model) {
 
-    model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
+    model.addAttribute("keyValue", javascriptKey);
 
     return "/board/boardForm";
   }

@@ -53,12 +53,19 @@
               ${record.username}
             </a>
           </td>
-          <td>${record.password.substring(0,10)}...</td>
+          <td>
+            <c:if test="${record.password != null && record.password.startsWith('{bcrypt}')}">
+              비밀번호는 암호화되어 있습니다.
+            </c:if>
+            <c:if test="${record.password != null && !record.password.startsWith('{bcrypt}')}">
+              ${record.password}
+            </c:if>
+          </td>
           <td>${record.role}</td>
           <td>${record.name}</td>
           <td>${record.phone}</td>
-          <td>${record.address.substring(0,2)}</td>
-          <td>${record.regdate.substring(0,10)}</td>
+          <td>${record.address}</td>
+          <td>${record.regdate}</td>
           <td>${record.etc}</td>
         </tr>
       </c:forEach>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,9 +43,12 @@ public class BoardController {
   @Autowired
   private HttpSession session;
 
+  @Value("${javascript.key}")
+  private String javascriptKey;
+
   @GetMapping("/getBoardList.do")
   String getBoardList(Model model, BoardVO vo) {
-    
+
     model.addAttribute("li", service.getBoardList(vo));
 
     return "/board/getBoardList";
@@ -54,7 +58,7 @@ public class BoardController {
   String getBoard(Model model, BoardVO vo, CommentBoardVO commentVo) {
     
     service.boardCnt(vo);
-    model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
+    model.addAttribute("keyValue", javascriptKey);
     model.addAttribute("board", service.getBoard(vo));
 
     commentVo.setBoard_idx(vo.getBoard_idx());
@@ -66,7 +70,7 @@ public class BoardController {
   @GetMapping("/m/boardForm.do")
   String boardForm(Model model) {
 
-    model.addAttribute("keyValue", "5fd42cdd845577dc157f2510c3e96a73");
+    model.addAttribute("keyValue", javascriptKey);
 
     return "/board/boardForm";
   }
@@ -126,15 +130,15 @@ public class BoardController {
     String fileName = board_img.getOriginalFilename();
     File f = new File(path + fileName);
 
-    if(!board_img.isEmpty()) {
+    if (!board_img.isEmpty()) {
       // 기존 파일 이름이 space.png가 아니면 삭제
       if (vo.getBoard_imgStr() != null && !vo.getBoard_imgStr().equals("space.png")) {
         File delF = new File(path + vo.getBoard_imgStr());
         delF.delete();
-    }
+      }
 
       // 동일한 파일이 존재 하면 중복 처리
-      if(f.exists()) {
+      if (f.exists()) {
         String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
         String extension = fileName.substring(fileName.lastIndexOf("."));
         fileName = onlyFileName + "_" + timeStr + extension;
@@ -160,7 +164,7 @@ public class BoardController {
     String delFile = vo.getBoard_imgStr();
     File f = new File(path + delFile);
 
-    if(!delFile.equals("space.png")) {
+    if (!delFile.equals("space.png")) {
       f.delete();
     }
 
@@ -183,9 +187,10 @@ public class BoardController {
   @GetMapping("/toggleBookmark.do")
   @ResponseBody // 응답 반환
   String toggleBookmark(int member_idx, int board_idx) {
-    // System.out.println("로그인 member_idx: " + member_idx +  ", board_idx: " + board_idx);
+    // System.out.println("로그인 member_idx: " + member_idx + ", board_idx: " +
+    // board_idx);
     BookmarkVO bookmark = bookmarkService.getMemberIdxAndBoardIdx(member_idx, board_idx);
-    if(bookmark != null) {
+    if (bookmark != null) {
       bookmarkService.deleteBoardBookmark(member_idx, board_idx);
       // System.out.println("북마크가 삭제되었습니다: " + bookmark);
       return "deleted";
@@ -209,16 +214,15 @@ public class BoardController {
       BoardVO vo = new BoardVO();
       vo.setBoard_idx(bookmark.getBoard_idx());
       BoardVO board = service.getBoard(vo);
-      if(board != null) {
+      if (board != null) {
         boardBookmarks.add(board);
       }
     }
-    
+
     model.addAttribute("li", boardBookmarks);
-    
+
     return "/board/getBoardBookmarkList";
   }
-
 
   @GetMapping("/commentBoardInsert.do")
   String commentBoardInsert(CommentBoardVO vo) {
@@ -226,7 +230,7 @@ public class BoardController {
 
     commentBoardService.commentBoardInsert(vo);
 
-    return "redirect:/getBoard.do?board_idx="+vo.getBoard_idx();
+    return "redirect:/getBoard.do?board_idx=" + vo.getBoard_idx();
   }
 
   @GetMapping("/commentBoardDelete.do")
@@ -234,7 +238,7 @@ public class BoardController {
 
     commentBoardService.commentBoardDelete(vo);
 
-    return "redirect:/getBoard.do?board_idx="+vo.getBoard_idx();
+    return "redirect:/getBoard.do?board_idx=" + vo.getBoard_idx();
   }
 
 }

@@ -9,12 +9,9 @@ public class GuestbookVO {
   private String guestbook_memo;
   private String guestbook_today;
 
-  private int rownum;
-  private int rnum;
-  
-  private int start;
+  private int page;
+  private int offset;
   private int pageSize;
-  private int end;
 
   private String ch1;
   private String ch2;
