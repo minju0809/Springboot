@@ -2,29 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="com.springboot.springboot.project.board.BoardDao">
+<mapper namespace="com.springboot.springboot.project.board.BoardDao">
 
   <select id="getBoardList"
     parameterType="com.springboot.springboot.project.board.BoardVO"
     resultType="com.springboot.springboot.project.board.BoardVO">
-
     <!-- select * from board order by board_idx desc -->
     <![CDATA[
-				select * from board where 1=1
+      select * from board where 1=1
 		]]>
 		<if test="ch1=='member_name'">
 		<![CDATA[
-			and member_name like '%'||#{ch2}||'%'
+			and member_name like CONCAT('%', #{ch2}, '%')
 		]]>
 		</if>
 		<if test="ch1=='board_title'">
 		<![CDATA[	
-			and board_title like '%'||#{ch2}||'%'
+			and board_title like CONCAT('%', #{ch2}, '%')
 		]]>
 		</if>
 		<if test="ch1=='board_content'">
 		<![CDATA[
-			and board_content like '%'||#{ch2}||'%'
+			and board_content like CONCAT('%', #{ch2}, '%')
 		]]>
 		</if>
 		<![CDATA[
@@ -35,28 +34,24 @@
   <select id="getBoard"
     parameterType="com.springboot.springboot.project.board.BoardVO"
     resultType="com.springboot.springboot.project.board.BoardVO">
-
     select * from board where board_idx = #{board_idx}
   </select>
 
   <insert id="boardInsert"
     parameterType="com.springboot.springboot.project.board.BoardVO">
-
     insert into board
     (board_idx, member_idx, member_name, board_map, map_dot, board_title, board_content, board_imgStr) 
-    values ((select nvl(max(board_idx), 90000) + 1 from board), #{member_idx}, #{member_name},
+    values ((select ifnull(max(board_idx), 90000) + 1 from board), #{member_idx}, #{member_name},
     #{board_map}, #{map_dot}, #{board_title}, #{board_content}, #{board_imgStr})
   </insert>
 
   <update id="boardCnt"
     parameterType="com.springboot.springboot.project.board.BoardVO">
-
     update board set board_cnt = board_cnt + 1 where board_idx = #{board_idx}
   </update>
 
   <update id="boardUpdate"
     parameterType="com.springboot.springboot.project.board.BoardVO">
-
     update board set board_title = #{board_title}, board_content = #{board_content},
     board_imgStr = #{board_imgStr} 
     where board_idx = #{board_idx}
@@ -64,9 +59,8 @@
 
   <delete id="boardDelete"
     parameterType="com.springboot.springboot.project.board.BoardVO">
-
     delete from board where board_idx = #{board_idx}
   </delete>
 
- </mapper>
+</mapper>
 

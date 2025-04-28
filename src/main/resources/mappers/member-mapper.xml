@@ -2,34 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="com.springboot.springboot.project.member.MemberDao">
+<mapper namespace="com.springboot.springboot.project.member.MemberDao">
 
   <select id="getMemberList"
     parameterType="com.springboot.springboot.project.member.MemberVO"
     resultType="com.springboot.springboot.project.member.MemberVO">
-
     <![CDATA[
       select * from member where 1=1
 		]]>
-		<if test="ch1=='username'">
-		<![CDATA[
-			and username like '%'||#{ch2}||'%'
-		]]>
-		</if>
-		<if test="ch1=='name'">
-		<![CDATA[
-			and name like '%'||#{ch2}||'%'
-		]]>
-		</if>
-		<if test="ch1=='address'">
-		<![CDATA[	
-			and address like '%'||#{ch2}||'%'
-		]]>
-		</if>
-		<if test="ch1=='regdate'">
-		<![CDATA[	
-			and regdate like '%'||#{ch2}||'%'
-		]]>
+		<if test="ch1 != null and ch2 != null">
+			<if test="ch1=='username'">
+			<![CDATA[
+				and username like CONCAT('%', #{ch2}, '%')
+			]]>
+			</if>
+			<if test="ch1=='name'">
+			<![CDATA[
+				and name like CONCAT('%', #{ch2}, '%')
+			]]>
+			</if>
+			<if test="ch1=='address'">
+			<![CDATA[	
+				and address like CONCAT('%', #{ch2}, '%')
+			]]>
+			</if>
+			<if test="ch1=='regdate'">
+			<![CDATA[	
+				and regdate like CONCAT('%', #{ch2}, '%')
+			]]>
+			</if>
 		</if>
 		<![CDATA[
 			order by member_idx desc
@@ -39,40 +40,37 @@
 	<select id="getMember"
     parameterType="com.springboot.springboot.project.member.MemberVO"
     resultType="com.springboot.springboot.project.member.MemberVO">
-
-      select * from member where member_idx = #{member_idx}
+		select * from member where member_idx = #{member_idx}
   </select>
 
 	<select id="login"
     parameterType="com.springboot.springboot.project.member.MemberVO"
     resultType="com.springboot.springboot.project.member.MemberVO">
-
-      select * from member where username = #{username}
+		select * from member where username = #{username}
   </select>
 
   <insert id="memberInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
-
-      insert into member (member_idx, username, password, name, phone, email, postcode, address, detailAddress, extraAddress, etc) 
-      values ((select nvl(max(member_idx), 9999) + 1 from member), #{username}, #{password}, 
-        #{name}, #{phone}, #{email}, #{postcode}, #{address}, #{detailAddress}, #{extraAddress}, #{etc})
+		insert into member (member_idx, username, password, name, phone, email, postcode, address, detailAddress, extraAddress, etc) 
+		values (
+			(select ifnull(max(member_idx), 9999) + 1 from (select member_idx from member) as temp), 
+			#{username}, #{password}, 
+			#{name}, #{phone}, #{email}, #{postcode}, #{address}, #{detailAddress}, #{extraAddress}, #{etc}
+		)
   </insert>
 
 	<select id="uuidCk"
     parameterType="com.springboot.springboot.project.member.MemberVO"
     resultType="com.springboot.springboot.project.member.MemberVO">
-
-      select * from member where uuid = #{uuid}
+		select * from member where uuid = #{uuid}
   </select>
 
 	<insert id="kakaoInsert" parameterType="com.springboot.springboot.project.member.MemberVO">
-
-      insert into member (member_idx, uuid) 
-      values ((select nvl(max(member_idx), 9999) + 1 from member), #{uuid})
+		insert into member (member_idx, uuid) 
+		values ((select IFNULL(max(member_idx), 9999) + 1 from (select member_idx from member) as temp), #{uuid})
   </insert>
 
 	<update id="kakaoUpdate"
 		parameterType="com.springboot.springboot.project.member.MemberVO">
-
 		update member set username = #{username}, password = #{password},
 		name = #{name}, phone = #{phone}, email = #{email}, 
 		postcode = #{postcode}, address = #{address}, 
@@ -83,7 +81,6 @@
 
 	<update id="memberUpdate"
 		parameterType="com.springboot.springboot.project.member.MemberVO">
-
 		update member set name = #{name}, phone = #{phone}, email = #{email}, 
 		postcode = #{postcode}, address = #{address}, 
 		detailAddress = #{detailAddress}, 
@@ -93,40 +90,38 @@
 
 	<update id="updateAll"
 		parameterType="com.springboot.springboot.project.member.MemberVO">
-
 		update member set password = #{password} 
 	</update>
 
 	<delete id="memberDelete"
 		parameterType="com.springboot.springboot.project.member.MemberVO">
-
 		delete from member where member_idx = #{member_idx}
 	</delete>
 
 	<!-- board 테이블에서 member_idx를 참조하는 레코드 삭제 -->
 	<delete id="boardDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
-			DELETE FROM board WHERE member_idx = #{member_idx}
+		delete from board where member_idx = #{member_idx}
 	</delete>
 
 	<!-- cart 테이블에서 member_idx를 참조하는 레코드 삭제 -->
 	<delete id="cartDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
-			DELETE FROM cart WHERE member_idx = #{member_idx}
+		delete from cart where member_idx = #{member_idx}
 	</delete>
 
 	<!-- orderTbl 테이블에서 member_idx를 참조하는 레코드 삭제 -->
 	<delete id="orderDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
-			DELETE FROM orderTbl WHERE member_idx = #{member_idx}
+		delete from orderTbl where member_idx = #{member_idx}
 	</delete>
 
 	<!-- bookmark 테이블에서 member_idx를 참조하는 레코드 삭제 -->
 	<delete id="bookmarkDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
-			DELETE FROM bookmark WHERE member_idx = #{member_idx}
+		delete from bookmark where member_idx = #{member_idx}
 	</delete>
 
 	<!-- comment_board 테이블에서 member_idx를 참조하는 레코드 삭제 -->
 	<delete id="commentBoardDeleteByMemberIdx" parameterType="com.springboot.springboot.project.member.MemberVO">
-			DELETE FROM comment_board WHERE member_idx = #{member_idx}
+		delete from comment_board where member_idx = #{member_idx}
 	</delete>
 
- </mapper>
+</mapper>
 

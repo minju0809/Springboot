@@ -2,23 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="com.springboot.springboot.project.shop.ShopDao">
+<mapper namespace="com.springboot.springboot.project.shop.ShopDao">
 
   <select id="getProductList"
     parameterType="com.springboot.springboot.project.shop.ProductVO"
     resultType="com.springboot.springboot.project.shop.ProductVO">
-
     <![CDATA[
       select * from product where 1=1
 		]]>
 		<if test="ch1=='product_name'">
 		<![CDATA[
-			and product_name like '%'||#{ch2}||'%'
+			and product_name like CONCAT('%', #{ch2}, '%')
 		]]>
 		</if>
 		<if test="ch1=='product_desc'">
 		<![CDATA[
-			and product_desc like '%'||#{ch2}||'%'
+			and product_desc like CONCAT('%', #{ch2}, '%')
 		]]>
 		</if>
 		<![CDATA[
@@ -29,13 +28,13 @@
 	<select id="getProduct"
     parameterType="com.springboot.springboot.project.shop.ProductVO"
     resultType="com.springboot.springboot.project.shop.ProductVO">
-
     select * from product where product_idx = #{product_idx}
   </select>
 
   <insert id="productInsert" parameterType="com.springboot.springboot.project.shop.ProductVO">
-      insert into product (product_idx, product_name, product_price, product_desc, product_imgStr) 
-      values ((select nvl(max(product_idx), 50000) + 1 from product), #{product_name}, #{product_price}, #{product_desc}, #{product_imgStr})
+    insert into product (product_idx, product_name, product_price, product_desc, product_imgStr) 
+    values ((select ifnull(max(product_idx), 50000) + 1 from (select product_idx from product) as temp),
+      #{product_name}, #{product_price}, #{product_desc}, #{product_imgStr})
   </insert>
 
 
@@ -46,14 +45,16 @@
   </select>
 
 	<insert id="cartInsert" parameterType="com.springboot.springboot.project.shop.CartVO">
-      insert into cart (cart_idx, product_idx, member_idx, product_name, product_amount, product_price, product_imgStr) 
-      values ((cart_seq.nextval), #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
-				(#{product_amount} * #{product_price}), #{product_imgStr})
+    insert into cart (cart_idx, product_idx, member_idx, product_name, product_amount, product_price, product_imgStr) 
+    values ((select ifnull(max(cart_idx), 100000) + 1 from (select cart_idx from cart) as temp), 
+      #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
+      (#{product_amount} * #{product_price}), #{product_imgStr})
   </insert>
 
 	<update id="cartUpdate" parameterType="com.springboot.springboot.project.shop.CartVO">
-      update cart set product_price = product_price + (#{product_amount} * #{product_price}), product_amount = product_amount + #{product_amount}
-      	where product_idx = #{product_idx}
+    update cart set product_price = product_price + (#{product_amount} * #{product_price}), 
+      product_amount = product_amount + #{product_amount}
+    where product_idx = #{product_idx}
   </update>
 
 	<select id="adminGetCartList"
@@ -69,27 +70,27 @@
   </select>
 
 	<update id="cartUpdateAll" parameterType="com.springboot.springboot.project.shop.CartVO">
-      update cart set product_price = #{product_price}, product_amount = #{product_amount}
-      	where cart_idx = #{cart_idx}
+    update cart set product_price = #{product_price}, product_amount = #{product_amount}
+    where cart_idx = #{cart_idx}
   </update>
 
 	<delete id="cartDelete" parameterType="com.springboot.springboot.project.shop.CartVO">
-      delete from cart where cart_idx = #{cart_idx}
+    delete from cart where cart_idx = #{cart_idx}
   </delete>
 
 
 	<select id="order_idx" resultType="int">
-    select nvl(max(order_idx), 70000) + 1  from orderTBL
+    select nvl(max(order_idx), 70000) + 1  from order_tbl
   </select>
 
 	<delete id="cartDeleteAll" parameterType="com.springboot.springboot.project.shop.CartVO">
-      delete from cart where member_idx = #{member_idx}
+    delete from cart where member_idx = #{member_idx}
   </delete>
 
 	<insert id="orderInsert" parameterType="com.springboot.springboot.project.shop.OrderVO">
-      insert into orderTbl (order_idx, cart_idx, product_idx, member_idx, product_name, product_amount, product_price, order_price, product_imgStr) 
-      values (#{order_idx}, #{cart_idx}, #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
-				#{product_price}, #{order_price}, #{product_imgStr})
+    insert into order_tbl (order_idx, cart_idx, product_idx, member_idx, product_name, product_amount, product_price, order_price, product_imgStr) 
+    values (#{order_idx}, #{cart_idx}, #{product_idx}, #{member_idx}, #{product_name}, #{product_amount}, 
+      #{product_price}, #{order_price}, #{product_imgStr})
   </insert>
 
 	<select id="adminGetOrderList"
@@ -97,10 +98,10 @@
     resultType="com.springboot.springboot.project.shop.OrderVO">
     select o.order_idx, o.member_idx, m.username, 
       sum(o.product_price) as product_price, o.order_today
-      from orderTbl o join member m
-      on o.member_idx = m.member_idx
-      group by o.order_idx, o.member_idx, m.username, o.order_today
-      order by o.order_idx desc
+    from order_tbl o join member m
+    on o.member_idx = m.member_idx
+    group by o.order_idx, o.member_idx, m.username, o.order_today
+    order by o.order_idx desc
   </select>
 
 	<select id="getOrderList"
@@ -108,11 +109,11 @@
     resultType="com.springboot.springboot.project.shop.OrderVO">
     select o.order_idx, o.member_idx, m.username, 
       sum(o.product_price) as product_price, o.order_today
-      from orderTbl o join member m
-      on o.member_idx = m.member_idx
-      where o.member_idx = #{member_idx}
-      group by o.order_idx, o.member_idx, m.username, o.order_today
-      order by order_idx desc
+    from order_tbl o join member m
+    on o.member_idx = m.member_idx
+    where o.member_idx = #{member_idx}
+    group by o.order_idx, o.member_idx, m.username, o.order_today
+    order by order_idx desc
   </select>
 
   <select id="getDetailOrderList"
@@ -121,15 +122,13 @@
     select o.order_idx, o.cart_idx, o.member_idx, o.product_idx, o.product_name, 
       o.product_amount, sum(o.product_price) as product_price, o.order_today, o.product_imgStr,
       m.username, m.name, m.phone, m.postcode, m.address, m.detailAddress, m.etc 
-      from orderTbl o join member m
-      on o.member_idx = m.member_idx
-      where o.order_idx = #{order_idx} 
-      group by o.order_idx, o.cart_idx, o.member_idx, o.product_idx, o.product_name, 
+    from order_tbl o join member m
+    on o.member_idx = m.member_idx
+    where o.order_idx = #{order_idx} 
+    group by o.order_idx, o.cart_idx, o.member_idx, o.product_idx, o.product_name, 
       o.product_amount, o.order_today, o.product_imgStr,
       m.username, m.name, m.phone, m.postcode, m.address, m.detailAddress, m.etc
-      order by o.cart_idx desc
+    order by o.cart_idx desc
   </select>
 
-
- </mapper>
-
+</mapper>
