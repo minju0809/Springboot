@@ -11,6 +11,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <p id="paymentKey"></p>
     <p id="orderId"></p>
     <p id="amount"></p>
+    <p id="orderName"></p>
   </div>
   
   <div class="customer-info">
@@ -28,6 +29,7 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   const paymentKey = urlParams.get("paymentKey");
   const orderId = urlParams.get("orderId");
   const amount = urlParams.get("amount");
+  const orderName = urlParams.get("orderName");
 
   async function confirm() {
     const requestData = {
@@ -166,10 +168,12 @@ prefix="c" %> <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   const paymentKeyElement = document.getElementById("paymentKey");
   const orderIdElement = document.getElementById("orderId");
   const amountElement = document.getElementById("amount");
+  const orderNameElement = document.getElementById("orderName");
 
   orderIdElement.textContent = "주문번호: " + orderId;
   amountElement.textContent = "결제 금액: " + new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(amount);
   paymentKeyElement.textContent = "paymentKey: " + paymentKey;
+  orderNameElement.textContent = "주문상품: " + orderName;
 </script>
 
 <style>

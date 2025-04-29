@@ -17,6 +17,19 @@
 	const phoneNumber = "${sessionScope.session.phone}".replace(/-/g, "");
 
 	async function orderAll() {
+		// 세션 정보 확인
+		const memberPhone = "${sessionScope.session.phone}";
+		const memberAddress = "${sessionScope.session.address}";
+		
+		if (!memberPhone || !memberAddress) {
+			if (confirm("연락처와 주소가 입력되지 않았습니다. 회원 정보 수정 페이지로 이동하시겠습니까?")) {
+				window.location.href = "/getMember.do?member_idx=${sessionScope.session.member_idx}";
+				return;
+			} else {
+				return;
+			}
+		}
+		
 		const button = document.getElementById("payment-button");
 		
 		// 주문 ID 생성 (타임스탬프 + 랜덤 문자열)
@@ -77,7 +90,8 @@
 					"product_amount=" + Array.from(document.getElementsByName("product_amount")).map(input => input.value).join(",") + "&" +
 					"product_price=" + Array.from(document.getElementsByName("product_price")).map(input => input.value).join(",") + "&" +
 					"order_price=" + document.getElementsByName("order_price")[0].value + "&" +
-					"product_imgStr=" + Array.from(document.getElementsByName("product_imgStr")).map(input => input.value).join(","),
+					"product_imgStr=" + Array.from(document.getElementsByName("product_imgStr")).map(input => input.value).join(",") + "&" +
+					"orderName=" + orderName,
 				failUrl: window.location.origin + "/fail.jsp",
 				customerEmail: "${sessionScope.session.email}",
 				customerName: "${sessionScope.session.name}",

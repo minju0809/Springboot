@@ -50,7 +50,7 @@
                         &emsp; 카카오톡에서 변경된 닉네임은 다시 로그인 해야 적용 됩니다!
                       </c:when>
                       <c:otherwise>
-                        &emsp; 수정된 이름은 다시 로그인 해야 적용 됩니다!
+                        &emsp; 수정된 정보는 다시 로그인 해야 적용 됩니다!
                       </c:otherwise>
                     </c:choose>
                   </span>
