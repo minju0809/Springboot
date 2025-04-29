@@ -24,4 +24,7 @@ public class OrderVO { // 70001
 	private String order_today;
 	private MultipartFile product_img;
 	private String product_imgStr;
+	private String paymentKey;
+	private String orderId;
+	private int amount;
 }

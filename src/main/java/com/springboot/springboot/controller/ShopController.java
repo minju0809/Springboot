@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,15 @@ public class ShopController {
 
   @Autowired
   private HttpSession session;
+
+  @Value("${toss.client.key}")
+  private String tossClientKey;
+
+  @Value("${toss.customer.key}")
+  private String tossCustomerKey;
+
+  @Value("${toss.widget.secret.key}")
+  private String tossWidgetSecretKey;
 
   @GetMapping("/getProductList.do")
   String getProductList(Model model, ProductVO vo) {
@@ -103,13 +113,19 @@ public class ShopController {
   }
 
   @GetMapping("/getCartList.do")
-  String getCartList(Model model, CartVO vo) {
-
+  public String getCartList(Model model) {
+    // TossPayments 키를 Model에 추가
+    model.addAttribute("tossClientKey", tossClientKey);
+    model.addAttribute("tossCustomerKey", tossCustomerKey);
+    model.addAttribute("tossWidgetSecretKey", tossWidgetSecretKey);
+    
     MemberVO mvo = (MemberVO) session.getAttribute("session");
-    vo.setMember_idx(mvo.getMember_idx());
-    model.addAttribute("order_idx", service.order_idx(null));
-    model.addAttribute("li", service.getCartList(vo));
-
+    if (mvo != null) {
+      CartVO vo = new CartVO();
+      vo.setMember_idx(mvo.getMember_idx());
+      model.addAttribute("order_idx", service.order_idx(null));
+      model.addAttribute("li", service.getCartList(vo));
+    }
     return "/shop/getCartList";
   }
 
@@ -144,23 +160,64 @@ public class ShopController {
 
   // order
 
+  @GetMapping("/paymentSuccess.do")
+  public String paymentSuccess(
+          @RequestParam String order_idx,
+          @RequestParam String member_idx,
+          @RequestParam String[] cart_idx,
+          @RequestParam String[] product_idx,
+          @RequestParam String[] product_name,
+          @RequestParam String[] product_amount,
+          @RequestParam String[] product_price,
+          @RequestParam String order_price,
+          @RequestParam String[] product_imgStr,
+          Model model) {
+
+    // 주문 정보를 Model에 추가
+    model.addAttribute("order_idx", order_idx);
+    model.addAttribute("member_idx", member_idx);
+    model.addAttribute("cart_idx", String.join(",", cart_idx));
+    model.addAttribute("product_idx", String.join(",", product_idx));
+    model.addAttribute("product_name", String.join(",", product_name));
+    model.addAttribute("product_amount", String.join(",", product_amount));
+    model.addAttribute("product_price", String.join(",", product_price));
+    model.addAttribute("order_price", String.join(",", product_price));
+    model.addAttribute("product_imgStr", String.join(",", product_imgStr));
+
+    // 세션에서 회원 정보 가져오기
+    MemberVO member = (MemberVO) session.getAttribute("session");
+    if (member != null) {
+      model.addAttribute("memberName", member.getName());
+      model.addAttribute("memberEmail", member.getEmail());
+      model.addAttribute("memberPhone", member.getPhone());
+    }
+
+    return "/shop/success";
+  }
+
   @PostMapping("/orderAll.do")
-  String orderAll(@RequestParam String[] order_idx,
+  public String orderAll(
+      @RequestParam String order_idx,
       @RequestParam String[] cart_idx,
       @RequestParam String[] product_idx,
       @RequestParam String[] product_name,
       @RequestParam String[] product_amount,
       @RequestParam String[] product_price,
       @RequestParam String[] order_price,
-      @RequestParam String[] product_imgStr) {
+      @RequestParam String[] product_imgStr,
+      @RequestParam String paymentKey,
+      @RequestParam String orderId,
+      @RequestParam int amount) {
 
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     int midx = mvo.getMember_idx();
-
-    for (int i = 0; i < cart_idx.length; i++) {
+    // 배열 길이 확인
+    int length = cart_idx.length;
+    
+    for (int i = 0; i < length; i++) {
       OrderVO vo = new OrderVO();
       vo.setMember_idx(midx);
-      vo.setOrder_idx(Integer.parseInt(order_idx[i]));
+      vo.setOrder_idx(Integer.parseInt(order_idx));
       vo.setCart_idx(Integer.parseInt(cart_idx[i]));
       vo.setProduct_idx(Integer.parseInt(product_idx[i]));
       vo.setProduct_name(product_name[i]);
@@ -168,11 +225,12 @@ public class ShopController {
       vo.setProduct_price(Integer.parseInt(product_price[i]));
       vo.setOrder_price(Integer.parseInt(order_price[i]));
       vo.setProduct_imgStr(product_imgStr[i]);
-
+      vo.setPaymentKey(paymentKey);
+      vo.setOrderId(orderId);
+      vo.setAmount(amount);
+      
       service.cartDeleteAll(vo);
       service.orderInsert(vo);
-
-      System.out.println("!!!!!!!!!!!!!!!OrderVO: " + vo);
     }
 
     if (mvo.getRole().equals("ROLE_A")) {

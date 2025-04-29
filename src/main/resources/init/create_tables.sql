@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS cart (
 );
 
 CREATE TABLE IF NOT EXISTS order_tbl (
-    order_idx INT PRIMARY KEY,
+    order_idx INT,
     cart_idx INT,
     member_idx INT,
     product_idx INT,
