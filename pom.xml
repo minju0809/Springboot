@@ -162,14 +162,15 @@
 	</profiles>
 	
 	<build>
-		<directory>/Users/minju/Springboot/target</directory>
+		<directory>target</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>com.springboot.springboot.SpringbootApplication</mainClass>
-        	<outputDirectory>/Users/minju/Springboot/target</outputDirectory>
+					<outputDirectory>target</outputDirectory>
+					<finalName>springboot-0.0.1-SNAPSHOT</finalName>
 					<image>
 						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
 					</image>
