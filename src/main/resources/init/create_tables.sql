@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS guestbook(
     guestbook_idx INT PRIMARY KEY,
     guestbook_name VARCHAR(20),
     guestbook_memo VARCHAR(100),
-    guestbook_today DATE DEFAULT CURRENT_TIMESTAMP
+    guestbook_today DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS member (
@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS member (
     address VARCHAR(50),
     detailaddress VARCHAR(50),
     extraaddress VARCHAR(50),
-    regdate DATE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    regdate DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     etc VARCHAR(100),
     uuid VARCHAR(36)
 );
@@ -31,10 +31,10 @@ CREATE TABLE IF NOT EXISTS board (
     board_content VARCHAR(1000),
     board_map VARCHAR(10),
     board_imgstr VARCHAR(50),
-    board_today DATE DEFAULT CURRENT_TIMESTAMP,
+    board_today DATETIME DEFAULT CURRENT_TIMESTAMP,
     board_cnt INT,
     map_dot VARCHAR(1000),
-    FOREIGN KEY (member_idx) REFERENCES member(member_idx)
+    FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS comment_board (
@@ -42,9 +42,9 @@ CREATE TABLE IF NOT EXISTS comment_board (
     board_idx INT,
     member_idx INT,
     comment_content VARCHAR(1000),
-    comment_date DATE DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (board_idx) REFERENCES board(board_idx),
-    FOREIGN KEY (member_idx) REFERENCES member(member_idx)
+    comment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (board_idx) REFERENCES board(board_idx) ON DELETE CASCADE,
+    FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS product (
@@ -63,8 +63,8 @@ CREATE TABLE IF NOT EXISTS cart (
     product_amount INT,
     product_price DECIMAL(10, 2),
     product_imgstr VARCHAR(50),
-    FOREIGN KEY (product_idx) REFERENCES product(product_idx),
-    FOREIGN KEY (member_idx) REFERENCES member(member_idx)
+    FOREIGN KEY (product_idx) REFERENCES product(product_idx) ON DELETE CASCADE,
+    FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS order_tbl (
@@ -77,9 +77,9 @@ CREATE TABLE IF NOT EXISTS order_tbl (
     product_price DECIMAL(10, 2),
     product_imgstr VARCHAR(50),
     order_price DECIMAL(10, 2),
-    order_today DATE DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (member_idx) REFERENCES member(member_idx),
-    FOREIGN KEY (product_idx) REFERENCES product(product_idx)
+    order_today DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE,
+    FOREIGN KEY (product_idx) REFERENCES product(product_idx) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS bookmark (
@@ -87,8 +87,8 @@ CREATE TABLE IF NOT EXISTS bookmark (
     member_idx INT,
     board_idx INT,
     boardbookmarked INT DEFAULT 0,
-    FOREIGN KEY (board_idx) REFERENCES board(board_idx),
-    FOREIGN KEY (member_idx) REFERENCES member(member_idx)
+    FOREIGN KEY (board_idx) REFERENCES board(board_idx) ON DELETE CASCADE,
+    FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS pokemon (
