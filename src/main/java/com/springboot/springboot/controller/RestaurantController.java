@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +29,12 @@ import com.springboot.springboot.project.restaurant.RestaurantVO;
 @Controller
 public class RestaurantController {
 
+  @Value("${restaurant.api.key}")
+  private String restaurantApiKey;
+
   private List<RestaurantVO> processApiData() throws Exception {
     StringBuilder urlBuilder = new StringBuilder("http://api.kcisa.kr/openapi/API_CNV_055/request"); /* URL */
-    urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=4ea8a43b-42d2-4153-a938-c2e62138ecaf");
+    urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + restaurantApiKey);
     urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("100", "UTF-8"));
     urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 페이지수 */
     // urlBuilder.append("&" + URLEncoder.encode("areaNm", "UTF-8") + "=" +
