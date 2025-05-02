@@ -268,7 +268,7 @@
   }
 </script>
 <script type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
+  src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
 <script>
   var parsedDots = JSON.parse('${board.map_dot}');
   var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다

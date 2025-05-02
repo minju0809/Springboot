@@ -24,7 +24,7 @@
       <br>
     </section>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
     <script>
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = {

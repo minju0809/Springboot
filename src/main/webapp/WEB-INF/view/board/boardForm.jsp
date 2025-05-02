@@ -110,7 +110,7 @@
   <br>
 </section>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
 <script>
 
   // 마커를 담을 배열입니다
