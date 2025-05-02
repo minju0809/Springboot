@@ -185,7 +185,7 @@
   <br>
 </section>
 
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
   $(document).ready(function () {
     var member_idx = '${session.member_idx}';
