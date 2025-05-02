@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS board (
     board_map VARCHAR(10),
     board_imgstr VARCHAR(50),
     board_today DATETIME DEFAULT CURRENT_TIMESTAMP,
-    board_cnt INT,
+    board_cnt INT not null default 0,
     map_dot VARCHAR(1000),
     FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE
 );

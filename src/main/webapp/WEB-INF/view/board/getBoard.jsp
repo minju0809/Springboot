@@ -190,11 +190,19 @@
   $(document).ready(function () {
     var member_idx = '${session.member_idx}';
     var board_idx = '${board.board_idx}';
-    // 페이지가 로드될 때 
-    getBookmarkStatus(member_idx, board_idx);
+    
+    // member_idx가 있는 경우에만 북마크 상태를 확인
+    if (member_idx) {
+      getBookmarkStatus(member_idx, board_idx);
+    }
   });
 
   function getBookmarkStatus(member_idx, board_idx) {
+    if (!member_idx) {
+      console.log("로그인이 필요합니다.");
+      return;
+    }
+
     $.ajax({
       url: "getBookmarkStatus.do",
       type: "GET",
@@ -203,7 +211,7 @@
         board_idx: board_idx
       },
       success: function (response) {
-        console.log("북마크 상태 가져오기 성공: + response");
+        console.log("북마크 상태 가져오기 성공: " + response);
         if (response === "bookmarked") {
           $('.bookmark-button').addClass('bookmarked');
           $('.heart-path').css('fill', 'red');
@@ -217,6 +225,12 @@
 
   function toggleBookmark(event, member_idx, board_idx, button) {
     event.preventDefault();
+    
+    if (!member_idx) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
     const heartPath = button.querySelector('.heart-path');
     const isBookmarked = button.classList.toggle('bookmarked');
 
@@ -241,7 +255,6 @@
         console.log("에러 발생: ", error);
       }
     });
-    // alert('로그인 번호 ' + member_idx + '게시물 번호 ' + board_idx + ' 의 즐겨찾기 상태: ' + isBookmarked);
   }
 
   function boardDelete() {
@@ -270,7 +283,17 @@
 <script type="text/javascript"
   src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${keyValue}&libraries=services"></script>
 <script>
-  var parsedDots = JSON.parse('${board.map_dot}');
+  var mapDots = '${board.map_dot}';
+  var parsedDots = [];
+  
+  try {
+    if (mapDots && mapDots.trim() !== '') {
+      parsedDots = JSON.parse(mapDots);
+    }
+  } catch (e) {
+    console.error("JSON 파싱 에러:", e);
+  }
+
   var clickLine // 마우스로 클릭한 좌표로 그려질 선 객체입니다
 
   var mapContainer = document.getElementById('map'), // 지도를 표시할 div  

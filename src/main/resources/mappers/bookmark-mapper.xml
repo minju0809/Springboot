@@ -6,8 +6,8 @@
 
   <insert id="insertBoardBookmark"
     parameterType="com.springboot.springboot.project.bookmark.BookmarkVO">
-    insert into bookmark (bookmark_idx, member_idx, board_idx, boardBookmarked)
-    values ((select nvl(max(bookmark_idx), 100000) + 1 from (select bookmark_idx from bookmark) as temp), #{member_idx}, #{board_idx}, #{boardBookmarked})
+    insert into bookmark (bookmark_idx, member_idx, board_idx, boardbookmarked)
+    values ((select ifnull(max(bookmark_idx), 100000) + 1 from (select bookmark_idx from bookmark) as temp), #{member_idx}, #{board_idx}, #{boardBookmarked})
   </insert>
 
   <delete id="deleteBoardBookmark"
@@ -24,7 +24,7 @@
   <select id="getBookmarkedBoards" parameterType="int"
     resultType="com.springboot.springboot.project.bookmark.BookmarkVO">
     select * from bookmark
-    where member_idx = #{member_idx} and boardBookmarked = 1
+    where member_idx = #{member_idx} and boardbookmarked = 1
   </select>
 
 </mapper>
