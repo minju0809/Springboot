@@ -80,7 +80,7 @@
 
 
 	<select id="order_idx" resultType="int">
-    select nvl(max(order_idx), 70000) + 1  from order_tbl
+    select ifnull(max(order_idx), 70000) + 1 from (select order_idx from order_tbl) as temp
   </select>
 
 	<delete id="cartDeleteAll" parameterType="com.springboot.springboot.project.shop.CartVO">
