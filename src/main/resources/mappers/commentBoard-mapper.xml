@@ -7,7 +7,7 @@
   <insert id="commentBoardInsert"
     parameterType="com.springboot.springboot.project.board.CommentBoardVO">
     insert into comment_board (comment_idx, board_idx, member_idx, comment_content)
-    values ((select ifnull(max(comment_idx), 900000) + 1 from comment_board), 
+    values ((select ifnull(max(comment_idx), 900000) + 1 from (select comment_idx from comment_board) as temp), 
 	    #{board_idx}, #{member_idx}, #{comment_content})
   </insert>
 

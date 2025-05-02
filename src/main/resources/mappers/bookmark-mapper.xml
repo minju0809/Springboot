@@ -7,7 +7,7 @@
   <insert id="insertBoardBookmark"
     parameterType="com.springboot.springboot.project.bookmark.BookmarkVO">
     insert into bookmark (bookmark_idx, member_idx, board_idx, boardBookmarked)
-    values ((select nvl(max(bookmark_idx), 100000) + 1 from bookmark), #{member_idx}, #{board_idx}, #{boardBookmarked})
+    values ((select nvl(max(bookmark_idx), 100000) + 1 from (select bookmark_idx from bookmark) as temp), #{member_idx}, #{board_idx}, #{boardBookmarked})
   </insert>
 
   <delete id="deleteBoardBookmark"

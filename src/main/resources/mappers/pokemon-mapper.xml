@@ -37,7 +37,7 @@
 
 	<insert id="pokemonInsert" parameterType="com.springboot.springboot.project.pokemon.PokemonVO">
 		insert into pokemon (pokemon_idx, num, name, image, type1, type2) 
-		values ((select ifnull(max(pokemon_idx), 0) + 1 from pokemon), 
+		values ((select ifnull(max(pokemon_idx), 0) + 1 from (select pokemon_idx from pokemon) as temp), 
 			#{num}, #{name}, #{image}, #{type1}, #{type2})
   </insert>
 

@@ -41,7 +41,7 @@
     parameterType="com.springboot.springboot.project.board.BoardVO">
     insert into board
     (board_idx, member_idx, member_name, board_map, map_dot, board_title, board_content, board_imgStr) 
-    values ((select ifnull(max(board_idx), 90000) + 1 from board), #{member_idx}, #{member_name},
+    values ((select ifnull(max(board_idx), 90000) + 1 from (select board_idx from board) as temp), #{member_idx}, #{member_name},
     #{board_map}, #{map_dot}, #{board_title}, #{board_content}, #{board_imgStr})
   </insert>
 
