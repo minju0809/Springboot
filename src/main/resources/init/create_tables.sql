@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS board (
     board_title VARCHAR(50),
     board_content VARCHAR(1000),
     board_map VARCHAR(10),
-    board_imgstr VARCHAR(50),
+    board_imgstr VARCHAR(200),
     board_today DATETIME DEFAULT CURRENT_TIMESTAMP,
     board_cnt INT not null default 0,
     map_dot VARCHAR(1000),
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS product (
     product_name VARCHAR(20),
     product_price DECIMAL(10, 2),
     product_desc VARCHAR(50),
-    product_imgstr VARCHAR(50)
+    product_imgstr VARCHAR(200)
 );
 
 CREATE TABLE IF NOT EXISTS cart (
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS cart (
     product_name VARCHAR(20),
     product_amount INT,
     product_price DECIMAL(10, 2),
-    product_imgstr VARCHAR(50),
+    product_imgstr VARCHAR(200),
     FOREIGN KEY (product_idx) REFERENCES product(product_idx) ON DELETE CASCADE,
     FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE
 );
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS order_tbl (
     product_name VARCHAR(20),
     product_amount INT,
     product_price DECIMAL(10, 2),
-    product_imgstr VARCHAR(50),
+    product_imgstr VARCHAR(200),
     order_price DECIMAL(10, 2),
     order_today DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (member_idx) REFERENCES member(member_idx) ON DELETE CASCADE,

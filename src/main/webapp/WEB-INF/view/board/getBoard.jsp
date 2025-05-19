@@ -98,7 +98,7 @@
             </c:if>
           </td>
           <td rowspan="7">
-            <img src="/img/board/${board.board_imgStr}" alt="image" width="300" height="300">
+            <img src="${board.board_imgStr}" alt="image" width="300" height="300">
           </td>
         </tr>
         <tr>

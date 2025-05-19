@@ -14,8 +14,7 @@
     <div class="board-container">
       <c:forEach items="${li}" var="record">
         <div class="board" onclick="location.href='/getBoard.do?board_idx=${record.board_idx}&start=${start}&ch1=${ch1}&ch2=${ch2}'">
-          
-          <img class="img" src="/img/board/${record.board_imgStr}" alt="image" width="100" height="80">
+          <img class="img" src="${record.board_imgStr}" alt="image" width="100" height="80">
           <div class="board-content">
             <p>제목: ${record.board_title}</p>
             <p>작성자: ${record.member_name}</p>
