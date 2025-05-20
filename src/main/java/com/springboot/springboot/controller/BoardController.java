@@ -27,6 +27,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class BoardController {
   
+  private static final String DEFAULT_IMAGE_URL = "https://travel-project-images.s3.ap-northeast-2.amazonaws.com/space.jpeg";
+
   @Autowired
   private BoardService service;
 
@@ -93,7 +95,7 @@ public class BoardController {
       String imageUrl = s3Service.upload(file, "board");
       vo.setBoard_imgStr(imageUrl);
     } else {
-      vo.setBoard_imgStr("space.png");
+      vo.setBoard_imgStr(DEFAULT_IMAGE_URL);
     }
     
     service.boardInsert(vo);
@@ -105,8 +107,8 @@ public class BoardController {
   String boardUpdate(BoardVO vo) throws Exception {
     MultipartFile board_img = vo.getBoard_img();
     if (!board_img.isEmpty()) {
-      // 기존 이미지가 space.png가 아니면 S3에서 삭제
-      if (vo.getBoard_imgStr() != null && !vo.getBoard_imgStr().equals("space.png")) {
+      // 기존 이미지가 기본 이미지가 아니면 S3에서 삭제
+      if (vo.getBoard_imgStr() != null && !vo.getBoard_imgStr().equals(DEFAULT_IMAGE_URL)) {
         s3Service.delete(vo.getBoard_imgStr());
       }
       // 새 이미지 업로드
@@ -123,8 +125,8 @@ public class BoardController {
   String boardDelete(BoardVO vo) {
     vo = service.getBoard(vo);
 
-    // 이미지가 space.png가 아니면 S3에서 삭제
-    if (!vo.getBoard_imgStr().equals("space.png")) {
+    // 이미지가 기본 이미지가 아니면 S3에서 삭제
+    if (!vo.getBoard_imgStr().equals(DEFAULT_IMAGE_URL)) {
       s3Service.delete(vo.getBoard_imgStr());
     }
 

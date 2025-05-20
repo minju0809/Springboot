@@ -7,28 +7,40 @@
 <section>
   <br><br>
   <div align=center>
-    <h2>상품등록</h2>
+    <h2>${empty product ? '상품 등록' : '상품 수정'}</h2>
     <br>
-    <form action="/a/productInsert.do" method="post" enctype="multipart/form-data">
+    <form action="${empty product ? '/a/productInsert.do' : '/a/productUpdate.do'}" method="post" enctype="multipart/form-data">
+      <c:if test="${not empty product}">
+        <input type="hidden" name="product_idx" value="${product.product_idx}">
+      </c:if>
+      <input type="hidden" name="product_imgStr" value="${product.product_imgStr}">
       <table class="another-table">
         <tr>
-          <th>상품이름</th>
-          <td><input type="text" name="product_name"></td>
+          <th>상품명</th>
+          <td><input type="text" name="product_name" value="${product.product_name}" required></td>
         </tr>
         <tr>
           <th>가격</th>
-          <td><input type="text" name="product_price"></td>
+          <td><input type="number" name="product_price" value="${product.product_price}" required></td>
         </tr>
         <tr>
           <th>상세설명</th>
-          <td><input type="text" name="product_desc"></td>
+          <td><textarea name="product_desc" rows="5" cols="30" required>${product.product_desc}</textarea></td>
         </tr>
         <tr>
           <th>이미지</th>
-          <td><input type="file" name="product_img"></td>
+          <td>
+            <c:if test="${not empty product}">
+              <img src="${product.product_imgStr}" alt="현재 이미지" width="100" height="100"><br>
+            </c:if>
+            <input type="file" name="product_img">
+          </td>
         </tr>
         <tr>
-          <td align="center" colspan="2"><input type="submit" value="저장하기"></td>
+          <td colspan="2" align="center">
+            <input type="submit" value="${empty product ? '등록' : '수정'}">
+            <input type="button" value="취소" onclick="location.href='getProductList.do'">
+          </td>
         </tr>
       </table>
     </form>

@@ -14,7 +14,7 @@
         <input type="hidden" id="loginCheck" value="${empty session.username}">
         <table class="another-table">
           <tr>
-            <td colspan="2"><img src="/img/shop/${product.product_imgStr}" alt="image" width="300"></td>
+            <td colspan="2"><img src="${product.product_imgStr}" alt="image" width="300"></td>
           </tr>
           <tr>
             <th>번호</th>
@@ -47,6 +47,10 @@
             <td align="center" colspan="2">
               <input type=button onClick="location.href='getProductList.do'" value="목록으로" />
               <input type="button" onclick="addToCart()" value="장바구니에 추가">
+              <c:if test="${session.role eq 'ROLE_ADMIN'}">
+                <input type="button" onclick="location.href='/a/productForm.do?product_idx=${product.product_idx}'" value="수정">
+                <input type="button" onclick="productDelete()" value="삭제">
+              </c:if>
             </td>
           </tr>
         </table>
@@ -66,6 +70,12 @@
         } else {
             alert("장바구니에 추가되었습니다.");
             document.getElementById("addToCartForm").submit();
+        }
+    }
+
+    function productDelete() {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            location.href = '/a/productDelete.do?product_idx=${product.product_idx}';
         }
     }
 </script>

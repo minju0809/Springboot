@@ -37,6 +37,18 @@
       #{product_name}, #{product_price}, #{product_desc}, #{product_imgStr})
   </insert>
 
+  <update id="productUpdate" parameterType="com.springboot.springboot.project.shop.ProductVO">
+    update product 
+    set product_name = #{product_name},
+        product_price = #{product_price},
+        product_desc = #{product_desc},
+        product_imgStr = #{product_imgStr}
+    where product_idx = #{product_idx}
+  </update>
+
+  <delete id="productDelete" parameterType="com.springboot.springboot.project.shop.ProductVO">
+    delete from product where product_idx = #{product_idx}
+  </delete>
 
 	<select id="cartCheck"
     parameterType="com.springboot.springboot.project.shop.CartVO"

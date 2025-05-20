@@ -35,7 +35,7 @@
 					</ul>
 				</div>
 				<div class="list-container">
-					<h4>여행 상품</h4>
+					<h4>배경화면</h4>
 					<ul class="list">
 						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
 						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>

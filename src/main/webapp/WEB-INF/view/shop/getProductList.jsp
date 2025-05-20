@@ -13,21 +13,17 @@
     <br>
     <table class="basic-table">
       <tr>
-        <th>번호</th>
+        <th>이미지</th>
         <th>이름</th>
         <th>가격</th>
         <th>상세설명</th>
-        <th>이미지이름</th>
-        <th>이미지</th>
       </tr>
       <c:forEach items="${li}" var="record">
         <tr>
-          <td>${record.product_idx}</td>
+          <td><img src="${record.product_imgStr}" alt="image" width="50" height="50">
           <td><a href="/getProduct.do?product_idx=${record.product_idx}">${record.product_name}</a></td>
           <td><fmt:formatNumber value="${record.product_price}" pattern="#,###"/></td>
           <td>${record.product_desc}</td>
-          <td>${record.product_imgStr}</td>
-          <td><img src="/img/shop/${record.product_imgStr}" alt="image" width="50" height="50">
           </td>
         </tr>
       </c:forEach>

@@ -8,6 +8,10 @@ public interface ShopService {
   ProductVO getProduct(ProductVO vo);
   
   void productInsert(ProductVO vo);
+  
+  void productUpdate(ProductVO vo);
+  
+  void productDelete(ProductVO vo);
 
   CartVO cartCheck(CartVO vo);
   void cartInsert(CartVO vo);

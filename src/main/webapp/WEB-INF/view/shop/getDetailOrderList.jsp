@@ -44,7 +44,7 @@
 						<td>${ m.cart_idx }</td>
 						<td>${ m.member_idx }</td>
 						<td>${ m.product_idx }</td>
-						<td><img src="/img/shop/${m.product_imgStr}" alt="image" width="50" height="50"></td>
+						<td><img src="${m.product_imgStr}" alt="image" width="50" height="50"></td>
 						<td>${ m.product_name }</td>
 						<td>${ m.product_amount }</td>
 						<td>

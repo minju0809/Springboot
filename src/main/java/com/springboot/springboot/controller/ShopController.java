@@ -1,8 +1,5 @@
 package com.springboot.springboot.controller;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,12 +14,15 @@ import com.springboot.springboot.project.shop.CartVO;
 import com.springboot.springboot.project.shop.OrderVO;
 import com.springboot.springboot.project.shop.ProductVO;
 import com.springboot.springboot.project.shop.ShopService;
+import com.springboot.springboot.project.s3.S3Service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ShopController {
+
+  private static final String DEFAULT_IMAGE_URL = "https://travel-project-images.s3.ap-northeast-2.amazonaws.com/space.jpeg";
 
   @Autowired
   private ShopService service;
@@ -32,6 +32,9 @@ public class ShopController {
 
   @Autowired
   private HttpSession session;
+
+  @Autowired
+  private S3Service s3Service;
 
   @Value("${toss.client.key}")
   private String tossClientKey;
@@ -59,39 +62,61 @@ public class ShopController {
   }
 
   @GetMapping("/a/productForm.do")
-  String productForm(Model model) {
-
+  String productForm(Model model, ProductVO vo) {
+    if (vo.getProduct_idx() != 0) {
+      model.addAttribute("product", service.getProduct(vo));
+    }
     return "/shop/productForm";
   }
 
   @PostMapping("/a/productInsert.do")
   String productInsert(ProductVO vo) throws Exception {
-    String path = request.getSession().getServletContext().getRealPath("/img/shop/");
-    System.out.println("path: " + path);
-    // path: /Users/minju/Springboot/src/main/webapp/img/shop/
-
-    long time = System.currentTimeMillis();
-    SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
-    String timeStr = sdf.format(time);
-
     MultipartFile file = vo.getProduct_img();
-    String fileName = file.getOriginalFilename();
-    File f = new File(path + fileName);
-
     if (!file.isEmpty()) {
-      if (f.exists()) {
-        String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
-        String ext = fileName.substring(fileName.lastIndexOf("."));
-        fileName = onlyFileName + "_" + timeStr + ext;
-      }
-      file.transferTo(new File(path + fileName));
+      String imageUrl = s3Service.upload(file, "product");
+      vo.setProduct_imgStr(imageUrl);
     } else {
-      fileName = "space.png";
+      vo.setProduct_imgStr(DEFAULT_IMAGE_URL);
+    }
+    
+    service.productInsert(vo);
+
+    return "redirect:/getProductList.do";
+  }
+
+  @PostMapping("/a/productUpdate.do")
+  String productUpdate(ProductVO vo) throws Exception {
+      // 기존 상품 정보 조회
+      ProductVO existingProduct = service.getProduct(vo);
+      
+      MultipartFile product_img = vo.getProduct_img();
+      if (!product_img.isEmpty()) {
+          // 기존 이미지가 space.jpeg가 아니면 S3에서 삭제
+          if (existingProduct.getProduct_imgStr() != null && !existingProduct.getProduct_imgStr().equals(DEFAULT_IMAGE_URL)) {
+              s3Service.delete(existingProduct.getProduct_imgStr());
+              System.out.println("기존 이미지 삭제: " + existingProduct.getProduct_imgStr());
+          }
+          // 새 이미지 업로드
+          String imageUrl = s3Service.upload(product_img, "product");
+          vo.setProduct_imgStr(imageUrl);
+          System.out.println("새 이미지 업로드: " + imageUrl);
+      }
+  
+      service.productUpdate(vo);
+  
+      return "redirect:/getProductList.do";
+  }
+
+  @GetMapping("/a/productDelete.do")
+  String productDelete(ProductVO vo) {
+    vo = service.getProduct(vo);
+
+    // 이미지가 기본 이미지가 아니면 S3에서 삭제
+    if (!vo.getProduct_imgStr().equals(DEFAULT_IMAGE_URL)) {
+      s3Service.delete(vo.getProduct_imgStr());
     }
 
-    vo.setProduct_imgStr(fileName);
-    System.out.println("vo: " + vo);
-    service.productInsert(vo);
+    service.productDelete(vo);
 
     return "redirect:/getProductList.do";
   }

@@ -27,6 +27,16 @@ public class ShopServiceImpl implements ShopService {
   }
 
   @Override
+  public void productUpdate(ProductVO vo) {
+    dao.productUpdate(vo);
+  }
+
+  @Override
+  public void productDelete(ProductVO vo) {
+    dao.productDelete(vo);
+  }
+
+  @Override
   public void cartInsert(CartVO vo) {
     dao.cartInsert(vo);
   }
