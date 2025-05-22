@@ -101,4 +101,9 @@ public class ShopServiceImpl implements ShopService {
     return dao.getDetailOrderList(vo);
   }
 
+  @Override
+  public int getTotalCount(ProductVO vo) {
+    return dao.getTotalCount(vo);
+  }
+
 }

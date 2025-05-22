@@ -11,6 +11,7 @@ public interface ShopDao {
   void productInsert(ProductVO vo);
   void productUpdate(ProductVO vo);
   void productDelete(ProductVO vo);
+  int getTotalCount(ProductVO vo);
 
   CartVO cartCheck(CartVO vo);
   void cartInsert(CartVO vo);
@@ -20,7 +21,6 @@ public interface ShopDao {
   void cartUpdateAll(CartVO vo);
   void cartDelete(CartVO vo);
   void cartDeleteAll(OrderVO vo);
-  
 
   int order_idx(OrderVO vo);
   void orderInsert(OrderVO vo);

@@ -16,4 +16,9 @@ public class ProductVO { // 50001
 
   private String ch1;
   private String ch2;
+  
+  // 페이지네이션을 위한 필드
+  private int start;
+  private int pageSize;
+  private int end;
 }

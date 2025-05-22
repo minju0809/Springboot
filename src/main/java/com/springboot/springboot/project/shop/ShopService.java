@@ -28,4 +28,7 @@ public interface ShopService {
   List<OrderVO> adminGetOrderList(OrderVO vo);
   List<OrderVO> getOrderList(OrderVO vo);
   List<OrderVO> getDetailOrderList(OrderVO vo);
+
+  // 전체 상품 수 조회
+  int getTotalCount(ProductVO vo);
 }
