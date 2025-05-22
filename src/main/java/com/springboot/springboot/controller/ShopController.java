@@ -45,14 +45,6 @@ public class ShopController {
   @Value("${toss.widget.secret.key}")
   private String tossWidgetSecretKey;
 
-  @GetMapping("/getProductList.do")
-  String getProductList(Model model, ProductVO vo) {
-
-    model.addAttribute("li", service.getProductList(vo));
-
-    return "/shop/getProductList";
-  }
-
   @GetMapping("/getProduct.do")
   String getProduct(Model model, ProductVO vo) {
 
@@ -81,7 +73,7 @@ public class ShopController {
     
     service.productInsert(vo);
 
-    return "redirect:/getProductList.do";
+    return "redirect:/jsp.do";
   }
 
   @PostMapping("/a/productUpdate.do")
@@ -104,7 +96,7 @@ public class ShopController {
   
       service.productUpdate(vo);
   
-      return "redirect:/getProductList.do";
+      return "redirect:/jsp.do";
   }
 
   @GetMapping("/a/productDelete.do")
@@ -118,7 +110,7 @@ public class ShopController {
 
     service.productDelete(vo);
 
-    return "redirect:/getProductList.do";
+    return "redirect:/jsp.do";
   }
 
   @PostMapping("/cartAdd.do")

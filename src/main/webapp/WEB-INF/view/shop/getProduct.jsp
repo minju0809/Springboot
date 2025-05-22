@@ -45,7 +45,7 @@
           </tr>
           <tr>
             <td align="center" colspan="2">
-              <input type=button onClick="location.href='getProductList.do'" value="목록으로" />
+              <input type=button onClick="location.href='jsp.do'" value="목록으로" />
               <input type="button" onclick="addToCart()" value="장바구니에 추가">
               <c:if test="${session.role eq 'ROLE_ADMIN'}">
                 <input type="button" onclick="location.href='/a/productForm.do?product_idx=${product.product_idx}'" value="수정">

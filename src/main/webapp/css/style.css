@@ -37,7 +37,62 @@ body {
 	margin: auto;
 }
 
-nav {
+/* 헤더 스타일 */
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 2rem;
+	background-color: var(--color-white);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+}
+
+.logo {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: var(--main-color);
+	position: relative;
+	padding: 20px;
+	border: 1px solid var(--point-color);
+	border-radius: 50%;
+	display: inline-block;
+	transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+	transform: rotateY(180deg) rotateY(180deg);
+	border: 1px solid var(--point-color);
+	border-radius: 20px;
+}
+
+.auth-buttons {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+	justify-content: center;
+}
+
+.auth-buttons a {
+	text-decoration: none;
+	color: var(--main-color);
+	padding: 0.5rem 1rem;
+	border-radius: var(--border-radius-1);
+	transition: all 300ms ease;
+}
+
+.auth-buttons a:hover {
+	background-color: var(--point-color);
+	color: var(--color-white);
+}
+
+/* 네비게이션 스타일 */
+#nav {
+	display: flex;
+	z-index: 3;
+	justify-content: space-around;
 	background: var(--color-main-background);
 	color: var(--main-color);
 	height: 80px;
@@ -48,16 +103,63 @@ nav {
 	cursor: default;
 }
 
+.menu-item {
+	box-shadow: 0 2px 1px var(--point-color);
+	text-align: center;
+	position: relative;
+	flex: 1;
+}
+
+.list-container {
+	box-shadow: 0 2px 1px var(--point-color);
+	text-align: center;
+	position: relative;
+	flex: 1;
+}
+
+.list {
+	height: auto;
+	box-shadow: 0 2px 1px var(--point-color);
+	z-index: 2;
+	position: absolute;
+	top: 100%;
+	width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: 0.3s;
+	pointer-events: none;
+	background: var(--color-main-background);
+}
+
+.list-container:hover .list {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.list li {
+	border-bottom: 1px solid var(--color-light);
+}
+
+.list li:last-child {
+	border: none;
+}
+
+/* 섹션 스타일 */
 section {
 	position: relative;
 	background: var(--color-main-background);
 	color: var(--main-color);
-	min-height: 700px;
+	min-height: 500px;
 	line-height: 25px;
 	font-size: 16px;
 	text-align: left;
 }
 
+/* 푸터 스타일 */
 footer {
 	border-top: 1px solid var(--point-color);
 	background: var(--color-main-background);
@@ -68,32 +170,26 @@ footer {
 	text-align: center;
 }
 
+/* 타이틀 스타일 */
 h2 {
 	font-weight: 800;
 	font-size: 1.8rem;
 }
 
-
+/* 배경 스타일 */
 .background {
-	/* 배경 이미지 설정 */
 	background-image: url('/img/background/paris.jpeg');
-	/* 이미지가 꽉 차도록 배경 설정 */
-	/* background-size: cover; */
-	/* 이미지가 반복되지 않도록 설정 */
 	background-repeat: no-repeat;
-	/* 배경 이미지가 중앙 정렬되도록 설정 */
 	background-position: center;
 	opacity: 0.9;
 }
 
-/* 원 큰 모드 */
-/* Timer */
+/* 타이머 스타일 */
 .timer {
 	margin: 12px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* min-height: 100vh; */
 }
 
 #time {
@@ -174,52 +270,30 @@ h2 {
 	box-shadow: 0 0 20px var(--clr), 0 0 60px var(--clr);
 }
 
-/* timer end */
-
-.basic-table {
+/* 테이블 스타일 */
+.basic-table, .another-table {
 	background: var(--color-white);
+	border-radius: var(--card-border-radius);
+	padding: var(--card-padding);
+	box-shadow: var(--box-shadow);
+	transition: all 300ms ease;
 	width: 90%;
-	border-radius: var(--card-border-radius);
-	padding: var(--card-padding);
-	text-align: center;
-	box-shadow: var(--box-shadow);
-	transition: all 300ms ease;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
-.basic-table:hover {
+.basic-table:hover, .another-table:hover {
 	box-shadow: none;
 }
 
-.basic-table th,
-.basic-table td {
+.basic-table th, .basic-table td,
+.another-table th, .another-table td {
 	height: 2.4rem;
 	border-bottom: 1px solid var(--color-light);
 	color: var(--color-dark-variant);
 }
 
-.basic-table tr:last-child td {
-	border: none;
-}
-
-.another-table {
-	background: var(--color-white);
-	border-radius: var(--card-border-radius);
-	padding: var(--card-padding);
-	box-shadow: var(--box-shadow);
-	transition: all 300ms ease;
-}
-
-.another-table:hover {
-	box-shadow: none;
-}
-
-.another-table th,
-.another-table td {
-	height: 2.4rem;
-	border-bottom: 1px solid var(--color-light);
-	color: var(--color-dark-variant);
-}
-
+.basic-table tr:last-child td,
 .another-table tr:last-child td,
 .another-table tr:last-child th {
 	border: none;
@@ -235,7 +309,91 @@ td {
 	padding: 0px 4px;
 }
 
+/* 쇼핑몰 스타일 */
+.shop-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
+.product-card {
+    background: var(--color-white);
+    border-radius: var(--border-radius-2);
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 1rem;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--main-color);
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--button-color);
+    margin-bottom: 0.5rem;
+}
+
+.product-desc {
+    font-size: 0.9rem;
+    color: var(--color-dark-variant);
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 페이지네이션 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+}
+
+.pagination a {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--point-color);
+    border-radius: var(--border-radius-1);
+    color: var(--main-color);
+    text-decoration: none;
+    transition: all 300ms ease;
+}
+
+.pagination a:hover {
+    background: var(--point-color);
+    color: var(--color-white);
+}
+
+.pagination .active {
+    background: var(--point-color);
+    color: var(--color-white);
+}
+
+/* 유틸리티 스타일 */
 .img {
 	border-radius: 8px;
 }
@@ -276,68 +434,6 @@ a:hover {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
-
-.logo {
-	position: relative;
-	padding: 40px;
-	border: 1px solid var(--point-color);
-	border-radius: 50%;
-	display: inline-block;
-	transition: transform 0.3s ease-in-out;
-	/* 호버 효과를 부드럽게 만들기 위한 트랜지션 추가 */
-}
-
-.logo:hover {
-	transform: rotateY(180deg) rotateY(180deg);
-	border: 1px solid var(--point-color);
-	border-radius: 20px;
-}
-
-#nav {
-	display: flex;
-	z-index: 3;
-	justify-content: space-around;
-}
-
-#nav.active .list {
-	top: 100%;
-	opacity: 1;
-	visibility: visible;
-	pointer-events: auto;
-}
-
-.list-container {
-	box-shadow: 0 2px 1px var(--point-color);
-	text-align: center;
-	position: relative;
-	flex: 1;
-}
-
-.list {
-	height: 320px;
-	box-shadow: 0 2px 1px var(--point-color);
-	z-index: 2;
-	position: absolute;
-	top: calc(100% - 100px);
-	width: 100%;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	opacity: 0;
-	visibility: hidden;
-	transition: 0.3s;
-	pointer-events: none;
-
-	background: var(--color-main-background);
-}
-
-li {
-	border-bottom: 1px solid var(--color-light);
-}
-
-li:last-child {
-	border: none;
 }
 
 .record-info {

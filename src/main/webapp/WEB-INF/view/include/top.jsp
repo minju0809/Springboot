@@ -1,128 +1,97 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8" %> <%@taglib uri="http://java.sun.com/jstl/core_rt"
+prefix="c" %>
+<c:set var="path" value="${pageContext.request.contextPath }" scope="session" />
 
-	<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-		<c:set var="path" value="${pageContext.request.contextPath }" scope="session" />
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shop</title>
+    <link type="text/css" rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
 
-		<!DOCTYPE html>
-		<html>
+  <body>
+    <header class="header">
+      <div class="logo"><a class="button" href="/jsp.do">드림페이퍼</a></div>
+      <c:if test="${session.username eq 'admin'}">
+        <a class="button" href="/a/productForm.do"> 상품등록 </a>
+      </c:if>
+      <div class="auth-buttons">
+        <c:choose>
+          <c:when test="${empty session.username}">
+            <a href="/memberForm.do">회원가입</a>
+            <a href="/login.do">로그인</a>
+          </c:when>
+          <c:otherwise>
+            <a href="/getMember.do?member_idx=${session.member_idx}"
+              >마이페이지</a
+            >
+            <a href="/getCartList.do">장바구니</a>
+            <a href="/getOrderList.do">주문확인</a>
+            <a
+              class="button"
+              href="/getBoardBookmark.do?member_idx=${session.member_idx}"
+            >
+              북마크
+            </a>
+            <a href="/logout">로그아웃</a>
+          </c:otherwise>
+        </c:choose>
+      </div>
+    </header>
 
-		<head>
-			<meta charset="UTF-8">
-			<title>Portfolio</title>
-			<link type="text/css" rel="stylesheet" href="/css/style.css" />
-			<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" />
-			<link rel="stylesheet"
-				href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-		</head>
-
-		<body>
-			<nav id="nav">
-				<div class="list-container">
-					<h2>Portfolio</h2>
-					<ul class="list">
-						<li><a class="button" href="/">시작으로</a></li>
-						<li><a class="button" href="/jsp.do">홈으로</a></li>
-						<li><a class="button" href="https://firstnumberbaseballgame.netlify.app/" target="_blank">야구게임</a></li>
-						<li><a class="button" href="/dashboard.do" target="_blank">대시보드</a></li>
-					</ul>
-				</div>
-				<div class="list-container">
+    <nav id="nav">
+      <!-- <div class="list-container">
 					<h4>맛집</h4>
 					<ul class="list">
 						<li><a class="button" href="/getRestaurantList.do"> 맛집목록 </a></li>
 						<li><a class="button" href="/getRestaurantMap.do"> 맛집지도 </a></li>
 					</ul>
-				</div>
-				<div class="list-container">
-					<h4>배경화면</h4>
-					<ul class="list">
-						<li><a class="button" href="/getProductList.do"> 상품목록 </a></li>
-						<li><a class="button" href="/a/productForm.do"> 상품등록 </a></li>
-						<li>&ensp;</li>
-						<!-- <li><a class="button" href="/getPokemonList.do"> 포켓몬도감 </a></li> -->
-					</ul>
-				</div>
-				<div class="list-container">
-					<h4>게시판</h4>
-					<ul class="list">
-						<li><a class="button" href="/getBoardList.do"> 목록보기 </a></li>
-						<c:choose>
-							<c:when test="${empty session.uuid}">
-								<c:set var="formUrl" value="/m/boardForm.do" />
-							</c:when>
-							<c:otherwise>
-								<c:set var="formUrl" value="/kakaoBoardForm.do" />
-							</c:otherwise>
-						</c:choose>
-						<li><a class="button" href="${formUrl}"> 글쓰기 </a></li>
-						<c:if test="${not empty session.username}">
-							<li><a class="button" href="/getBoardBookmark.do?member_idx=${session.member_idx}"> 북마크 </a></li>
-						</c:if>
-					</ul>
-				</div>
-				<div class="list-container">
-					<h4>방명록</h4>
-					<ul class="list">
-						<li><a class="button" href="/getGuestbookList.do"> 목록보기 </a></li>
-						<li><a class="button" href="/guestbookForm.do"> 글쓰기 </a></li>
-						<li><a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a></li>
-					</ul>
-				</div>
-				<c:if test="${session.username eq 'admin'}">
-					<div class="list-container">
-						<h4>관리자</h4>
-						<ul class="list">
-							<li><a class="button" href="/a/admin.do"> 관리페이지 </a></li>
-						</ul>
-					</div>
-				</c:if>
-				<div class="list-container">
-					<c:choose>
-						<c:when test="${empty session.username}">
-							<h4>로그인</h4>
-							<ul class="list">
-								<li><a class="button" href="/memberForm.do"> 회원가입 </a></li>
-								<li>
-									<a href="/login.do">
-										<span>로그인</span>
-									</a>
-								</li>
-								<li>
-									<a href="/logout">
-										<span>로그아웃</span>
-									</a>
-								</li>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${not empty nickname}">
-									<h4>${session.username}(${nickname})</h4>
-								</c:when>
-								<c:otherwise>
-									<h4>${session.username}(${session.name})</h4>
-								</c:otherwise>
-							</c:choose>
-							<ul class="list">
-								<li>
-									<a href="/getMember.do?member_idx=${session.member_idx}">
-										<span>마이페이지</span>
-									</a>
-								</li>
-								<c:if test="${not empty session.username}">
-									<li><a class="button" href="/getCartList.do">장바구니</a></li>
-								</c:if>
-								<c:if test="${not empty session.username}">
-									<li><a class="button" href="/getOrderList.do">주문확인</a></li>
-								</c:if>
-								<li>
-									<a href="/logout">
-										<span>로그아웃</span>
-									</a>
-								</li>
-							</ul>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</nav>
+				</div> -->
+      <div class="menu-item">
+        <h4><a class="button" href="/getBoardList.do"> 게시판 </a></h4>
+      </div>
+      <div class="list-container">
+        <h4><a class="button" href="/getGuestbookList.do"> 방명록 </a></h4>
+        <ul class="list">
+          <c:if test="${session.username eq 'admin'}">
+            <li>
+              <a class="button" href="/a/guestbookAdd.do"> 방명록 추가 </a>
+            </li>
+          </c:if>
+        </ul>
+      </div>
+      <c:if test="${session.username eq 'admin'}">
+        <div class="menu-item">
+          <h4><a class="button" href="/a/admin.do"> 관리페이지 </a></h4>
+        </div>
+      </c:if>
+      <div class="list-container">
+        <h4>SideWorks</h4>
+        <ul class="list">
+					<li>
+						<a
+						class="button"
+						href="https://firstnumberbaseballgame.netlify.app/"
+						target="_blank"
+						>야구게임</a
+            >
+          </li>
+					<li><a class="button" href="/calendarToDoList.do">달력</a></li>
+          <li>
+            <a class="button" href="/dashboard.do" target="_blank">대시보드</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </body>
+</html>

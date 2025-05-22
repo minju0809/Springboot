@@ -8,6 +8,11 @@ public class DashboardController {
 
   @GetMapping("/dashboard.do")
   String dashboard() {
-    return "/dashboard/dashboard";
+    return "/sideworks/dashboard";
+  }
+
+  @GetMapping("/calendarToDoList.do")
+  String calendarToDoList() {
+    return "/sideworks/calendarToDoList";
   }
 }

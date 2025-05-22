@@ -24,15 +24,20 @@
 .main-wrap{
   text-align: center;
   padding: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .main-day{
   font-size: 30px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 .main-date{
   font-size: 120px;
   font-weight: bold;
   margin: 0;
+  line-height: 1;
 }
 .todo-wrap{
   padding: 0 0 0 40px;
@@ -148,15 +153,20 @@
   .main-wrap{
     text-align: center;
     margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
   .main-day{
     font-size: 30px;
     font-weight: bold;
+    margin-bottom: 15px;
   }
   .main-date{
     font-size: 120px;
     font-weight: bold;
-    margin: 20px 0;
+    margin: 0;
+    line-height: 1;
   }
   .todo-wrap{
     padding: 0 0 0 40px;
