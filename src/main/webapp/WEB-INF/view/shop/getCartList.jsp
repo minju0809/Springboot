@@ -195,13 +195,15 @@
 
 				<tr>
 					<td colspan="8" align="center">
-						<input type=submit value="전체수정" onclick="updateAll()" />
-						<!-- 결제 UI -->
-						<div id="payment-method"></div>
-						<!-- 이용약관 UI -->
-						<div id="agreement"></div>
-						<!-- 결제하기 버튼 -->
-						<input type=button value="전체주문" id="payment-button" onclick="orderAll()" />
+						<div style="display: flex; justify-content: center; gap: 1rem; align-items: center;">
+							<input type=submit value="전체수정" onclick="updateAll()" />
+							<!-- 결제 UI -->
+							<div id="payment-method"></div>
+							<!-- 이용약관 UI -->
+							<div id="agreement"></div>
+							<!-- 결제하기 버튼 -->
+							<input type=button value="전체주문" id="payment-button" onclick="orderAll()" />
+						</div>
 					</td>
 				</tr>
 			</table>
