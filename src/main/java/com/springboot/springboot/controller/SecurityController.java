@@ -36,9 +36,9 @@ public class SecurityController {
   private MemberService service;
 
   private final String rest_api_key = "bca2874a60dd557309b92b2eb396f029";
-  private final String redirect_uri = "http://localhost:8081/login.do";
+  private final String redirect_uri = "http://localhost:8080/login.do";
   // private final String redirect_uri =
-  // "http://localhost:8081/login/oauth2/code/kakao";
+  // "http://localhost:8080/login/oauth2/code/kakao";
 
   @GetMapping("/login.do")
   String login(Model model, @RequestParam(value = "code", required = false) String code, MemberVO vo) {

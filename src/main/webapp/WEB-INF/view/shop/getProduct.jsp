@@ -32,9 +32,9 @@
             <th>수량</th>
             <td>
               <select name="product_amount">
-                <option value=1>1일</option>
-                <option value=2>2일</option>
-                <option value=3>3일</option>
+                <option value=1>1장</option>
+                <option value=2>2장</option>
+                <option value=3>3장</option>
               </select>
             </td>
           </tr>

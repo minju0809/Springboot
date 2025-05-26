@@ -53,7 +53,6 @@ public class GuestbookController {
     model.addAttribute("endPage", endPage);
     model.addAttribute("ch1", vo.getCh1());
     model.addAttribute("ch2", vo.getCh2());
-
     model.addAttribute("li", service.getGuestbookList(vo));
 
     return "/guestbook/getGuestbookList";

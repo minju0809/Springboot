@@ -20,9 +20,9 @@
         if (!id) {
           id = self.crypto.randomUUID();
           localStorage.setItem("uuid", id);
-          window.open("http://localhost:8081/member/memberForm.jsp" + "?uuid=" + id, "_self");
+          window.open("http://localhost:8080/member/memberForm.jsp" + "?uuid=" + id, "_self");
         } else {
-          window.open("http://localhost:8081/kakaoCk.do" + "?uuid=" + id, "_self");
+          window.open("http://localhost:8080/kakaoCk.do" + "?uuid=" + id, "_self");
         }
       }, 1000);
     </script>

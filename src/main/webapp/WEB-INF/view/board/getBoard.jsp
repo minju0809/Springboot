@@ -68,7 +68,7 @@
 <section>
   <div align=center>
     <br><br>
-    <h2>게시판 상세보기</h2>
+    <h2>게시글 상세보기</h2>
     <br>
     <c:set var="updateUrl" value="${empty session.uuid ? '/m/boardUpdate.do' : '/kakaoBoardUpdate.do' }" />
 

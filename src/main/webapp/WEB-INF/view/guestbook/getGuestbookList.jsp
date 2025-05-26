@@ -8,9 +8,8 @@
 <section>
   <br>
   <div class="record-info">
-    <div>1. 페이지 사이즈 : ${pageSize}</div>
-    <div>2. 전체 레코드 수 : ${totalCount}</div>
-    <div>3. 총 페이지 수 : ${totalPage}</div>
+    <div>1. 전체 레코드 수 : ${totalCount}</div>
+    <div>2. 총 페이지 수 : ${totalPage}</div>
   </div>
   <br>
   <div align=center>
@@ -67,16 +66,18 @@
     <div class="pagination">
       <a class="button" href="getGuestbookList.do?page=1&ch1=${ch1}&ch2=${ch2}">처음으로</a>
 
-      <a href="getGuestbookList.do?page=${currentPage != null && currentPage > 1 ? currentPage - 1 : 1}&ch1=${ch1}&ch2=${ch2}">이전</a>
+      <a href="getGuestbookList.do?page=${currentPage > 1 ? currentPage - 1 : 1}&ch1=${ch1}&ch2=${ch2}">이전</a>
 
-      <c:forEach var="page_num" begin="${startPage != null ? startPage : 1}" end="${endPage != null ? endPage : 1}">
+      <c:forEach var="page_num" begin="${startPage}" end="${endPage}">
           <a href="getGuestbookList.do?page=${page_num}&ch1=${ch1}&ch2=${ch2}">
-            <c:if test="${(currentPage != null ? currentPage : 1) == page_num}"></c:if>
+            <c:if test="${currentPage == page_num}"></c:if>
             ${page_num}
           </a>
       </c:forEach>
 
-      <a href="getGuestbookList.do?page=${currentPage != null ? currentPage + 1 : 1}&ch1=${ch1}&ch2=${ch2}">다음</a>
+      <c:if test="${currentPage < totalPage}">
+        <a href="getGuestbookList.do?page=${currentPage + 1}&ch1=${ch1}&ch2=${ch2}">다음</a>
+      </c:if>
       
       <a href="getGuestbookList.do?page=${totalPage}&ch1=${ch1}&ch2=${ch2}">마지막</a>
     </div>

@@ -36,7 +36,7 @@
     <script>
       // error 시 아이티 비밀번호 확인 alert 창 띄우기
       // location.search 파라미터 값 추출 시 [key, value] 형식이기 때문에
-      // http://localhost:8081/login.do?error 의 error를 get으로는 가져올 수 없음
+      // http://localhost:8080/login.do?error 의 error를 get으로는 가져올 수 없음
       // 모든 값 가져오기를 하면 배열의 형태를 띄기 때문에 alert 창을 띄울 수는 있음
       document.addEventListener("DOMContentLoaded", function () {
         const searchParams = new URLSearchParams(location.search);

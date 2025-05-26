@@ -96,7 +96,7 @@
           <input type="hidden" name="order_price" value="${ order_price }">
           <tr>
             <td>${ m.cart_idx }</td>
-            <td><img src="${ path }/img/shop/${ m.product_imgStr }" width=50 height=50 /></td>
+            <td><img src="${ m.product_imgStr }" width=50 height=50 /></td>
             <td>${ m.member_idx }</td>
             <td>${ m.product_idx }</td>
             <td>${ m.product_name }</td>
@@ -111,7 +111,7 @@
         </c:if>
         <tr>
           <td colspan="8" align="right">전체 구매 금액:
-            <span id="formattedTotal">${order_price}</span>원
+            <span id="formattedTotal"><fmt:formatNumber value="${order_price}" pattern="#,##0" /></span>원
           </td>
         </tr>
       </table>

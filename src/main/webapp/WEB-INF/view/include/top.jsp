@@ -32,6 +32,7 @@ prefix="c" %>
             <a href="/login.do">로그인</a>
           </c:when>
           <c:otherwise>
+            <span style="margin-right: 10px;">${session.username}님 환영합니다.</span>
             <a href="/getMember.do?member_idx=${session.member_idx}"
               >마이페이지</a
             >

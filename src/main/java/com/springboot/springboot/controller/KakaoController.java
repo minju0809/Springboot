@@ -1,8 +1,5 @@
 package com.springboot.springboot.controller;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,68 +11,47 @@ import org.springframework.beans.factory.annotation.Value;
 import com.springboot.springboot.project.board.BoardService;
 import com.springboot.springboot.project.board.BoardVO;
 import com.springboot.springboot.project.member.MemberVO;
+import com.springboot.springboot.project.s3.S3Service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class KakaoController {
+  private static final String DEFAULT_IMAGE_URL = "https://travel-project-images.s3.ap-northeast-2.amazonaws.com/space.jpeg";
+
   @Autowired
   private BoardService service;
 
   @Autowired
-  private HttpServletRequest request;
+  private HttpSession session;
 
   @Autowired
-  private HttpSession session;
+  private S3Service s3Service;
 
   @Value("${javascript.key}")
   private String javascriptKey;
 
   @GetMapping("/kakaoBoardForm.do")
   String kakaoBoardForm(Model model) {
-
     model.addAttribute("keyValue", javascriptKey);
-
     return "/board/boardForm";
   }
 
-  String path = "";
-  String timeStr = "";
-
   @PostMapping("/kakaoBoardInsert.do")
   String kakaoBoardInsert(BoardVO vo) throws Exception {
-
-    path = request.getSession().getServletContext().getRealPath("/img/board/");
-    System.out.println("path: " + path);
-    // path: /Users/minju/Springboot/src/main/webapp/img/board/
-
     MemberVO mvo = (MemberVO) session.getAttribute("session");
     int midx = mvo.getMember_idx();
     String name = mvo.getName();
     vo.setMember_idx(midx);
     vo.setMember_name(name);
 
-    long time = System.currentTimeMillis();
-    SimpleDateFormat sdf = new SimpleDateFormat("HHmmss");
-    timeStr = sdf.format(time);
-
     MultipartFile file = vo.getBoard_img();
-    String fileName = file.getOriginalFilename();
-    File f = new File(path + fileName);
-
     if (!file.isEmpty()) {
-      if (f.exists()) {
-        String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
-        String ext = fileName.substring(fileName.lastIndexOf("."));
-        fileName = onlyFileName + "_" + timeStr + ext;
-      }
-      file.transferTo(new File(path + fileName));
+      String imageUrl = s3Service.upload(file, "board");
+      vo.setBoard_imgStr(imageUrl);
     } else {
-      fileName = "space.png";
+      vo.setBoard_imgStr(DEFAULT_IMAGE_URL);
     }
-
-    vo.setBoard_imgStr(fileName);
     
     service.boardInsert(vo);
 
@@ -84,37 +60,16 @@ public class KakaoController {
 
   @PostMapping("/kakaoBoardUpdate.do")
   String boardUpdate(BoardVO vo) throws Exception {
-
-    path = request.getSession().getServletContext().getRealPath("/img/board/");
-
-    long time = System.currentTimeMillis();
-    SimpleDateFormat daytime = new SimpleDateFormat("HHmmss");
-    timeStr = daytime.format(time);
-
     MultipartFile board_img = vo.getBoard_img();
-    String fileName = board_img.getOriginalFilename();
-    File f = new File(path + fileName);
-
-    if(!board_img.isEmpty()) {
-      // 기존 파일 이름이 space.png가 아니면 삭제
-      if (vo.getBoard_imgStr() != null && !vo.getBoard_imgStr().equals("space.png")) {
-        File delF = new File(path + vo.getBoard_imgStr());
-        delF.delete();
-    }
-
-      // 동일한 파일이 존재 하면 중복 처리
-      if(f.exists()) {
-        String onlyFileName = fileName.substring(0, fileName.lastIndexOf("."));
-        String extension = fileName.substring(fileName.lastIndexOf("."));
-        fileName = onlyFileName + "_" + timeStr + extension;
+    if (!board_img.isEmpty()) {
+      // 기존 이미지가 기본 이미지가 아니면 S3에서 삭제
+      if (vo.getBoard_imgStr() != null && !vo.getBoard_imgStr().equals(DEFAULT_IMAGE_URL)) {
+        s3Service.delete(vo.getBoard_imgStr());
       }
-      board_img.transferTo(new File(path + fileName));
-    } else {
-      // 첨부파일이 없으면
-      fileName = vo.getBoard_imgStr();
-
+      // 새 이미지 업로드
+      String imageUrl = s3Service.upload(board_img, "board");
+      vo.setBoard_imgStr(imageUrl);
     }
-    vo.setBoard_imgStr(fileName);
 
     service.boardUpdate(vo);
 
@@ -125,12 +80,9 @@ public class KakaoController {
   String boardDelete(BoardVO vo) {
     vo = service.getBoard(vo);
 
-    path = request.getSession().getServletContext().getRealPath("/img/board/");
-    String delFile = vo.getBoard_imgStr();
-    File f = new File(path + delFile);
-
-    if(!delFile.equals("space.png")) {
-      f.delete();
+    // 이미지가 기본 이미지가 아니면 S3에서 삭제
+    if (!vo.getBoard_imgStr().equals(DEFAULT_IMAGE_URL)) {
+      s3Service.delete(vo.getBoard_imgStr());
     }
 
     service.boardDelete(vo);
